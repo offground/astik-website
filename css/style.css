@@ -2433,3 +2433,111 @@ ul {
         padding: 1px 2px;
     }
 }
+/* ══════════════════════════════════
+   달력 – 과정명 라벨 & 연속 교육 바
+   ══════════════════════════════════ */
+
+/* 셀 높이 확보 */
+.cal-cell {
+    aspect-ratio: auto !important;
+    min-height: 72px;
+    padding: 4px 0 2px;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+.cal-cell .cal-date-num {
+    display: block;
+    text-align: right;
+    padding-right: 4px;
+    margin-bottom: 2px;
+}
+
+/* 이벤트 컨테이너 */
+.cal-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+}
+
+/* 라벨 공통 */
+.cal-event-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 16px;
+    height: 16px;
+    padding: 0 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+/* 모집 중 / 마감 색상 */
+.cal-event-open { background-color: rgba(217, 73, 37, 0.18); color: #D94925; }
+.cal-event-closed { background-color: #ebebeb; color: #aaaaaa; }
+
+/* 연속 교육 – 시작/중간/끝/단일 모서리 */
+.cal-ev-single { border-radius: 3px; margin: 0 2px; }
+.cal-ev-start  { border-radius: 3px 0 0 3px; margin-left: 2px; margin-right: 0; }
+.cal-ev-mid    { border-radius: 0; margin: 0; }
+.cal-ev-end    { border-radius: 0 3px 3px 0; margin-left: 0; margin-right: 2px; }
+
+/* 요일·공휴일 색상 */
+.cal-header .cal-sunday { color: #FF6B6B; }
+.cal-header .cal-saturday { color: #74B9FF; }
+.cal-cell.cal-holiday .cal-date-num { color: #D94925; }
+.cal-cell.cal-saturday-cell .cal-date-num { color: #3478F6; }
+
+/* has-event 배경 음영 제거 */
+.cal-cell.has-event { background-color: transparent; }
+.cal-cell.has-event:hover { background-color: rgba(28, 41, 85, 0.04); }
+
+/* ══════════════════════════════════
+   지난 교육 섹션
+   ══════════════════════════════════ */
+.past-schedule-section {
+    margin-top: 48px;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 32px;
+}
+.past-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1C2955;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+.past-toggle-btn:hover {
+    background-color: rgba(28, 41, 85, 0.04);
+    border-color: #1C2955;
+}
+.past-toggle-btn i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+.past-schedule-list { margin-top: 20px; }
+.sch-item.sch-past { border-left-color: #cccccc; opacity: 0.6; }
+.sch-item.sch-past:hover { opacity: 0.8; }
+.status-done {
+    background-color: rgba(28, 41, 85, 0.08);
+    color: #888888;
+    border: 1px solid #ddd;
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+    .cal-cell { min-height: 52px; padding: 2px 0 1px; }
+    .cal-event-label { font-size: 8px; line-height: 14px; height: 14px; padding: 0 2px; }
+}
