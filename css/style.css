@@ -2152,8 +2152,84 @@ ul {
     color: #D94925;
     border: 1px solid #D94925;
 }
-
-/* 모험시설 점검요원 세로 사진 */
+/* ===================================
+   교육과정 – 점검요원 사진 상단 포커스
+   =================================== */
 #inspection .course-image img {
-    aspect-ratio: 3 / 4;
+    object-position: center top;
+}
+
+/* ===================================
+   교육과정 – 3장 사진 갤러리
+   =================================== */
+.course-gallery {
+    flex-shrink: 0;
+    width: 420px;
+}
+
+.course-gallery-track {
+    display: flex;
+    gap: 12px;
+    overflow: hidden;
+}
+
+.course-gallery-track img {
+    width: 100%;
+    flex-shrink: 0;
+    border-radius: 12px;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    background-color: #e8e8e8;
+}
+
+/* PC: 3장 나란히 */
+@media (min-width: 769px) {
+    .course-gallery-track {
+        overflow: visible;
+    }
+
+    .course-gallery-track img {
+        width: calc((100% - 24px) / 3);
+    }
+}
+
+/* 모바일: 스와이프 */
+@media (max-width: 768px) {
+    .course-gallery {
+        width: 100%;
+    }
+
+    .course-gallery-track {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        padding-bottom: 8px;
+    }
+
+    .course-gallery-track img {
+        width: 85%;
+        scroll-snap-align: center;
+    }
+
+    .course-gallery-track::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .course-gallery-track::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 2px;
+    }
+
+    .course-gallery-track::-webkit-scrollbar-thumb {
+        background: #D94925;
+        border-radius: 2px;
+    }
+}
+
+/* 태블릿 */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .course-gallery {
+        width: 340px;
+    }
 }
