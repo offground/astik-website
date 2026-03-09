@@ -112,7 +112,6 @@
         if (parts.length === 3) {
             return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
         }
-        // 2026. 3. 5 형식 대응
         parts = str.split('.');
         if (parts.length >= 3) {
             return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
@@ -200,12 +199,10 @@
         today.setHours(0, 0, 0, 0);
         var html = '';
 
-        // 빈 셀
         for (var i = 0; i < firstDay; i++) {
             html += '<div class="cal-cell empty"></div>';
         }
 
-        // 날짜 셀
         for (var d = 1; d <= lastDate; d++) {
             var mm = pad(currentMonth + 1);
             var dd = pad(d);
@@ -218,14 +215,12 @@
 
             var cellClass = 'cal-cell';
             if (isToday) cellClass += ' today';
-
             if (holidayName || dayOfWeek === 0) {
                 cellClass += ' cal-holiday';
             } else if (dayOfWeek === 6) {
                 cellClass += ' cal-saturday-cell';
             }
 
-            // 해당 날짜에 걸리는 교육 일정 찾기
             var daySchedules = [];
             for (var si = 0; si < allSchedules.length; si++) {
                 var s = allSchedules[si];
@@ -254,7 +249,6 @@
 
         bodyEl.innerHTML = html;
 
-        // 날짜 클릭 → 해당 일정으로 스크롤
         var cells = bodyEl.querySelectorAll('.cal-cell.has-event');
         for (var ci = 0; ci < cells.length; ci++) {
             (function (cell) {
@@ -285,50 +279,33 @@
     }
 
     // ══════════════════════════════════
-    //  스케줄 리스트 렌더링
+    //  공통 일정 카드 HTML 생성
     // ══════════════════════════════════
-    function renderScheduleList() {
-        var listEl = document.getElementById('scheduleList');
-        var emptyEl = document.getElementById('emptyState');
-        var listTitleEl = document.getElementById('listTitle');
-        if (!listEl) return;
-
-        var filtered = allSchedules.slice();
-
-        if (currentFilter !== 'all') {
-            filtered = filtered.filter(function (s) { return s.status === currentFilter; });
-        }
-
-        var today = new Date();
-        today.setHours(0, 0, 0, 0);
-        filtered = filtered.filter(function (s) {
-            var end = parseLocalDate(s.endDate);
-            end.setHours(0, 0, 0, 0);
-            return end >= today;
-        });
-        filtered.sort(function (a, b) { return parseLocalDate(a.startDate) - parseLocalDate(b.startDate); });
-
-        if (filtered.length === 0) {
-            listEl.innerHTML = '';
-            if (emptyEl) emptyEl.classList.remove('hidden');
-            if (listTitleEl) listTitleEl.style.display = 'none';
-            return;
-        }
-
-        if (emptyEl) emptyEl.classList.add('hidden');
-        if (listTitleEl) listTitleEl.style.display = 'block';
-
+    function buildScheduleHTML(items, isPast) {
         var html = '';
-        filtered.forEach(function (s) {
+        items.forEach(function (s) {
             var sDate = parseLocalDate(s.startDate);
             var startMonth = sDate.getMonth() + 1;
             var startDay = sDate.getDate();
             var dateRange = formatDateFull(s.startDate) + ' ~ ' + formatDateFull(s.endDate);
             var days = getDayCount(s.startDate, s.endDate);
-            var statusClass = s.status === '모집 중' ? 'status-open' : 'status-closed';
-            var statusIcon = s.status === '모집 중' ? 'fa-circle-check' : 'fa-circle-xmark';
 
-            html += '<div class="sch-item" data-start="' + s.startDate + '" data-end="' + s.endDate + '" data-status="' + s.status + '">' +
+            var statusClass, statusIcon, statusText;
+            if (isPast) {
+                statusClass = 'status-done';
+                statusIcon = 'fa-circle-check';
+                statusText = '완료';
+            } else if (s.status === '모집 중') {
+                statusClass = 'status-open';
+                statusIcon = 'fa-circle-check';
+                statusText = '모집 중';
+            } else {
+                statusClass = 'status-closed';
+                statusIcon = 'fa-circle-xmark';
+                statusText = '마감';
+            }
+
+            html += '<div class="sch-item' + (isPast ? ' sch-past' : '') + '" data-start="' + s.startDate + '" data-end="' + s.endDate + '" data-status="' + s.status + '">' +
                 '<div class="sch-date">' +
                 '<span class="sch-month">' + startMonth + '월</span>' +
                 '<span class="sch-day">' + startDay + '</span>' +
@@ -336,7 +313,7 @@
                 '<div class="sch-content">' +
                 '<div class="sch-top">' +
                 '<h4 class="sch-course">' + s.course + '</h4>' +
-                '<span class="sch-status ' + statusClass + '"><i class="fas ' + statusIcon + '"></i> ' + s.status + '</span>' +
+                '<span class="sch-status ' + statusClass + '"><i class="fas ' + statusIcon + '"></i> ' + statusText + '</span>' +
                 '</div>' +
                 '<div class="sch-meta">' +
                 '<span><i class="fas fa-calendar-days"></i> ' + dateRange + ' (' + days + '일)</span>' +
@@ -345,13 +322,70 @@
                 '</div>' +
                 (s.note ? '<p class="sch-note">' + s.note + '</p>' : '') +
                 '</div>' +
-                (s.status === '모집 중'
+                (!isPast && s.status === '모집 중'
                     ? '<div class="sch-action"><a href="contact.html" class="btn btn-primary btn-sm">신청 문의</a></div>'
                     : '') +
                 '</div>';
         });
+        return html;
+    }
 
-        listEl.innerHTML = html;
+    // ══════════════════════════════════
+    //  스케줄 리스트 렌더링 (예정 + 지난 교육)
+    // ══════════════════════════════════
+    function renderScheduleList() {
+        var listEl = document.getElementById('scheduleList');
+        var emptyEl = document.getElementById('emptyState');
+        var listTitleEl = document.getElementById('listTitle');
+        var pastSection = document.getElementById('pastSection');
+        var pastList = document.getElementById('pastList');
+        if (!listEl) return;
+
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // 예정된 교육 (종료일 >= 오늘)
+        var upcoming = allSchedules.filter(function (s) {
+            var end = parseLocalDate(s.endDate);
+            end.setHours(0, 0, 0, 0);
+            return end >= today;
+        });
+
+        // 지난 교육 (종료일 < 오늘)
+        var past = allSchedules.filter(function (s) {
+            var end = parseLocalDate(s.endDate);
+            end.setHours(0, 0, 0, 0);
+            return end < today;
+        });
+
+        // 필터 적용 (예정된 교육에만)
+        if (currentFilter !== 'all') {
+            upcoming = upcoming.filter(function (s) { return s.status === currentFilter; });
+        }
+
+        upcoming.sort(function (a, b) { return parseLocalDate(a.startDate) - parseLocalDate(b.startDate); });
+        past.sort(function (a, b) { return parseLocalDate(b.startDate) - parseLocalDate(a.startDate); });
+
+        // ── 예정된 교육 ──
+        if (upcoming.length === 0) {
+            listEl.innerHTML = '';
+            if (emptyEl) emptyEl.classList.remove('hidden');
+            if (listTitleEl) listTitleEl.style.display = 'none';
+        } else {
+            if (emptyEl) emptyEl.classList.add('hidden');
+            if (listTitleEl) listTitleEl.style.display = 'block';
+            listEl.innerHTML = buildScheduleHTML(upcoming, false);
+        }
+
+        // ── 지난 교육 ──
+        if (pastSection && pastList) {
+            if (past.length > 0) {
+                pastSection.style.display = 'block';
+                pastList.innerHTML = buildScheduleHTML(past, true);
+            } else {
+                pastSection.style.display = 'none';
+            }
+        }
     }
 
     // ── 필터 ──
@@ -364,6 +398,20 @@
                 currentFilter = btn.getAttribute('data-filter');
                 renderScheduleList();
             });
+        });
+    }
+
+    // ── 지난 교육 토글 ──
+    function initPastToggle() {
+        var toggleBtn = document.getElementById('pastToggle');
+        var pastList = document.getElementById('pastList');
+        var arrow = document.getElementById('pastArrow');
+        if (!toggleBtn || !pastList) return;
+
+        toggleBtn.addEventListener('click', function () {
+            var isOpen = pastList.style.display !== 'none';
+            pastList.style.display = isOpen ? 'none' : 'block';
+            arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
         });
     }
 
@@ -449,10 +497,13 @@
             .catch(function () { });
     }
 
-    // ── 초기화 ──
+    // ══════════════════════════════════
+    //  초기화
+    // ══════════════════════════════════
     document.addEventListener('DOMContentLoaded', function () {
         if (document.getElementById('scheduleList')) {
             initFilters();
+            initPastToggle();
             initCalendarNav();
             loadScheduleData();
         }
