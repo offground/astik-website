@@ -2263,4 +2263,87 @@ ul {
     color: #D94925;
     border: 1px solid #D94925;
 }
+/* ===================================
+   자격증 섹션 (about.html)
+   =================================== */
+.cert-gallery {
+    background-color: #f8f9fa;
+}
+
+.cert-gallery-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cert-gallery-item {
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+}
+
+.cert-gallery-item img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* ERCA: 세로형 (A4 세로) */
+.cert-vertical {
+    width: 240px;
+}
+
+.cert-vertical img {
+    aspect-ratio: 3 / 4;
+}
+
+/* ACCT: 가로형 (A4 가로) */
+.cert-horizontal {
+    width: 320px;
+}
+
+.cert-horizontal img {
+    aspect-ratio: 4 / 3;
+}
+
+.cert-gallery-label {
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cert-gallery-org {
+    font-size: 12px;
+    font-weight: 700;
+    color: #D94925;
+    letter-spacing: 0.03em;
+}
+
+.cert-gallery-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1B3C61;
+}
+
+/* 반응형: 모바일 */
+@media (max-width: 768px) {
+    .cert-gallery-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .cert-vertical {
+        width: 200px;
+    }
+
+    .cert-horizontal {
+        width: 280px;
+    }
+}
 
