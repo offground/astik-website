@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ASTIK 교육일정 - 모험시설 전문 교육 스케줄을 확인하고 참여를 신청하세요.">
+    <title>교육일정 | ASTIK 한국모험안전기술원</title>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========== 헤더 ========== -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="images/logo-horizontal.png" alt="ASTIK 한국모험안전기술원" class="logo-img">
+            </a>
+            <nav class="gnb" id="gnb">
+                <ul class="gnb-list">
+                    <li><a href="index.html" class="gnb-link">홈</a></li>
+                    <li><a href="about.html" class="gnb-link">소개</a></li>
+                    <li><a href="courses.html" class="gnb-link">교육과정</a></li>
+                    <li><a href="schedule.html" class="gnb-link active">교육일정</a></li>
+                    <li><a href="contact.html" class="gnb-link">문의</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <a href="contact.html" class="btn-contact-sm">교육 문의</a>
+                <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html" class="mobile-link">홈</a></li>
+                <li><a href="about.html" class="mobile-link">소개</a></li>
+                <li><a href="courses.html" class="mobile-link">교육과정</a></li>
+                <li><a href="schedule.html" class="mobile-link active">교육일정</a></li>
+                <li><a href="contact.html" class="mobile-link">문의</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ========== 메인 콘텐츠 ========== -->
+    <main>
+
+        <!-- 페이지 히어로 -->
+        <section class="page-hero">
+            <div class="page-hero-inner">
+                <h1 class="page-hero-title">교육일정</h1>
+                <p class="page-hero-desc">Training Schedule</p>
+            </div>
+        </section>
+
+        <!-- 필터 + 안내 -->
+        <section class="section schedule-section">
+            <div class="container">
+                <div class="schedule-header">
+                    <div class="schedule-info-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p>아래 일정은 확정된 교육 스케줄입니다. 참여를 원하시면 문의 버튼을 눌러 신청해주세요.</p>
+                    </div>
+
+                    <!-- 상태 필터 -->
+                    <div class="schedule-filters">
+                        <button class="filter-btn active" data-filter="all">전체</button>
+                        <button class="filter-btn" data-filter="모집중">모집중</button>
+                        <button class="filter-btn" data-filter="마감">마감</button>
+                    </div>
+                </div>
+
+                <!-- 캘린더 뷰 (월별) -->
+                <div class="calendar-nav">
+                    <button class="cal-nav-btn" id="calPrev"><i class="fas fa-chevron-left"></i></button>
+                    <h3 class="cal-nav-title" id="calTitle">2026년 3월</h3>
+                    <button class="cal-nav-btn" id="calNext"><i class="fas fa-chevron-right"></i></button>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid">
+                    <div class="cal-header">
+                        <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+                    </div>
+                    <div class="cal-body" id="calBody">
+                        <!-- JS로 동적 생성 -->
+                    </div>
+                </div>
+
+                <!-- 리스트 뷰 -->
+                <div class="schedule-list-section">
+                    <h3 class="schedule-list-title" id="listTitle">예정된 교육</h3>
+                    <div class="schedule-list" id="scheduleList">
+                        <div class="schedule-loading">
+                            <i class="fas fa-spinner fa-spin"></i> 일정을 불러오는 중...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 일정 없을 때 -->
+                <div class="schedule-empty-state hidden" id="emptyState">
+                    <div class="empty-icon"><i class="fas fa-calendar-xmark"></i></div>
+                    <h4>현재 예정된 교육일정이 없습니다</h4>
+                    <p>맞춤형 교육을 원하시면 언제든 문의해주세요.</p>
+                    <a href="contact.html" class="btn btn-primary">교육 문의하기</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA 섹션 -->
+        <section class="section cta-section">
+            <div class="container">
+                <h2 class="cta-title">원하는 일정이 없으신가요?</h2>
+                <p class="cta-desc">맞춤형 교육은 원하시는 날짜에 진행 가능합니다.<br>교육 일정과 내용을 함께 조율해보세요.</p>
+                <a href="contact.html" class="btn btn-primary btn-lg">맞춤형 교육 문의</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== 푸터 ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-info">
+                    <img src="images/logo-horizontal-white.png" alt="ASTIK" class="footer-logo">
+                    <p class="footer-company">
+                        대표: 양홍준 &nbsp;|&nbsp; 사업자등록번호: 361-32-01701<br>
+                        이메일: <a href="mailto:astik@astik.co.kr">astik@astik.co.kr</a>
+                    </p>
+                </div>
+                <div class="footer-sns">
+                    <a href="https://blog.naver.com/astik_official" target="_blank" rel="noopener" aria-label="네이버 블로그">
+                        <i class="fas fa-blog"></i>
+                    </a>
+                    <a href="https://www.instagram.com/astik.co.kr" target="_blank" rel="noopener" aria-label="인스타그램">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://youtube.com/@astik.training" target="_blank" rel="noopener" aria-label="유튜브">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ASTIK. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/schedule.js"></script>
+</body>
+</html>
