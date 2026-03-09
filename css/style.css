@@ -1891,8 +1891,8 @@ ul {
 }
 
 .cal-event-open {
-    background-color: rgba(217, 73, 37, 0.18);
-    color: #D94925;
+    background-color: rgba(37, 99, 235, 0.15);
+    color: #2563EB;
 }
 
 .cal-event-closed {
@@ -1901,8 +1901,8 @@ ul {
 }
 
 .cal-cell.other-month .cal-event-open {
-    background-color: rgba(217, 73, 37, 0.08);
-    color: rgba(217, 73, 37, 0.5);
+    background-color: rgba(37, 99, 235, 0.07);
+    color: rgba(37, 99, 235, 0.45);
 }
 
 .cal-cell.other-month .cal-event-closed {
@@ -1948,7 +1948,7 @@ ul {
 }
 
 .dot-open {
-    background-color: #D94925;
+    background-color: #2563EB;
 }
 
 .dot-closed {
@@ -1993,22 +1993,35 @@ ul {
 }
 
 .sch-date {
-    min-width: 72px;
+    min-width: 64px;
     text-align: center;
     margin-right: 24px;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .sch-month {
     display: block;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
     color: #D94925;
+    line-height: 1.2;
+}
+
+.sch-divider {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: #e0e0e0;
+    margin: 4px 0;
+    border-radius: 1px;
 }
 
 .sch-day {
     display: block;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
     color: #1C2955;
     line-height: 1.1;
@@ -2043,15 +2056,15 @@ ul {
 }
 
 .status-open {
-    background-color: rgba(217, 73, 37, 0.12);
-    color: #D94925;
-    border: 1px solid rgba(217, 73, 37, 0.3);
+    background-color: rgba(37, 99, 235, 0.12);
+    color: #2563EB;
+    border: 1px solid rgba(37, 99, 235, 0.3);
 }
 
 .status-closed {
-    background-color: #f0f0f0;
-    color: #aaaaaa;
-    border: 1px solid #e0e0e0;
+    background-color: rgba(217, 73, 37, 0.12);
+    color: #D94925;
+    border: 1px solid rgba(217, 73, 37, 0.3);
     text-decoration: line-through;
 }
 
