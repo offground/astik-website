@@ -589,21 +589,9 @@ ul {
 }
 
 .schedule-date {
-    min-width: 100px;
+    min-width: 56px;
     text-align: center;
     margin-right: 24px;
-}
-
-.schedule-date .month {
-    font-size: 14px;
-    color: #D94925;
-    font-weight: 600;
-}
-
-.schedule-date .day {
-    font-size: 28px;
-    font-weight: 800;
-    color: #1C2955;
 }
 
 .schedule-info h4 {
@@ -1993,38 +1981,17 @@ ul {
 }
 
 .sch-date {
-    min-width: 64px;
+    min-width: 56px;
     text-align: center;
     margin-right: 24px;
     flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.sch-month {
-    display: block;
-    font-size: 14px;
-    font-weight: 700;
-    color: #D94925;
-    line-height: 1.2;
-}
-
-.sch-divider {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background-color: #e0e0e0;
-    margin: 4px 0;
-    border-radius: 1px;
-}
-
-.sch-day {
-    display: block;
+.sch-date-text {
     font-size: 28px;
     font-weight: 800;
     color: #1C2955;
-    line-height: 1.1;
+    letter-spacing: -0.02em;
 }
 
 .sch-content {
@@ -2256,20 +2223,11 @@ ul {
     }
 
     .sch-date {
-        flex-direction: row;
-        gap: 8px;
-        align-items: baseline;
         margin-right: 0;
         margin-bottom: 12px;
     }
 
-    .sch-divider {
-        width: 2px;
-        height: 16px;
-        margin: 0;
-    }
-
-    .sch-day {
+    .sch-date-text {
         font-size: 22px;
     }
 
