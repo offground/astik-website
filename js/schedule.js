@@ -203,7 +203,7 @@
             var dotHTML = '';
             if (daySchedules.length > 0) {
                 cellClass += ' has-event';
-                var hasOpen = daySchedules.some(function (s) { return s.status === '모집중'; });
+                var hasOpen = daySchedules.some(function (s) { return s.status === '모집 중'; });
                 var hasClosed = daySchedules.some(function (s) { return s.status === '마감'; });
                 if (hasOpen) dotHTML += '<span class="cal-dot dot-open"></span>';
                 if (hasClosed) dotHTML += '<span class="cal-dot dot-closed"></span>';
@@ -278,8 +278,8 @@
             var startDay = sDate.getDate();
             var dateRange = formatDateFull(s.startDate) + ' ~ ' + formatDateFull(s.endDate);
             var days = getDayCount(s.startDate, s.endDate);
-            var statusClass = s.status === '모집중' ? 'status-open' : 'status-closed';
-            var statusIcon = s.status === '모집중' ? 'fa-circle-check' : 'fa-circle-xmark';
+            var statusClass = s.status === '모집 중' ? 'status-open' : 'status-closed';
+            var statusIcon = s.status === '모집 중' ? 'fa-circle-check' : 'fa-circle-xmark';
 
             html += '<div class="sch-item" data-start="' + s.startDate + '" data-end="' + s.endDate + '" data-status="' + s.status + '">' +
                 '<div class="sch-date">' +
@@ -298,7 +298,7 @@
                 '</div>' +
                 (s.note ? '<p class="sch-note">' + s.note + '</p>' : '') +
                 '</div>' +
-                (s.status === '모집중'
+                (s.status === '모집 중'
                     ? '<div class="sch-action"><a href="contact.html" class="btn btn-primary btn-sm">신청 문의</a></div>'
                     : '') +
                 '</div>';
@@ -370,7 +370,7 @@
                 today.setHours(0, 0, 0, 0);
 
                 var upcoming = schedules
-                    .filter(function (s) { return new Date(s.endDate) >= today && s.status === '모집중'; })
+                    .filter(function (s) { return new Date(s.endDate) >= today && s.status === '모집 중'; })
                     .sort(function (a, b) { return new Date(a.startDate) - new Date(b.startDate); })
                     .slice(0, 2);
 
