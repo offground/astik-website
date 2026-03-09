@@ -292,7 +292,8 @@
             }
 
             html += '<div class="sch-item' + (isPast ? ' sch-past' : '') + '" data-start="' + s.startDate + '" data-end="' + s.endDate + '" data-status="' + s.status + '">' +
-                '<div class="sch-date"><span class="sch-month">' + startMonth + '월</span><span class="sch-day">' + startDay + '</span></div>' +
+                '<div class="sch-date"><span class="sch-month">' + startMonth + '</span><span class="sch-divider"></span><span class="sch-day">' + startDay + '</span></div>' +
+
                 '<div class="sch-content">' +
                 '<div class="sch-top"><h4 class="sch-course">' + s.course + '</h4>' +
                 '<span class="sch-status ' + statusClass + '"><i class="fas ' + statusIcon + '"></i> ' + statusText + '</span></div>' +
