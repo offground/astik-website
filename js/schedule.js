@@ -154,10 +154,8 @@
         var lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
         var today = new Date(); today.setHours(0, 0, 0, 0);
 
-        // 이전달 마지막 날짜
         var prevLastDate = new Date(currentYear, currentMonth, 0).getDate();
 
-        // ★ 변경: 해당 월에 필요한 줄 수만큼만 (4~6줄 자동 계산)
         var rowCount = Math.ceil((firstDay + lastDate) / 7);
         var totalCells = rowCount * 7;
 
@@ -167,21 +165,18 @@
             var dayNum, cellYear, cellMonth, isOtherMonth;
 
             if (cell < firstDay) {
-                // 이전달
                 dayNum = prevLastDate - firstDay + cell + 1;
                 var prevDate = new Date(currentYear, currentMonth - 1, dayNum);
                 cellYear = prevDate.getFullYear();
                 cellMonth = prevDate.getMonth();
                 isOtherMonth = true;
             } else if (cell - firstDay >= lastDate) {
-                // 다음달
                 dayNum = cell - firstDay - lastDate + 1;
                 var nextDate = new Date(currentYear, currentMonth + 1, dayNum);
                 cellYear = nextDate.getFullYear();
                 cellMonth = nextDate.getMonth();
                 isOtherMonth = true;
             } else {
-                // 당월
                 dayNum = cell - firstDay + 1;
                 cellYear = currentYear;
                 cellMonth = currentMonth;
@@ -201,7 +196,6 @@
             if (holidayName || dayOfWeek === 0) { cellClass += ' cal-holiday'; }
             else if (dayOfWeek === 6) { cellClass += ' cal-saturday-cell'; }
 
-            // 교육 일정 찾기
             var daySchedules = [];
             for (var si = 0; si < allSchedules.length; si++) {
                 if (isDateInRange(cellYear, cellMonth, dayNum, allSchedules[si].startDate, allSchedules[si].endDate)) {
@@ -245,7 +239,6 @@
 
         bodyEl.innerHTML = html;
 
-        // 클릭 이벤트
         var cells = bodyEl.querySelectorAll('.cal-cell.has-event');
         for (var ci = 0; ci < cells.length; ci++) {
             (function (c) {
@@ -278,7 +271,6 @@
         items.forEach(function (s) {
             var sDate = parseLocalDate(s.startDate);
             var startMonth = sDate.getMonth() + 1;
-            var startDay = sDate.getDate();
             var dateRange = formatDateFull(s.startDate) + ' ~ ' + formatDateFull(s.endDate);
             var days = getDayCount(s.startDate, s.endDate);
 
@@ -292,8 +284,7 @@
             }
 
             html += '<div class="sch-item' + (isPast ? ' sch-past' : '') + '" data-start="' + s.startDate + '" data-end="' + s.endDate + '" data-status="' + s.status + '">' +
-                '<div class="sch-date"><span class="sch-month">' + startMonth + '</span><span class="sch-divider"></span><span class="sch-day">' + startDay + '</span></div>' +
-
+                '<div class="sch-date"><span class="sch-date-text">' + startMonth + '월</span></div>' +
                 '<div class="sch-content">' +
                 '<div class="sch-top"><h4 class="sch-course">' + s.course + '</h4>' +
                 '<span class="sch-status ' + statusClass + '"><i class="fas ' + statusIcon + '"></i> ' + statusText + '</span></div>' +
@@ -433,7 +424,7 @@
                 var html = '';
                 upcoming.forEach(function (s) {
                     var sDate = parseLocalDate(s.startDate);
-                    html += '<div class="schedule-item"><div class="schedule-date"><span class="month">' + (sDate.getMonth() + 1) + '월</span><span class="day">' + sDate.getDate() + '</span></div><div class="schedule-info"><h4>' + s.course + '</h4><p>' + formatDateRange(s.startDate, s.endDate) + ' · ' + s.location + '</p></div></div>';
+                    html += '<div class="schedule-item"><div class="schedule-date"><span class="sch-date-text">' + (sDate.getMonth() + 1) + '월</span></div><div class="schedule-info"><h4>' + s.course + '</h4><p>' + formatDateRange(s.startDate, s.endDate) + ' · ' + s.location + '</p></div></div>';
                 });
                 previewEl.innerHTML = html;
             })
