@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         })
         .catch(function (error) {
-            alert('문의 전송에 실패했습니다. 이메일(off_ground@astik.co.kr)로 직접 문의해주세요.');
+            alert('문의 전송에 실패했습니다. 이메일(astik@astik.co.kr)로 직접 문의해주세요.');
             submitBtn.disabled = false;
             submitBtn.textContent = '문의하기';
         });
