@@ -2232,3 +2232,8 @@ ul {
         border-radius: 2px;
     }
 }
+/* ── 달력 요일·공휴일 색상 ── */
+.cal-header .cal-sunday { color: #FF6B6B; }
+.cal-header .cal-saturday { color: #74B9FF; }
+.cal-cell.cal-holiday .cal-date-num { color: #D94925; }
+.cal-cell.cal-saturday-cell .cal-date-num { color: #3478F6; }
