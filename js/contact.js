@@ -1,52 +1,55 @@
 // ===================================
-// ASTIK 문의 폼 처리
+// ASTIK 문의 폼 - 구글 시트 연동
 // ===================================
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    const form = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const formSuccess = document.getElementById('formSuccess');
+    var form = document.getElementById('contactForm');
+    var submitBtn = document.getElementById('submitBtn');
+    var formSuccess = document.getElementById('formSuccess');
 
     if (!form) return;
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        // 버튼 로딩 상태
         submitBtn.disabled = true;
         submitBtn.textContent = '전송 중...';
 
-        // Formspree로 전송
-        const formData = new FormData(form);
+        var formData = {
+            name: document.getElementById('name').value,
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
+            organization: document.getElementById('organization').value,
+            inquiry_type: document.getElementById('inquiry-type').value,
+            course: document.getElementById('course').value,
+            preferred_date: document.getElementById('preferred-date').value,
+            participants: document.getElementById('participants').value,
+            message: document.getElementById('message').value
+        };
 
         fetch(form.action, {
             method: 'POST',
-            body: formData,
+            mode: 'no-cors',
             headers: {
-                'Accept': 'application/json'
-            }
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
         })
-        .then(function (response) {
-            if (response.ok) {
-                // 성공
-                form.style.display = 'none';
-                formSuccess.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                throw new Error('전송 실패');
-            }
+        .then(function () {
+            form.style.display = 'none';
+            formSuccess.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         })
         .catch(function (error) {
-            alert('문의 전송에 실패했습니다. 이메일(astik@astik.co.kr)로 직접 문의해주세요.');
+            alert('문의 전송에 실패했습니다. 이메일(off_ground@astik.co.kr)로 직접 문의해주세요.');
             submitBtn.disabled = false;
             submitBtn.textContent = '문의하기';
         });
     });
 
-    // 문의 유형 선택에 따른 교육 과정 표시/숨김
-    const inquiryType = document.getElementById('inquiry-type');
-    const courseGroup = document.getElementById('course').closest('.form-group');
+    var inquiryType = document.getElementById('inquiry-type');
+    var courseGroup = document.getElementById('course').closest('.form-group');
 
     if (inquiryType && courseGroup) {
         inquiryType.addEventListener('change', function () {
