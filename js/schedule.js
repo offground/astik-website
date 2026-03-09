@@ -157,8 +157,9 @@
         // 이전달 마지막 날짜
         var prevLastDate = new Date(currentYear, currentMonth, 0).getDate();
 
-        // 총 셀 수 (6주 고정 = 42칸)
-        var totalCells = 42;
+        // ★ 변경: 해당 월에 필요한 줄 수만큼만 (4~6줄 자동 계산)
+        var rowCount = Math.ceil((firstDay + lastDate) / 7);
+        var totalCells = rowCount * 7;
 
         var html = '';
 
