@@ -2308,3 +2308,128 @@ ul {
         padding: 1px 2px;
     }
 }
+/* ── 달력 셀 레이아웃 (과정명 표시용) ── */
+.cal-cell {
+    aspect-ratio: auto !important;
+    min-height: 72px;
+    padding: 4px 2px;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.cal-cell .cal-date-num {
+    display: block;
+    text-align: right;
+    padding-right: 4px;
+    margin-bottom: 2px;
+}
+
+.cal-events {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow: hidden;
+}
+
+.cal-event-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.3;
+    padding: 1px 3px;
+    border-radius: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.cal-event-open {
+    background-color: rgba(217, 73, 37, 0.15);
+    color: #D94925;
+}
+
+.cal-event-closed {
+    background-color: #f0f0f0;
+    color: #aaaaaa;
+}
+
+/* 달력 요일·공휴일 색상 */
+.cal-header .cal-sunday { color: #FF6B6B; }
+.cal-header .cal-saturday { color: #74B9FF; }
+.cal-cell.cal-holiday .cal-date-num { color: #D94925; }
+.cal-cell.cal-saturday-cell .cal-date-num { color: #3478F6; }
+
+/* 기존 has-event 배경 음영 제거 */
+.cal-cell.has-event {
+    background-color: transparent;
+}
+.cal-cell.has-event:hover {
+    background-color: rgba(28, 41, 85, 0.04);
+}
+
+/* ── 지난 교육 섹션 ── */
+.past-schedule-section {
+    margin-top: 48px;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 32px;
+}
+
+.past-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1C2955;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.past-toggle-btn:hover {
+    background-color: rgba(28, 41, 85, 0.04);
+    border-color: #1C2955;
+}
+
+.past-toggle-btn i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.past-schedule-list {
+    margin-top: 20px;
+}
+
+.sch-item.sch-past {
+    border-left-color: #cccccc;
+    opacity: 0.6;
+}
+
+.sch-item.sch-past:hover {
+    opacity: 0.8;
+}
+
+.status-done {
+    background-color: rgba(28, 41, 85, 0.08);
+    color: #888888;
+    border: 1px solid #ddd;
+}
+
+/* 모바일 달력 */
+@media (max-width: 768px) {
+    .cal-cell {
+        min-height: 52px;
+        padding: 2px 1px;
+    }
+    .cal-event-label {
+        font-size: 8px;
+        padding: 1px 2px;
+    }
+}
