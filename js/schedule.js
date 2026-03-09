@@ -5,7 +5,7 @@
 
 (function () {
 
-    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQuHxjOjTjIBT2YBW74MLhS_oCcMAxnFw5XRX0ohcrwJhbjMVqmXiUUtpTQbZ9DcTRMvYEdgoyu8_cT/pub?output=csv';
+    var SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQuHxjOjTjIBT2YBW74MLhS_oCcMAxnFw5XRX0ohcrwJhbjMVqmXiUUtpTQbZ9DcTRMvYEdgoyu8_cT/pub?output=csv';
 
     var allSchedules = [];
     var currentYear = new Date().getFullYear();
@@ -104,6 +104,22 @@
         return null;
     }
 
+    // ── 날짜 파싱 (UTC 문제 방지) ──
+    function parseLocalDate(str) {
+        if (!str) return null;
+        str = str.trim();
+        var parts = str.split('-');
+        if (parts.length === 3) {
+            return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        }
+        // 2026. 3. 5 형식 대응
+        parts = str.split('.');
+        if (parts.length >= 3) {
+            return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        }
+        return new Date(str);
+    }
+
     // ── CSV 파싱 ──
     function parseCSV(csvText) {
         var lines = csvText.trim().split('\n');
@@ -112,13 +128,13 @@
             var values = lines[i].split(',').map(function (v) { return v.trim().replace(/^"|"$/g, ''); });
             if (values.length >= 6 && values[0]) {
                 data.push({
-                    startDate: values[0],
-                    endDate: values[1],
-                    course: values[2],
-                    location: values[3],
-                    capacity: values[4],
-                    status: values[5],
-                    note: values[6] || ''
+                    startDate: values[0].trim(),
+                    endDate: values[1].trim(),
+                    course: values[2].trim(),
+                    location: values[3].trim(),
+                    capacity: values[4].trim(),
+                    status: values[5].trim(),
+                    note: (values[6] || '').trim()
                 });
             }
         }
@@ -128,33 +144,49 @@
     // ── 날짜 유틸 ──
     function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
-    function formatDate(dateStr) {
-        var d = new Date(dateStr);
-        return (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
-    }
-
     function formatDateRange(start, end) {
-        var s = new Date(start);
-        var e = new Date(end);
+        var s = parseLocalDate(start);
+        var e = parseLocalDate(end);
         var sM = s.getMonth() + 1, sD = s.getDate();
         var eM = e.getMonth() + 1, eD = e.getDate();
+        if (sM === eM && sD === eD) return sM + '월 ' + sD + '일';
         if (sM === eM) return sM + '월 ' + sD + '일 - ' + eD + '일';
         return sM + '월 ' + sD + '일 - ' + eM + '월 ' + eD + '일';
     }
 
     function getDayCount(start, end) {
-        var s = new Date(start);
-        var e = new Date(end);
+        var s = parseLocalDate(start);
+        var e = parseLocalDate(end);
         return Math.ceil((e - s) / (1000 * 60 * 60 * 24)) + 1;
     }
 
     function formatDateFull(dateStr) {
-        var d = new Date(dateStr);
+        var d = parseLocalDate(dateStr);
         var weekdays = ['일', '월', '화', '수', '목', '금', '토'];
         return d.getFullYear() + '.' + pad(d.getMonth() + 1) + '.' + pad(d.getDate()) + '(' + weekdays[d.getDay()] + ')';
     }
 
-    // ── 달력 렌더링 ──
+    // ── 날짜 범위 비교 (로컬 기준) ──
+    function isDateInRange(year, month, day, startStr, endStr) {
+        var check = new Date(year, month, day);
+        check.setHours(0, 0, 0, 0);
+        var s = parseLocalDate(startStr);
+        s.setHours(0, 0, 0, 0);
+        var e = parseLocalDate(endStr);
+        e.setHours(0, 0, 0, 0);
+        return check >= s && check <= e;
+    }
+
+    // ── 과정명 줄임 ──
+    function shortenName(name, maxLen) {
+        if (!maxLen) maxLen = 6;
+        if (name.length <= maxLen) return name;
+        return name.substring(0, maxLen) + '…';
+    }
+
+    // ══════════════════════════════════
+    //  달력 렌더링
+    // ══════════════════════════════════
     function renderCalendar() {
         var titleEl = document.getElementById('calTitle');
         var bodyEl = document.getElementById('calBody');
@@ -165,6 +197,7 @@
         var firstDay = new Date(currentYear, currentMonth, 1).getDay();
         var lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
         var today = new Date();
+        today.setHours(0, 0, 0, 0);
         var html = '';
 
         // 빈 셀
@@ -176,44 +209,46 @@
         for (var d = 1; d <= lastDate; d++) {
             var mm = pad(currentMonth + 1);
             var dd = pad(d);
-            var dateStr = currentYear + '-' + mm + '-' + dd;
             var dayOfWeek = new Date(currentYear, currentMonth, d).getDay();
+            var cellDate = new Date(currentYear, currentMonth, d);
+            cellDate.setHours(0, 0, 0, 0);
 
-            var isToday = (today.getFullYear() === currentYear && today.getMonth() === currentMonth && today.getDate() === d);
+            var isToday = (cellDate.getTime() === today.getTime());
             var holidayName = getHolidayName(currentYear, mm, dd);
 
             var cellClass = 'cal-cell';
             if (isToday) cellClass += ' today';
 
-            // 공휴일·일요일 → 빨간색, 토요일 → 파란색
             if (holidayName || dayOfWeek === 0) {
                 cellClass += ' cal-holiday';
             } else if (dayOfWeek === 6) {
                 cellClass += ' cal-saturday-cell';
             }
 
-            // 교육 일정 도트
-            var daySchedules = allSchedules.filter(function (s) {
-                var start = new Date(s.startDate);
-                var end = new Date(s.endDate);
-                var check = new Date(dateStr);
-                return check >= start && check <= end;
-            });
+            // 해당 날짜에 걸리는 교육 일정 찾기
+            var daySchedules = [];
+            for (var si = 0; si < allSchedules.length; si++) {
+                var s = allSchedules[si];
+                if (isDateInRange(currentYear, currentMonth, d, s.startDate, s.endDate)) {
+                    daySchedules.push(s);
+                }
+            }
 
-            var dotHTML = '';
+            var eventHTML = '';
             if (daySchedules.length > 0) {
                 cellClass += ' has-event';
-                var hasOpen = daySchedules.some(function (s) { return s.status === '모집 중'; });
-                var hasClosed = daySchedules.some(function (s) { return s.status === '마감'; });
-                if (hasOpen) dotHTML += '<span class="cal-dot dot-open"></span>';
-                if (hasClosed) dotHTML += '<span class="cal-dot dot-closed"></span>';
+                for (var ei = 0; ei < daySchedules.length; ei++) {
+                    var ev = daySchedules[ei];
+                    var evClass = ev.status === '모집 중' ? 'cal-event-open' : 'cal-event-closed';
+                    eventHTML += '<span class="cal-event-label ' + evClass + '" title="' + ev.course + ' (' + ev.status + ')">' + shortenName(ev.course, 5) + '</span>';
+                }
             }
 
             var titleAttr = holidayName ? ' title="' + holidayName + '"' : '';
 
-            html += '<div class="' + cellClass + '" data-date="' + dateStr + '"' + titleAttr + '>' +
+            html += '<div class="' + cellClass + '" data-date="' + currentYear + '-' + mm + '-' + dd + '"' + titleAttr + '>' +
                 '<span class="cal-date-num">' + d + '</span>' +
-                '<div class="cal-dots">' + dotHTML + '</div>' +
+                '<div class="cal-events">' + eventHTML + '</div>' +
                 '</div>';
         }
 
@@ -221,29 +256,37 @@
 
         // 날짜 클릭 → 해당 일정으로 스크롤
         var cells = bodyEl.querySelectorAll('.cal-cell.has-event');
-        cells.forEach(function (cell) {
-            cell.addEventListener('click', function () {
-                var date = cell.getAttribute('data-date');
-                scrollToSchedule(date);
-            });
-        });
+        for (var ci = 0; ci < cells.length; ci++) {
+            (function (cell) {
+                cell.addEventListener('click', function () {
+                    var date = cell.getAttribute('data-date');
+                    scrollToSchedule(date);
+                });
+            })(cells[ci]);
+        }
     }
 
     function scrollToSchedule(dateStr) {
         var items = document.querySelectorAll('.sch-item');
-        items.forEach(function (item) {
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
             var start = item.getAttribute('data-start');
             var end = item.getAttribute('data-end');
-            var check = new Date(dateStr);
-            if (check >= new Date(start) && check <= new Date(end)) {
+            var parts = dateStr.split('-');
+            if (isDateInRange(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]), start, end)) {
                 item.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 item.classList.add('highlight');
-                setTimeout(function () { item.classList.remove('highlight'); }, 2000);
+                (function (el) {
+                    setTimeout(function () { el.classList.remove('highlight'); }, 2000);
+                })(item);
+                break;
             }
-        });
+        }
     }
 
-    // ── 스케줄 리스트 렌더링 ──
+    // ══════════════════════════════════
+    //  스케줄 리스트 렌더링
+    // ══════════════════════════════════
     function renderScheduleList() {
         var listEl = document.getElementById('scheduleList');
         var emptyEl = document.getElementById('emptyState');
@@ -258,8 +301,12 @@
 
         var today = new Date();
         today.setHours(0, 0, 0, 0);
-        filtered = filtered.filter(function (s) { return new Date(s.endDate) >= today; });
-        filtered.sort(function (a, b) { return new Date(a.startDate) - new Date(b.startDate); });
+        filtered = filtered.filter(function (s) {
+            var end = parseLocalDate(s.endDate);
+            end.setHours(0, 0, 0, 0);
+            return end >= today;
+        });
+        filtered.sort(function (a, b) { return parseLocalDate(a.startDate) - parseLocalDate(b.startDate); });
 
         if (filtered.length === 0) {
             listEl.innerHTML = '';
@@ -273,7 +320,7 @@
 
         var html = '';
         filtered.forEach(function (s) {
-            var sDate = new Date(s.startDate);
+            var sDate = parseLocalDate(s.startDate);
             var startMonth = sDate.getMonth() + 1;
             var startDay = sDate.getDate();
             var dateRange = formatDateFull(s.startDate) + ' ~ ' + formatDateFull(s.endDate);
@@ -370,15 +417,19 @@
                 today.setHours(0, 0, 0, 0);
 
                 var upcoming = schedules
-                    .filter(function (s) { return new Date(s.endDate) >= today && s.status === '모집 중'; })
-                    .sort(function (a, b) { return new Date(a.startDate) - new Date(b.startDate); })
+                    .filter(function (s) {
+                        var end = parseLocalDate(s.endDate);
+                        end.setHours(0, 0, 0, 0);
+                        return end >= today && s.status === '모집 중';
+                    })
+                    .sort(function (a, b) { return parseLocalDate(a.startDate) - parseLocalDate(b.startDate); })
                     .slice(0, 2);
 
                 if (upcoming.length === 0) return;
 
                 var html = '';
                 upcoming.forEach(function (s) {
-                    var sDate = new Date(s.startDate);
+                    var sDate = parseLocalDate(s.startDate);
                     var dateRange = formatDateRange(s.startDate, s.endDate);
 
                     html += '<div class="schedule-item">' +
