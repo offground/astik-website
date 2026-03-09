@@ -209,10 +209,10 @@
                 (s.note ? '<p class="sch-note">' + s.note + '</p>' : '') +
                 '</div>' +
                 '<div class="sch-action">' +
-                (s.status === '모집중'
-                    ? '<a href="contact.html" class="btn btn-primary btn-sm">신청 문의</a>'
-                    : '<span class="btn btn-disabled btn-sm">마감</span>') +
-                '</div>' +
+               (s.status === '모집중'
+    ? '<div class="sch-action"><a href="contact.html" class="btn btn-primary btn-sm">신청 문의</a></div>'
+    : '') +
+
                 '</div>';
         });
 
