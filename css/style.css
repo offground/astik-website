@@ -1786,15 +1786,17 @@ ul {
 }
 
 .status-open {
-    background-color: rgba(217, 73, 37, 0.1);
+    background-color: rgba(217, 73, 37, 0.12);
     color: #D94925;
+    border: 1px solid rgba(217, 73, 37, 0.3);
 }
 
 .status-closed {
     background-color: #f0f0f0;
-    color: #999999;
+    color: #aaaaaa;
+    border: 1px solid #e0e0e0;
+    text-decoration: line-through;
 }
-
 .sch-meta {
     display: flex;
     gap: 20px;
