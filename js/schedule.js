@@ -13,9 +13,8 @@
     var currentFilter = 'all';
 
     // ══════════════════════════════════
-    //  공휴일 데이터
+    //  공휴일
     // ══════════════════════════════════
-
     var fixedHolidays = {
         '01-01': '신정', '03-01': '삼일절', '05-05': '어린이날',
         '06-06': '현충일', '07-17': '제헌절', '08-15': '광복절',
@@ -79,7 +78,7 @@
         return null;
     }
 
-    // ── 날짜 파싱 (UTC 방지) ──
+    // ── 유틸 ──
     function parseLocalDate(str) {
         if (!str) return null;
         str = str.trim();
@@ -142,7 +141,7 @@
     }
 
     // ══════════════════════════════════
-    //  달력 렌더링
+    //  달력 렌더링 (이전달/다음달 포함)
     // ══════════════════════════════════
     function renderCalendar() {
         var titleEl = document.getElementById('calTitle');
@@ -154,29 +153,57 @@
         var firstDay = new Date(currentYear, currentMonth, 1).getDay();
         var lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
         var today = new Date(); today.setHours(0, 0, 0, 0);
+
+        // 이전달 마지막 날짜
+        var prevLastDate = new Date(currentYear, currentMonth, 0).getDate();
+
+        // 총 셀 수 (6주 고정 = 42칸)
+        var totalCells = 42;
+
         var html = '';
 
-        for (var i = 0; i < firstDay; i++) {
-            html += '<div class="cal-cell empty"></div>';
-        }
+        for (var cell = 0; cell < totalCells; cell++) {
+            var dayNum, cellYear, cellMonth, isOtherMonth;
 
-        for (var d = 1; d <= lastDate; d++) {
-            var mm = pad(currentMonth + 1);
-            var dd = pad(d);
-            var dayOfWeek = new Date(currentYear, currentMonth, d).getDay();
-            var cellDate = new Date(currentYear, currentMonth, d); cellDate.setHours(0, 0, 0, 0);
+            if (cell < firstDay) {
+                // 이전달
+                dayNum = prevLastDate - firstDay + cell + 1;
+                var prevDate = new Date(currentYear, currentMonth - 1, dayNum);
+                cellYear = prevDate.getFullYear();
+                cellMonth = prevDate.getMonth();
+                isOtherMonth = true;
+            } else if (cell - firstDay >= lastDate) {
+                // 다음달
+                dayNum = cell - firstDay - lastDate + 1;
+                var nextDate = new Date(currentYear, currentMonth + 1, dayNum);
+                cellYear = nextDate.getFullYear();
+                cellMonth = nextDate.getMonth();
+                isOtherMonth = true;
+            } else {
+                // 당월
+                dayNum = cell - firstDay + 1;
+                cellYear = currentYear;
+                cellMonth = currentMonth;
+                isOtherMonth = false;
+            }
+
+            var mm = pad(cellMonth + 1);
+            var dd = pad(dayNum);
+            var dayOfWeek = new Date(cellYear, cellMonth, dayNum).getDay();
+            var cellDate = new Date(cellYear, cellMonth, dayNum); cellDate.setHours(0, 0, 0, 0);
             var isToday = (cellDate.getTime() === today.getTime());
-            var holidayName = getHolidayName(currentYear, mm, dd);
+            var holidayName = getHolidayName(cellYear, mm, dd);
 
             var cellClass = 'cal-cell';
+            if (isOtherMonth) cellClass += ' other-month';
             if (isToday) cellClass += ' today';
             if (holidayName || dayOfWeek === 0) { cellClass += ' cal-holiday'; }
             else if (dayOfWeek === 6) { cellClass += ' cal-saturday-cell'; }
 
-            // 해당 날짜에 걸리는 교육 찾기
+            // 교육 일정 찾기
             var daySchedules = [];
             for (var si = 0; si < allSchedules.length; si++) {
-                if (isDateInRange(currentYear, currentMonth, d, allSchedules[si].startDate, allSchedules[si].endDate)) {
+                if (isDateInRange(cellYear, cellMonth, dayNum, allSchedules[si].startDate, allSchedules[si].endDate)) {
                     daySchedules.push(allSchedules[si]);
                 }
             }
@@ -188,51 +215,41 @@
                     var ev = daySchedules[ei];
                     var evClass = ev.status === '모집 중' ? 'cal-event-open' : 'cal-event-closed';
 
-                    // 시작일 판별
-                    var isStart = isSameLocalDate(currentYear, currentMonth, d, ev.startDate);
-                    // 종료일 판별
-                    var isEnd = isSameLocalDate(currentYear, currentMonth, d, ev.endDate);
-                    // 1일짜리 교육
+                    var isStart = isSameLocalDate(cellYear, cellMonth, dayNum, ev.startDate);
+                    var isEnd = isSameLocalDate(cellYear, cellMonth, dayNum, ev.endDate);
                     var isSingle = (isStart && isEnd);
-                    // 주의 마지막 날(토요일)이거나 월의 마지막 날
-                    var isRowEnd = (dayOfWeek === 6 || d === lastDate);
-                    // 주의 첫 날(일요일)이거나 월의 첫 날
-                    var isRowStart = (dayOfWeek === 0 || d === 1);
+                    var isRowEnd = (dayOfWeek === 6);
+                    var isRowStart = (dayOfWeek === 0);
 
-                    // 라벨 위치 클래스
                     var posClass = '';
-                    if (isSingle) {
-                        posClass = ' cal-ev-single';
-                    } else if (isStart || isRowStart) {
-                        posClass = ' cal-ev-start';
-                    } else if (isEnd || isRowEnd) {
-                        posClass = ' cal-ev-end';
-                    } else {
-                        posClass = ' cal-ev-mid';
-                    }
+                    if (isSingle) { posClass = ' cal-ev-single'; }
+                    else if (isStart || isRowStart) { posClass = ' cal-ev-start'; }
+                    else if (isEnd || isRowEnd) { posClass = ' cal-ev-end'; }
+                    else { posClass = ' cal-ev-mid'; }
 
-                    // 시작일 또는 주 시작에만 과정명 표시
                     var label = (isStart || isRowStart) ? ev.course : '';
 
                     eventHTML += '<span class="cal-event-label ' + evClass + posClass + '" title="' + ev.course + ' (' + ev.status + ')">' + label + '</span>';
                 }
             }
 
+            var dateStr = cellYear + '-' + mm + '-' + dd;
             var titleAttr = holidayName ? ' title="' + holidayName + '"' : '';
 
-            html += '<div class="' + cellClass + '" data-date="' + currentYear + '-' + mm + '-' + dd + '"' + titleAttr + '>' +
-                '<span class="cal-date-num">' + d + '</span>' +
+            html += '<div class="' + cellClass + '" data-date="' + dateStr + '"' + titleAttr + '>' +
+                '<span class="cal-date-num">' + dayNum + '</span>' +
                 '<div class="cal-events">' + eventHTML + '</div>' +
                 '</div>';
         }
 
         bodyEl.innerHTML = html;
 
+        // 클릭 이벤트
         var cells = bodyEl.querySelectorAll('.cal-cell.has-event');
         for (var ci = 0; ci < cells.length; ci++) {
-            (function (cell) {
-                cell.addEventListener('click', function () {
-                    scrollToSchedule(cell.getAttribute('data-date'));
+            (function (c) {
+                c.addEventListener('click', function () {
+                    scrollToSchedule(c.getAttribute('data-date'));
                 });
             })(cells[ci]);
         }
@@ -253,7 +270,7 @@
     }
 
     // ══════════════════════════════════
-    //  공통 일정 카드 HTML
+    //  일정 카드 HTML
     // ══════════════════════════════════
     function buildScheduleHTML(items, isPast) {
         var html = '';
@@ -291,7 +308,7 @@
     }
 
     // ══════════════════════════════════
-    //  리스트 렌더링 (예정 + 지난)
+    //  리스트 (예정 + 지난)
     // ══════════════════════════════════
     function renderScheduleList() {
         var listEl = document.getElementById('scheduleList');
@@ -340,10 +357,10 @@
     }
 
     function initFilters() {
-        var filterBtns = document.querySelectorAll('.filter-btn');
-        filterBtns.forEach(function (btn) {
+        var btns = document.querySelectorAll('.filter-btn');
+        btns.forEach(function (btn) {
             btn.addEventListener('click', function () {
-                filterBtns.forEach(function (b) { b.classList.remove('active'); });
+                btns.forEach(function (b) { b.classList.remove('active'); });
                 btn.classList.add('active');
                 currentFilter = btn.getAttribute('data-filter');
                 renderScheduleList();
