@@ -456,10 +456,8 @@ ul {
     height: 80px;
     width: auto;
     margin: 0 auto 16px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    padding: 16px;
-    opacity: 0.95;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
 }
 
 .trust-label {
