@@ -2541,3 +2541,195 @@ ul {
     .cal-cell { min-height: 52px; padding: 2px 0 1px; }
     .cal-event-label { font-size: 8px; line-height: 14px; height: 14px; padding: 0 2px; }
 }
+/* ══════════════════════════════════
+   달력 – 크기 확대 & 이전/다음달 표시
+   ══════════════════════════════════ */
+
+.calendar-grid {
+    max-width: 900px;
+}
+
+.cal-cell {
+    aspect-ratio: auto !important;
+    min-height: 84px;
+    padding: 4px 0 2px;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.cal-cell .cal-date-num {
+    display: block;
+    text-align: right;
+    padding-right: 6px;
+    margin-bottom: 2px;
+}
+
+/* 이전달·다음달 날짜 */
+.cal-cell.other-month {
+    background-color: #fafafa;
+}
+
+.cal-cell.other-month .cal-date-num {
+    color: #ccc;
+}
+
+.cal-cell.other-month.cal-holiday .cal-date-num {
+    color: #f0bfb5;
+}
+
+.cal-cell.other-month.cal-saturday-cell .cal-date-num {
+    color: #b5d4f5;
+}
+
+/* 이벤트 컨테이너 */
+.cal-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+}
+
+/* 라벨 공통 */
+.cal-event-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 18px;
+    height: 18px;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+/* 모집 중 / 마감 / 이전달·다음달 색상 */
+.cal-event-open {
+    background-color: rgba(217, 73, 37, 0.18);
+    color: #D94925;
+}
+
+.cal-event-closed {
+    background-color: #ebebeb;
+    color: #aaaaaa;
+}
+
+.cal-cell.other-month .cal-event-open {
+    background-color: rgba(217, 73, 37, 0.08);
+    color: rgba(217, 73, 37, 0.5);
+}
+
+.cal-cell.other-month .cal-event-closed {
+    background-color: #f3f3f3;
+    color: #ccc;
+}
+
+/* 연속 교육 바 – 시작/중간/끝/단일 */
+.cal-ev-single { border-radius: 3px; margin: 0 3px; }
+.cal-ev-start  { border-radius: 3px 0 0 3px; margin-left: 3px; margin-right: 0; }
+.cal-ev-mid    { border-radius: 0; margin: 0; }
+.cal-ev-end    { border-radius: 0 3px 3px 0; margin-left: 0; margin-right: 3px; }
+
+/* 요일·공휴일 색상 */
+.cal-header .cal-sunday { color: #FF6B6B; }
+.cal-header .cal-saturday { color: #74B9FF; }
+.cal-cell.cal-holiday .cal-date-num { color: #D94925; }
+.cal-cell.cal-saturday-cell .cal-date-num { color: #3478F6; }
+
+/* has-event 배경 */
+.cal-cell.has-event { background-color: transparent; }
+.cal-cell.has-event:hover { background-color: rgba(28, 41, 85, 0.04); }
+
+/* ══════════════════════════════════
+   지난 교육 섹션
+   ══════════════════════════════════ */
+.past-schedule-section {
+    margin-top: 48px;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 32px;
+}
+
+.past-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1C2955;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.past-toggle-btn:hover {
+    background-color: rgba(28, 41, 85, 0.04);
+    border-color: #1C2955;
+}
+
+.past-toggle-btn i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.past-schedule-list { margin-top: 20px; }
+
+.sch-item.sch-past { border-left-color: #cccccc; opacity: 0.6; }
+.sch-item.sch-past:hover { opacity: 0.8; }
+
+.status-done {
+    background-color: rgba(28, 41, 85, 0.08);
+    color: #888888;
+    border: 1px solid #ddd;
+}
+
+/* ══════════════════════════════════
+   반응형 – 태블릿
+   ══════════════════════════════════ */
+@media (max-width: 1024px) {
+    .calendar-grid {
+        max-width: 100%;
+    }
+
+    .cal-cell {
+        min-height: 72px;
+    }
+
+    .cal-event-label {
+        font-size: 10px;
+        line-height: 16px;
+        height: 16px;
+        padding: 0 3px;
+    }
+}
+
+/* ══════════════════════════════════
+   반응형 – 모바일
+   ══════════════════════════════════ */
+@media (max-width: 768px) {
+    .cal-cell {
+        min-height: 56px;
+        padding: 2px 0 1px;
+    }
+
+    .cal-cell .cal-date-num {
+        font-size: 11px;
+        padding-right: 3px;
+    }
+
+    .cal-event-label {
+        font-size: 8px;
+        line-height: 13px;
+        height: 13px;
+        padding: 0 2px;
+    }
+
+    .cal-ev-single { margin: 0 1px; }
+    .cal-ev-start { margin-left: 1px; }
+    .cal-ev-end { margin-right: 1px; }
+}
