@@ -102,6 +102,22 @@ ul {
     font-size: 18px;
 }
 
+.btn-sm {
+    padding: 8px 20px;
+    font-size: 13px;
+}
+
+.btn-disabled {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    background-color: #eeeeee;
+    color: #999999;
+    cursor: default;
+}
+
 /* ---------- 헤더 ---------- */
 .header {
     position: fixed;
@@ -112,6 +128,10 @@ ul {
     background-color: #ffffff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+}
+
+.header.scrolled {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
 }
 
 .header-inner {
@@ -319,7 +339,6 @@ ul {
     padding: 100px 0;
 }
 
-/* 섹션 타이틀 상단 골드 장식 라인 */
 .section-title {
     font-size: 32px;
     font-weight: 800;
@@ -436,6 +455,44 @@ ul {
     color: #D94925;
 }
 
+/* ---------- 홈 교육과정 카드 – 텍스트 뱃지 ---------- */
+.card-badge-group {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.card-badge-item {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 4px;
+    letter-spacing: -0.01em;
+}
+
+.badge-cert {
+    background-color: #1C2955;
+    color: #ffffff;
+}
+
+.badge-grade {
+    background-color: #D94925;
+    color: #ffffff;
+}
+
+.card-badge-item.badge-single {
+    background-color: #FFCD4A;
+    color: #1C2955;
+}
+
+.badge-custom-tag {
+    background-color: rgba(217, 73, 37, 0.1);
+    color: #D94925;
+    border: 1px solid #D94925;
+}
+
 /* ---------- 신뢰 섹션 ---------- */
 .trust {
     background-color: #1C2955;
@@ -506,7 +563,7 @@ ul {
     margin-top: 8px;
 }
 
-/* ---------- 교육일정 미리보기 ---------- */
+/* ---------- 교육일정 미리보기 (홈) ---------- */
 .schedule-preview {
     background-color: #f8f9fa;
 }
@@ -658,14 +715,26 @@ ul {
     color: rgba(255, 255, 255, 0.4);
 }
 
-/* ---------- 반응형: 태블릿 ---------- */
+/* ---------- 스크롤 애니메이션 ---------- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- 반응형: 태블릿 (공통) ---------- */
 @media (max-width: 1024px) {
     .service-cards {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* ---------- 반응형: 모바일 ---------- */
+/* ---------- 반응형: 모바일 (공통) ---------- */
 @media (max-width: 768px) {
     .gnb {
         display: none;
@@ -756,21 +825,6 @@ ul {
     }
 }
 
-/* ---------- 스크롤 애니메이션 ---------- */
-.fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.header.scrolled {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
-}
 /* ===================================
    소개 페이지 (about.html)
    =================================== */
@@ -950,6 +1004,7 @@ ul {
     font-weight: 600;
     margin-bottom: 32px;
 }
+
 .trainer-role-inline {
     font-size: 16px;
     color: #D94925;
@@ -1041,6 +1096,7 @@ ul {
     color: #999999;
 }
 
+/* about 반응형 */
 @media (max-width: 1024px) {
     .trainer-profile {
         gap: 40px;
@@ -1224,6 +1280,10 @@ ul {
     object-fit: cover;
     aspect-ratio: 4 / 3;
     background-color: #e8e8e8;
+}
+
+#inspection .course-image img {
+    object-position: center top;
 }
 
 .course-info {
@@ -1472,12 +1532,37 @@ ul {
     text-align: center;
 }
 
+/* 교육과정 – 3장 사진 갤러리 */
+.course-gallery {
+    flex-shrink: 0;
+    width: 420px;
+}
+
+.course-gallery-track {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.course-gallery-track img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    background-color: #e8e8e8;
+}
+
+/* courses 반응형 */
 @media (max-width: 1024px) {
     .course-layout {
         gap: 40px;
     }
 
     .course-image {
+        width: 340px;
+    }
+
+    .course-gallery {
         width: 340px;
     }
 }
@@ -1514,6 +1599,39 @@ ul {
 
     .spec-label {
         width: 70px;
+    }
+
+    .course-gallery {
+        width: 100%;
+    }
+
+    .course-gallery-track {
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        padding-bottom: 8px;
+    }
+
+    .course-gallery-track img {
+        width: 85%;
+        flex-shrink: 0;
+        scroll-snap-align: center;
+    }
+
+    .course-gallery-track::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .course-gallery-track::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 2px;
+    }
+
+    .course-gallery-track::-webkit-scrollbar-thumb {
+        background: #D94925;
+        border-radius: 2px;
     }
 }
 
@@ -1553,6 +1671,7 @@ ul {
     line-height: 1.6;
 }
 
+/* 필터 버튼 */
 .schedule-filters {
     display: flex;
     gap: 8px;
@@ -1582,6 +1701,7 @@ ul {
     color: #ffffff;
 }
 
+/* 달력 네비게이션 */
 .calendar-nav {
     display: flex;
     align-items: center;
@@ -1619,8 +1739,9 @@ ul {
     text-align: center;
 }
 
+/* 달력 그리드 */
 .calendar-grid {
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto 60px;
     border: 1px solid #e8e8e8;
     border-radius: 12px;
@@ -1641,20 +1762,31 @@ ul {
     color: #ffffff;
 }
 
+.cal-header .cal-sunday {
+    color: #FF6B6B;
+}
+
+.cal-header .cal-saturday {
+    color: #74B9FF;
+}
+
 .cal-body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
 }
 
+/* 개별 셀 */
 .cal-cell {
-    aspect-ratio: 1;
+    min-height: 84px;
+    padding: 4px 0 2px;
+    border: 0.5px solid #f0f0f0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #f0f0f0;
+    align-items: stretch;
+    justify-content: flex-start;
     cursor: default;
     position: relative;
+    background: #fff;
     transition: background-color 0.2s ease;
 }
 
@@ -1673,22 +1805,139 @@ ul {
 
 .cal-cell.has-event {
     cursor: pointer;
-    background-color: rgba(217, 73, 37, 0.04);
+    background-color: transparent;
 }
 
 .cal-cell.has-event:hover {
-    background-color: rgba(217, 73, 37, 0.1);
+    background-color: rgba(28, 41, 85, 0.04);
 }
 
+/* 이전달·다음달 날짜 */
+.cal-cell.other-month {
+    background-color: #fafafa;
+}
+
+.cal-cell.other-month .cal-date-num {
+    color: #ccc;
+}
+
+.cal-cell.other-month.cal-holiday .cal-date-num {
+    color: #f0bfb5;
+}
+
+.cal-cell.other-month.cal-saturday-cell .cal-date-num {
+    color: #b5d4f5;
+}
+
+/* 날짜 숫자 */
 .cal-date-num {
+    display: block;
+    text-align: right;
+    padding-right: 6px;
+    margin-bottom: 2px;
     font-size: 14px;
     font-weight: 500;
     color: #444444;
 }
 
+.cal-cell.cal-holiday .cal-date-num {
+    color: #D94925;
+}
+
+.cal-cell.cal-saturday-cell .cal-date-num {
+    color: #3478F6;
+}
+
+.cal-cell.cal-holiday.cal-saturday-cell .cal-date-num {
+    color: #D94925;
+}
+
+/* 공휴일 이름 */
+.cal-holiday-name {
+    font-size: 9px;
+    color: #D94925;
+    line-height: 1.2;
+    padding: 0 2px;
+    margin-bottom: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cal-cell.other-month .cal-holiday-name {
+    color: rgba(217, 73, 37, 0.4);
+}
+
+/* 이벤트 컨테이너 */
+.cal-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+}
+
+/* 이벤트 라벨 (과정명 표시) */
+.cal-event-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 18px;
+    height: 18px;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.cal-event-open {
+    background-color: rgba(217, 73, 37, 0.18);
+    color: #D94925;
+}
+
+.cal-event-closed {
+    background-color: #ebebeb;
+    color: #aaaaaa;
+}
+
+.cal-cell.other-month .cal-event-open {
+    background-color: rgba(217, 73, 37, 0.08);
+    color: rgba(217, 73, 37, 0.5);
+}
+
+.cal-cell.other-month .cal-event-closed {
+    background-color: #f3f3f3;
+    color: #ccc;
+}
+
+/* 연속 교육 바 – 시작/중간/끝/단일 */
+.cal-ev-single {
+    border-radius: 3px;
+    margin: 0 3px;
+}
+
+.cal-ev-start {
+    border-radius: 3px 0 0 3px;
+    margin-left: 3px;
+    margin-right: 0;
+}
+
+.cal-ev-mid {
+    border-radius: 0;
+    margin: 0;
+}
+
+.cal-ev-end {
+    border-radius: 0 3px 3px 0;
+    margin-left: 0;
+    margin-right: 3px;
+}
+
+/* 기존 도트 (하위호환) */
 .cal-dots {
     display: flex;
     gap: 3px;
+    justify-content: center;
     margin-top: 4px;
 }
 
@@ -1706,6 +1955,7 @@ ul {
     background-color: #cccccc;
 }
 
+/* 일정 리스트 */
 .schedule-list-section {
     margin-bottom: 40px;
 }
@@ -1804,6 +2054,13 @@ ul {
     border: 1px solid #e0e0e0;
     text-decoration: line-through;
 }
+
+.status-done {
+    background-color: rgba(28, 41, 85, 0.08);
+    color: #888888;
+    border: 1px solid #ddd;
+}
+
 .sch-meta {
     display: flex;
     gap: 20px;
@@ -1835,22 +2092,55 @@ ul {
     margin-left: 24px;
 }
 
-.btn-sm {
-    padding: 8px 20px;
-    font-size: 13px;
+/* 지난 교육 섹션 */
+.past-schedule-section {
+    margin-top: 48px;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 32px;
 }
 
-.btn-disabled {
-    display: inline-block;
-    padding: 8px 20px;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 4px;
-    background-color: #eeeeee;
-    color: #999999;
-    cursor: default;
+.past-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1C2955;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
 }
 
+.past-toggle-btn:hover {
+    background-color: rgba(28, 41, 85, 0.04);
+    border-color: #1C2955;
+}
+
+.past-toggle-btn i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.past-schedule-list {
+    margin-top: 20px;
+}
+
+.sch-item.sch-past {
+    border-left-color: #cccccc;
+    opacity: 0.6;
+}
+
+.sch-item.sch-past:hover {
+    opacity: 0.8;
+}
+
+/* 로딩·빈 상태 */
 .schedule-loading {
     text-align: center;
     padding: 60px 0;
@@ -1882,6 +2172,24 @@ ul {
     margin-bottom: 24px;
 }
 
+/* schedule 반응형 */
+@media (max-width: 1024px) {
+    .calendar-grid {
+        max-width: 100%;
+    }
+
+    .cal-cell {
+        min-height: 72px;
+    }
+
+    .cal-event-label {
+        font-size: 10px;
+        line-height: 16px;
+        height: 16px;
+        padding: 0 3px;
+    }
+}
+
 @media (max-width: 768px) {
     .schedule-filters {
         flex-wrap: wrap;
@@ -1896,8 +2204,37 @@ ul {
         min-width: 120px;
     }
 
-    .cal-date-num {
-        font-size: 12px;
+    .cal-cell {
+        min-height: 56px;
+        padding: 2px 0 1px;
+    }
+
+    .cal-cell .cal-date-num {
+        font-size: 11px;
+        padding-right: 3px;
+    }
+
+    .cal-event-label {
+        font-size: 8px;
+        line-height: 13px;
+        height: 13px;
+        padding: 0 2px;
+    }
+
+    .cal-ev-single {
+        margin: 0 1px;
+    }
+
+    .cal-ev-start {
+        margin-left: 1px;
+    }
+
+    .cal-ev-end {
+        margin-right: 1px;
+    }
+
+    .cal-holiday-name {
+        font-size: 7px;
     }
 
     .sch-item {
@@ -1913,6 +2250,29 @@ ul {
     .sch-action {
         margin-left: 0;
         margin-top: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cal-cell {
+        min-height: 44px;
+        padding: 1px;
+    }
+
+    .cal-date-num {
+        font-size: 10px;
+        padding-right: 2px;
+    }
+
+    .cal-event-label {
+        font-size: 7px;
+        line-height: 11px;
+        height: 11px;
+        padding: 0 1px;
+    }
+
+    .cal-holiday-name {
+        display: none;
     }
 }
 
@@ -2098,6 +2458,7 @@ ul {
     color: #666666;
 }
 
+/* contact 반응형 */
 @media (max-width: 1024px) {
     .contact-layout {
         gap: 40px;
@@ -2120,616 +2481,4 @@ ul {
     .contact-form {
         padding: 24px;
     }
-}
-
-/* ===================================
-   홈 교육과정 카드 – 텍스트 뱃지
-   =================================== */
-.card-badge-group {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-}
-
-.card-badge-item {
-    display: inline-block;
-    padding: 4px 12px;
-    font-size: 12px;
-    font-weight: 700;
-    border-radius: 4px;
-    letter-spacing: -0.01em;
-}
-
-.badge-cert {
-    background-color: #1C2955;
-    color: #ffffff;
-}
-
-.badge-grade {
-    background-color: #D94925;
-    color: #ffffff;
-}
-
-.card-badge-item.badge-single {
-    background-color: #FFCD4A;
-    color: #1C2955;
-}
-
-.badge-custom-tag {
-    background-color: rgba(217, 73, 37, 0.1);
-    color: #D94925;
-    border: 1px solid #D94925;
-}
-/* ===================================
-   교육과정 – 점검요원 사진 상단 포커스
-   =================================== */
-#inspection .course-image img {
-    object-position: center top;
-}
-
-/* ===================================
-   교육과정 – 3장 사진 갤러리
-   =================================== */
-.course-gallery {
-    flex-shrink: 0;
-    width: 420px;
-}
-
-.course-gallery-track {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.course-gallery-track img {
-    width: 100%;
-    border-radius: 12px;
-    object-fit: cover;
-    aspect-ratio: 4 / 3;
-    background-color: #e8e8e8;
-}
-
-/* 태블릿 */
-@media (max-width: 1024px) {
-    .course-gallery {
-        width: 340px;
-    }
-}
-
-/* 모바일: 가로 스와이프 */
-@media (max-width: 768px) {
-    .course-gallery {
-        width: 100%;
-    }
-
-    .course-gallery-track {
-        flex-direction: row;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        padding-bottom: 8px;
-    }
-
-    .course-gallery-track img {
-        width: 85%;
-        flex-shrink: 0;
-        scroll-snap-align: center;
-    }
-
-    .course-gallery-track::-webkit-scrollbar {
-        height: 4px;
-    }
-
-    .course-gallery-track::-webkit-scrollbar-track {
-        background: #f0f0f0;
-        border-radius: 2px;
-    }
-
-    .course-gallery-track::-webkit-scrollbar-thumb {
-        background: #D94925;
-        border-radius: 2px;
-    }
-}
-/* ── 달력 요일·공휴일 색상 ── */
-.cal-header .cal-sunday { color: #FF6B6B; }
-.cal-header .cal-saturday { color: #74B9FF; }
-.cal-cell.cal-holiday .cal-date-num { color: #D94925; }
-.cal-cell.cal-saturday-cell .cal-date-num { color: #3478F6; }
-/* ── 달력 셀 레이아웃 (과정명 표시용) ── */
-.cal-cell {
-    aspect-ratio: auto;
-    min-height: 72px;
-    padding: 4px 2px;
-    justify-content: flex-start;
-    align-items: stretch;
-}
-
-.cal-cell .cal-date-num {
-    display: block;
-    text-align: right;
-    padding-right: 4px;
-    margin-bottom: 2px;
-}
-
-.cal-events {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    overflow: hidden;
-}
-
-.cal-event-label {
-    display: block;
-    font-size: 10px;
-    font-weight: 600;
-    line-height: 1.3;
-    padding: 1px 3px;
-    border-radius: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-}
-
-.cal-event-open {
-    background-color: rgba(217, 73, 37, 0.15);
-    color: #D94925;
-}
-
-.cal-event-closed {
-    background-color: #f0f0f0;
-    color: #aaaaaa;
-}
-
-/* 달력 요일·공휴일 색상 */
-.cal-header .cal-sunday { color: #FF6B6B; }
-.cal-header .cal-saturday { color: #74B9FF; }
-.cal-cell.cal-holiday .cal-date-num { color: #D94925; }
-.cal-cell.cal-saturday-cell .cal-date-num { color: #3478F6; }
-
-/* 기존 has-event 배경 음영 제거 → 과정명 라벨로 대체 */
-.cal-cell.has-event {
-    background-color: transparent;
-}
-.cal-cell.has-event:hover {
-    background-color: rgba(28, 41, 85, 0.04);
-}
-
-/* 모바일 달력 */
-@media (max-width: 768px) {
-    .cal-cell {
-        min-height: 52px;
-        padding: 2px 1px;
-    }
-    .cal-event-label {
-        font-size: 8px;
-        padding: 1px 2px;
-    }
-}
-/* ── 달력 셀 레이아웃 (과정명 표시용) ── */
-.cal-cell {
-    aspect-ratio: auto !important;
-    min-height: 72px;
-    padding: 4px 2px;
-    justify-content: flex-start;
-    align-items: stretch;
-}
-
-.cal-cell .cal-date-num {
-    display: block;
-    text-align: right;
-    padding-right: 4px;
-    margin-bottom: 2px;
-}
-
-.cal-events {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    overflow: hidden;
-}
-
-.cal-event-label {
-    display: block;
-    font-size: 10px;
-    font-weight: 600;
-    line-height: 1.3;
-    padding: 1px 3px;
-    border-radius: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-}
-
-.cal-event-open {
-    background-color: rgba(217, 73, 37, 0.15);
-    color: #D94925;
-}
-
-.cal-event-closed {
-    background-color: #f0f0f0;
-    color: #aaaaaa;
-}
-
-/* 달력 요일·공휴일 색상 */
-.cal-header .cal-sunday { color: #FF6B6B; }
-.cal-header .cal-saturday { color: #74B9FF; }
-.cal-cell.cal-holiday .cal-date-num { color: #D94925; }
-.cal-cell.cal-saturday-cell .cal-date-num { color: #3478F6; }
-
-/* 기존 has-event 배경 음영 제거 */
-.cal-cell.has-event {
-    background-color: transparent;
-}
-.cal-cell.has-event:hover {
-    background-color: rgba(28, 41, 85, 0.04);
-}
-
-/* ── 지난 교육 섹션 ── */
-.past-schedule-section {
-    margin-top: 48px;
-    border-top: 1px solid #e8e8e8;
-    padding-top: 32px;
-}
-
-.past-toggle-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: none;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-family: 'Pretendard', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #1C2955;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    justify-content: center;
-}
-
-.past-toggle-btn:hover {
-    background-color: rgba(28, 41, 85, 0.04);
-    border-color: #1C2955;
-}
-
-.past-toggle-btn i {
-    font-size: 12px;
-    transition: transform 0.3s ease;
-}
-
-.past-schedule-list {
-    margin-top: 20px;
-}
-
-.sch-item.sch-past {
-    border-left-color: #cccccc;
-    opacity: 0.6;
-}
-
-.sch-item.sch-past:hover {
-    opacity: 0.8;
-}
-
-.status-done {
-    background-color: rgba(28, 41, 85, 0.08);
-    color: #888888;
-    border: 1px solid #ddd;
-}
-
-/* 모바일 달력 */
-@media (max-width: 768px) {
-    .cal-cell {
-        min-height: 52px;
-        padding: 2px 1px;
-    }
-    .cal-event-label {
-        font-size: 8px;
-        padding: 1px 2px;
-    }
-}
-/* ══════════════════════════════════
-   달력 – 과정명 라벨 & 연속 교육 바
-   ══════════════════════════════════ */
-
-/* 셀 높이 확보 */
-.cal-cell {
-    aspect-ratio: auto !important;
-    min-height: 72px;
-    padding: 4px 0 2px;
-    justify-content: flex-start;
-    align-items: stretch;
-}
-.cal-cell .cal-date-num {
-    display: block;
-    text-align: right;
-    padding-right: 4px;
-    margin-bottom: 2px;
-}
-
-/* 이벤트 컨테이너 */
-.cal-events {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    overflow: hidden;
-}
-
-/* 라벨 공통 */
-.cal-event-label {
-    display: block;
-    font-size: 10px;
-    font-weight: 600;
-    line-height: 16px;
-    height: 16px;
-    padding: 0 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-}
-
-/* 모집 중 / 마감 색상 */
-.cal-event-open { background-color: rgba(217, 73, 37, 0.18); color: #D94925; }
-.cal-event-closed { background-color: #ebebeb; color: #aaaaaa; }
-
-/* 연속 교육 – 시작/중간/끝/단일 모서리 */
-.cal-ev-single { border-radius: 3px; margin: 0 2px; }
-.cal-ev-start  { border-radius: 3px 0 0 3px; margin-left: 2px; margin-right: 0; }
-.cal-ev-mid    { border-radius: 0; margin: 0; }
-.cal-ev-end    { border-radius: 0 3px 3px 0; margin-left: 0; margin-right: 2px; }
-
-/* 요일·공휴일 색상 */
-.cal-header .cal-sunday { color: #FF6B6B; }
-.cal-header .cal-saturday { color: #74B9FF; }
-.cal-cell.cal-holiday .cal-date-num { color: #D94925; }
-.cal-cell.cal-saturday-cell .cal-date-num { color: #3478F6; }
-
-/* has-event 배경 음영 제거 */
-.cal-cell.has-event { background-color: transparent; }
-.cal-cell.has-event:hover { background-color: rgba(28, 41, 85, 0.04); }
-
-/* ══════════════════════════════════
-   지난 교육 섹션
-   ══════════════════════════════════ */
-.past-schedule-section {
-    margin-top: 48px;
-    border-top: 1px solid #e8e8e8;
-    padding-top: 32px;
-}
-.past-toggle-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: none;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-family: 'Pretendard', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #1C2955;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    justify-content: center;
-}
-.past-toggle-btn:hover {
-    background-color: rgba(28, 41, 85, 0.04);
-    border-color: #1C2955;
-}
-.past-toggle-btn i {
-    font-size: 12px;
-    transition: transform 0.3s ease;
-}
-.past-schedule-list { margin-top: 20px; }
-.sch-item.sch-past { border-left-color: #cccccc; opacity: 0.6; }
-.sch-item.sch-past:hover { opacity: 0.8; }
-.status-done {
-    background-color: rgba(28, 41, 85, 0.08);
-    color: #888888;
-    border: 1px solid #ddd;
-}
-
-/* 모바일 */
-@media (max-width: 768px) {
-    .cal-cell { min-height: 52px; padding: 2px 0 1px; }
-    .cal-event-label { font-size: 8px; line-height: 14px; height: 14px; padding: 0 2px; }
-}
-/* ══════════════════════════════════
-   달력 – 크기 확대 & 이전/다음달 표시
-   ══════════════════════════════════ */
-
-.calendar-grid {
-    max-width: 900px;
-}
-
-.cal-cell {
-    aspect-ratio: auto !important;
-    min-height: 84px;
-    padding: 4px 0 2px;
-    justify-content: flex-start;
-    align-items: stretch;
-}
-
-.cal-cell .cal-date-num {
-    display: block;
-    text-align: right;
-    padding-right: 6px;
-    margin-bottom: 2px;
-}
-
-/* 이전달·다음달 날짜 */
-.cal-cell.other-month {
-    background-color: #fafafa;
-}
-
-.cal-cell.other-month .cal-date-num {
-    color: #ccc;
-}
-
-.cal-cell.other-month.cal-holiday .cal-date-num {
-    color: #f0bfb5;
-}
-
-.cal-cell.other-month.cal-saturday-cell .cal-date-num {
-    color: #b5d4f5;
-}
-
-/* 이벤트 컨테이너 */
-.cal-events {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    overflow: hidden;
-}
-
-/* 라벨 공통 */
-.cal-event-label {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 18px;
-    height: 18px;
-    padding: 0 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-}
-
-/* 모집 중 / 마감 / 이전달·다음달 색상 */
-.cal-event-open {
-    background-color: rgba(217, 73, 37, 0.18);
-    color: #D94925;
-}
-
-.cal-event-closed {
-    background-color: #ebebeb;
-    color: #aaaaaa;
-}
-
-.cal-cell.other-month .cal-event-open {
-    background-color: rgba(217, 73, 37, 0.08);
-    color: rgba(217, 73, 37, 0.5);
-}
-
-.cal-cell.other-month .cal-event-closed {
-    background-color: #f3f3f3;
-    color: #ccc;
-}
-
-/* 연속 교육 바 – 시작/중간/끝/단일 */
-.cal-ev-single { border-radius: 3px; margin: 0 3px; }
-.cal-ev-start  { border-radius: 3px 0 0 3px; margin-left: 3px; margin-right: 0; }
-.cal-ev-mid    { border-radius: 0; margin: 0; }
-.cal-ev-end    { border-radius: 0 3px 3px 0; margin-left: 0; margin-right: 3px; }
-
-/* 요일·공휴일 색상 */
-.cal-header .cal-sunday { color: #FF6B6B; }
-.cal-header .cal-saturday { color: #74B9FF; }
-.cal-cell.cal-holiday .cal-date-num { color: #D94925; }
-.cal-cell.cal-saturday-cell .cal-date-num { color: #3478F6; }
-
-/* has-event 배경 */
-.cal-cell.has-event { background-color: transparent; }
-.cal-cell.has-event:hover { background-color: rgba(28, 41, 85, 0.04); }
-
-/* ══════════════════════════════════
-   지난 교육 섹션
-   ══════════════════════════════════ */
-.past-schedule-section {
-    margin-top: 48px;
-    border-top: 1px solid #e8e8e8;
-    padding-top: 32px;
-}
-
-.past-toggle-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: none;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-family: 'Pretendard', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #1C2955;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    justify-content: center;
-}
-
-.past-toggle-btn:hover {
-    background-color: rgba(28, 41, 85, 0.04);
-    border-color: #1C2955;
-}
-
-.past-toggle-btn i {
-    font-size: 12px;
-    transition: transform 0.3s ease;
-}
-
-.past-schedule-list { margin-top: 20px; }
-
-.sch-item.sch-past { border-left-color: #cccccc; opacity: 0.6; }
-.sch-item.sch-past:hover { opacity: 0.8; }
-
-.status-done {
-    background-color: rgba(28, 41, 85, 0.08);
-    color: #888888;
-    border: 1px solid #ddd;
-}
-
-/* ══════════════════════════════════
-   반응형 – 태블릿
-   ══════════════════════════════════ */
-@media (max-width: 1024px) {
-    .calendar-grid {
-        max-width: 100%;
-    }
-
-    .cal-cell {
-        min-height: 72px;
-    }
-
-    .cal-event-label {
-        font-size: 10px;
-        line-height: 16px;
-        height: 16px;
-        padding: 0 3px;
-    }
-}
-
-/* ══════════════════════════════════
-   반응형 – 모바일
-   ══════════════════════════════════ */
-@media (max-width: 768px) {
-    .cal-cell {
-        min-height: 56px;
-        padding: 2px 0 1px;
-    }
-
-    .cal-cell .cal-date-num {
-        font-size: 11px;
-        padding-right: 3px;
-    }
-
-    .cal-event-label {
-        font-size: 8px;
-        line-height: 13px;
-        height: 13px;
-        padding: 0 2px;
-    }
-
-    .cal-ev-single { margin: 0 1px; }
-    .cal-ev-start { margin-left: 1px; }
-    .cal-ev-end { margin-right: 1px; }
 }
