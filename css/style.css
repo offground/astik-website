@@ -2225,4 +2225,43 @@ ul {
 #inspection .course-image img {
     aspect-ratio: 2 / 3;
 }
+/* ===================================
+   홈 교육과정 카드 – 텍스트 뱃지
+   =================================== */
+.card-badge-group {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.card-badge-item {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 4px;
+    letter-spacing: -0.01em;
+}
+
+.badge-cert {
+    background-color: #1B3C61;
+    color: #ffffff;
+}
+
+.badge-grade {
+    background-color: #D94925;
+    color: #ffffff;
+}
+
+.badge-single {
+    background-color: #C8A951;
+    color: #ffffff;
+}
+
+.badge-custom-tag {
+    background-color: rgba(217, 73, 37, 0.1);
+    color: #D94925;
+    border: 1px solid #D94925;
+}
 
