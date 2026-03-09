@@ -2221,3 +2221,8 @@ ul {
         gap: 0;
     }
 }
+/* 모험시설 점검요원 - 세로 사진 대응 */
+#inspection .course-image img {
+    aspect-ratio: 2 / 3;
+}
+
