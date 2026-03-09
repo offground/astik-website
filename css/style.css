@@ -2256,9 +2256,23 @@ ul {
     }
 
     .sch-date {
+        flex-direction: row;
+        gap: 8px;
+        align-items: baseline;
         margin-right: 0;
         margin-bottom: 12px;
     }
+
+    .sch-divider {
+        width: 2px;
+        height: 16px;
+        margin: 0;
+    }
+
+    .sch-day {
+        font-size: 22px;
+    }
+
 
     .sch-action {
         margin-left: 0;
