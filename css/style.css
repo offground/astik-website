@@ -1083,7 +1083,37 @@ ul {
     font-size: 13px;
     color: #999999;
 }
+/* 서비스 대상 시설 사진 갤러리 */
+.facility-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+}
 
+.facility-item {
+    text-align: center;
+}
+
+.facility-item img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    background-color: #e8e8e8;
+    margin-bottom: 12px;
+    transition: transform 0.3s ease;
+}
+
+.facility-item img:hover {
+    transform: scale(1.03);
+}
+
+.facility-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1C2955;
+}
 /* about 반응형 */
 @media (max-width: 1024px) {
     .trainer-profile {
@@ -1100,6 +1130,58 @@ ul {
         margin-top: 60px;
         padding: 72px 24px 56px;
     }
+
+    .page-hero-title {
+        font-size: 28px;
+    }
+
+    .page-hero-desc {
+        font-size: 15px;
+    }
+
+    .philosophy-title {
+        font-size: 22px;
+    }
+
+    .target-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .trainer-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .trainer-photo {
+        width: 200px;
+    }
+
+    .trainer-info {
+        width: 100%;
+    }
+
+    .trainer-name {
+        font-size: 26px;
+    }
+
+    .cert-org {
+        justify-content: center;
+    }
+
+    .cert-list {
+        align-items: center;
+    }
+
+    .cert-list li {
+        justify-content: center;
+    }
+
+    .cert-sub {
+        padding-left: 12px;
+    }
+}
 
     .page-hero-title {
         font-size: 28px;
