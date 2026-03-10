@@ -716,7 +716,7 @@ ul {
 }
 
 /* ---------- 반응형: 태블릿 (공통) ---------- */
-@media (max-width: 1024px) {
+ (max-width: 1024px) {
     .service-cards {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -748,7 +748,7 @@ ul {
         margin-top: 60px;
         min-height: 500px;
         max-height: 700px;
-        background-position: 70% center;
+        background-position: 90% center;
     }
 
     .hero-title {
