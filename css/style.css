@@ -1123,6 +1123,11 @@ ul {
     .trainer-photo {
         width: 220px;
     }
+
+    .facility-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1148,56 +1153,14 @@ ul {
         gap: 16px;
     }
 
-    .trainer-profile {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .trainer-photo {
-        width: 200px;
-    }
-
-    .trainer-info {
-        width: 100%;
-    }
-
-    .trainer-name {
-        font-size: 26px;
-    }
-
-    .cert-org {
-        justify-content: center;
-    }
-
-    .cert-list {
-        align-items: center;
-    }
-
-    .cert-list li {
-        justify-content: center;
-    }
-
-    .cert-sub {
-        padding-left: 12px;
-    }
-}
-
-    .page-hero-title {
-        font-size: 28px;
-    }
-
-    .page-hero-desc {
-        font-size: 15px;
-    }
-
-    .philosophy-title {
-        font-size: 22px;
-    }
-
-    .target-grid {
-        grid-template-columns: 1fr;
+    .facility-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
+        margin-top: 32px;
+    }
+
+    .facility-label {
+        font-size: 13px;
     }
 
     .trainer-profile {
@@ -1234,6 +1197,7 @@ ul {
         padding-left: 12px;
     }
 }
+
 
 /* ===================================
    교육과정 페이지 (courses.html)
