@@ -748,6 +748,7 @@ ul {
         margin-top: 60px;
         min-height: 500px;
         max-height: 700px;
+        background-position: 70% center;
     }
 
     .hero-title {
@@ -813,11 +814,14 @@ ul {
     }
 
     /* 시설 갤러리 & 주석 – 모바일 */
-    .facility-sub { font-size: 11px; }
-    .facility-footnotes { margin-top: 28px; padding-top: 20px; }
-    .facility-footnotes p { font-size: 12px; }
-    .footnote-standard { font-size: 11px; }
+    .facility-sub { font-size: 10px; }
+    .facility-label { font-size: 12px; }
+    .facility-footnotes { margin-top: 40px; padding-top: 20px; }
+    .facility-footnotes p { font-size: 11px; }
+    .facility-footnotes strong { font-size: 11px; }
+    .footnote-standard { font-size: 10px; }
 }
+
 
 
 /* ===================================
