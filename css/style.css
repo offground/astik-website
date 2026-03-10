@@ -811,7 +811,14 @@ ul {
         margin-right: 0;
         margin-bottom: 12px;
     }
+
+    /* 시설 갤러리 & 주석 – 모바일 */
+    .facility-sub { font-size: 11px; }
+    .facility-footnotes { margin-top: 28px; padding-top: 20px; }
+    .facility-footnotes p { font-size: 12px; }
+    .footnote-standard { font-size: 11px; }
 }
+
 
 /* ===================================
    소개 페이지 (about.html)
@@ -2512,4 +2519,45 @@ ul {
     .contact-form {
         padding: 24px;
     }
+}
+/* 시설 갤러리 – 서브 텍스트 & 별표 주석 */
+.facility-sub {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: #666;
+    margin-top: 2px;
+}
+
+.facility-footnotes {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.facility-footnotes p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
+.facility-footnotes p:last-child {
+    margin-bottom: 0;
+}
+
+.facility-footnotes sup {
+    color: #D94925;
+    font-weight: 700;
+    margin-right: 2px;
+}
+
+.facility-footnotes strong {
+    color: #1C2955;
+    font-weight: 700;
+}
+
+.footnote-standard {
+    color: #999;
+    font-size: 12px;
 }
