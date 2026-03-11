@@ -5,7 +5,6 @@ function formatPhone(input) {
     if (num.length <= 3) {
         input.value = num;
     } else if (num.substring(0, 2) === '02') {
-        // 서울 02
         if (num.length <= 5) {
             input.value = num.substring(0, 2) + '-' + num.substring(2);
         } else if (num.length <= 9) {
@@ -14,16 +13,16 @@ function formatPhone(input) {
             input.value = num.substring(0, 2) + '-' + num.substring(2, 6) + '-' + num.substring(6, 10);
         }
     } else {
-        // 010, 031 등
         if (num.length <= 7) {
             input.value = num.substring(0, 3) + '-' + num.substring(3);
-        } else if (num.length <= 10) {
-            input.value = num.substring(0, 3) + '-' + num.substring(3, 6) + '-' + num.substring(6);
+        } else if (num.length <= 11) {
+            input.value = num.substring(0, 3) + '-' + num.substring(3, 7) + '-' + num.substring(7);
         } else {
-            input.value = num.substring(0, 3) + '-' + num.substring(3, 7) + '-' + num.substring(7, 11);
+            input.value = num.substring(0, 4) + '-' + num.substring(4, 8) + '-' + num.substring(8, 12);
         }
     }
 }
+
 
 /* 이메일 도메인 선택 */
 function selectEmailDomain(select) {
