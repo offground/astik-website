@@ -1,3 +1,64 @@
+// ══════════════════════════════════
+//  사이트 설정 (메뉴 on/off)
+// ══════════════════════════════════
+(function() {
+    var SETTINGS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQuHxjOjTjIBT2YBW74MLhS_oCcMAxnFw5XRX0ohcrwJhbjMVqmXiUUtpTQbZ9DcTRMvYEdgoyu8_cT/pub?gid=342543323&single=true&output=csv';
+
+    fetch(SETTINGS_CSV_URL)
+        .then(function(r) { return r.text(); })
+        .then(function(csv) {
+            var settings = {};
+            var lines = csv.trim().split('\n');
+            for (var i = 1; i < lines.length; i++) {
+                var parts = lines[i].split(',');
+                if (parts.length >= 2) {
+                    settings[parts[0].trim()] = parts[1].trim();
+                }
+            }
+
+            // 교육일정 메뉴 숨기기
+            if (settings['교육일정메뉴'] === '숨김') {
+                // PC 메뉴
+                var gnbLinks = document.querySelectorAll('.gnb-link');
+                gnbLinks.forEach(function(link) {
+                    if (link.getAttribute('href') === 'schedule.html') {
+                        link.parentElement.style.display = 'none';
+                    }
+                });
+                // 모바일 메뉴
+                var mobileLinks = document.querySelectorAll('.mobile-link');
+                mobileLinks.forEach(function(link) {
+                    if (link.getAttribute('href') === 'schedule.html') {
+                        link.parentElement.style.display = 'none';
+                    }
+                });
+            }
+
+            // 홈 교육일정 + CTA 섹션 숨기기
+            if (settings['홈교육일정'] === '숨김') {
+                var schedulePreview = document.querySelector('.schedule-preview');
+                var ctaSection = document.querySelector('.cta-section');
+                if (schedulePreview) schedulePreview.style.display = 'none';
+                if (ctaSection) ctaSection.style.display = 'none';
+            }
+
+            // 교육일정 페이지 일정 목록 숨기기
+            if (settings['일정목록'] === '숨김') {
+                var filters = document.querySelector('.schedule-filters');
+                var listSections = document.querySelectorAll('.schedule-list-section');
+                var pastSection = document.querySelector('.past-schedule-section');
+                var emptyState = document.querySelector('.schedule-empty-state');
+                if (filters) filters.style.display = 'none';
+                listSections.forEach(function(s) { s.style.display = 'none'; });
+                if (pastSection) pastSection.style.display = 'none';
+                if (emptyState) emptyState.style.display = 'none';
+            }
+        })
+        .catch(function() {
+            // 설정 로드 실패 시 기본값(모두 보임) 유지
+        });
+})();
+
 // ===================================
 // ASTIK 한국모험안전기술원 - Main JS
 // ===================================
