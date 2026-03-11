@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>관리자 | ASTIK</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <!-- ========== 로그인 화면 ========== -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <img src="images/logo-horizontal.png" alt="ASTIK" class="login-logo">
+            <h2>관리자 페이지</h2>
+            <form id="loginForm">
+                <input type="password" id="loginPw" class="login-input" placeholder="비밀번호 입력" autofocus>
+                <button type="submit" class="login-btn">로그인</button>
+            </form>
+            <p class="login-error hidden" id="loginError">비밀번호가 올바르지 않습니다.</p>
+        </div>
+    </div>
+
+    <!-- ========== 관리자 대시보드 ========== -->
+    <div class="admin-wrap hidden" id="adminWrap">
+
+        <!-- 상단 헤더 -->
+        <header class="admin-header">
+            <div class="admin-header-inner">
+                <div class="admin-header-left">
+                    <img src="images/logo-horizontal.png" alt="ASTIK" class="admin-logo">
+                    <span class="admin-badge">Admin</span>
+                </div>
+                <div class="admin-header-right">
+                    <a href="index.html" class="admin-link" target="_blank"><i class="fas fa-external-link-alt"></i> 사이트 보기</a>
+                    <button class="admin-logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> 로그아웃</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 탭 네비게이션 -->
+        <nav class="admin-tabs">
+            <button class="admin-tab active" data-tab="dashboard"><i class="fas fa-chart-line"></i> 대시보드</button>
+            <button class="admin-tab" data-tab="schedule"><i class="fas fa-calendar-plus"></i> 일정 관리</button>
+            <button class="admin-tab" data-tab="inquiries"><i class="fas fa-envelope"></i> 문의 내역</button>
+        </nav>
+
+        <!-- ========== 대시보드 탭 ========== -->
+        <div class="admin-content tab-content active" id="tab-dashboard">
+            <div class="dashboard-cards">
+                <div class="dash-card">
+                    <div class="dash-card-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="dash-card-info">
+                        <span class="dash-card-num" id="totalInquiries">-</span>
+                        <span class="dash-card-label">총 문의</span>
+                    </div>
+                </div>
+                <div class="dash-card">
+                    <div class="dash-card-icon icon-month"><i class="fas fa-envelope-open"></i></div>
+                    <div class="dash-card-info">
+                        <span class="dash-card-num" id="monthInquiries">-</span>
+                        <span class="dash-card-label">이번 달 문의</span>
+                    </div>
+                </div>
+                <div class="dash-card">
+                    <div class="dash-card-icon icon-schedule"><i class="fas fa-calendar-check"></i></div>
+                    <div class="dash-card-info">
+                        <span class="dash-card-num" id="upcomingSchedules">-</span>
+                        <span class="dash-card-label">예정 일정</span>
+                    </div>
+                </div>
+                <div class="dash-card">
+                    <div class="dash-card-icon icon-open"><i class="fas fa-bullhorn"></i></div>
+                    <div class="dash-card-info">
+                        <span class="dash-card-num" id="openSchedules">-</span>
+                        <span class="dash-card-label">모집 중</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 문의 유형 비율 -->
+            <div class="dashboard-section">
+                <h3>문의 유형 분포</h3>
+                <div class="type-bars" id="typeBars"></div>
+            </div>
+
+            <!-- 최근 문의 -->
+            <div class="dashboard-section">
+                <h3>최근 문의</h3>
+                <div class="recent-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>일시</th>
+                                <th>이름</th>
+                                <th>유형</th>
+                                <th>소속기관</th>
+                                <th>희망과정</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentInquiries"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== 일정 관리 탭 ========== -->
+        <div class="admin-content tab-content" id="tab-schedule">
+
+            <!-- 일정 추가 폼 -->
+            <div class="admin-form-section">
+                <h3>일정 추가</h3>
+                <form id="addScheduleForm" class="admin-form">
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label>시작일 *</label>
+                            <input type="date" id="schStartDate" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>종료일 *</label>
+                            <input type="date" id="schEndDate" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>유형 *</label>
+                            <select id="schType" required>
+                                <option value="교육">교육</option>
+                                <option value="행사">행사</option>
+                                <option value="휴무">휴무</option>
+                                <option value="내부">내부</option>
+                                <option value="메모">메모</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group flex-2">
+                            <label>제목 *</label>
+                            <input type="text" id="schTitle" placeholder="일정 제목" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>장소</label>
+                            <input type="text" id="schLocation" placeholder="장소">
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label>인원</label>
+                            <input type="text" id="schCapacity" placeholder="예: 4~10명">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>상태</label>
+                            <select id="schStatus">
+                                <option value="모집 중">모집 중</option>
+                                <option value="마감">마감</option>
+                                <option value="">해당없음</option>
+                            </select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>공개여부</label>
+                            <select id="schVisibility">
+                                <option value="공개">공개</option>
+                                <option value="비공개">비공개</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group flex-2">
+                            <label>비고</label>
+                            <input type="text" id="schNote" placeholder="비고 사항">
+                        </div>
+                    </div>
+                    <button type="submit" class="admin-submit-btn" id="addSchBtn">
+                        <i class="fas fa-plus"></i> 일정 추가
+                    </button>
+                </form>
+            </div>
+
+            <!-- 일정 목록 -->
+            <div class="admin-form-section">
+                <h3>전체 일정 <span class="count-badge" id="scheduleCount">0</span></h3>
+                <div class="recent-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>시작일</th>
+                                <th>종료일</th>
+                                <th>유형</th>
+                                <th>제목</th>
+                                <th>장소</th>
+                                <th>상태</th>
+                                <th>공개</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allSchedules"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== 문의 내역 탭 ========== -->
+        <div class="admin-content tab-content" id="tab-inquiries">
+            <div class="admin-form-section">
+                <h3>전체 문의 내역 <span class="count-badge" id="inquiryCount">0</span></h3>
+                <div class="recent-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>접수일시</th>
+                                <th>이름</th>
+                                <th>연락처</th>
+                                <th>이메일</th>
+                                <th>소속기관</th>
+                                <th>문의유형</th>
+                                <th>희망과정</th>
+                                <th>시작일</th>
+                                <th>인원</th>
+                                <th>문의내용</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allInquiries"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
