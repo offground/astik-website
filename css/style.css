@@ -1929,6 +1929,7 @@ ul {
     position: relative;
     min-height: 20px;
     margin-top: 2px;
+    min-width: 0;
 }
 
 .cal-event-label {
@@ -1940,33 +1941,35 @@ ul {
     padding: 0 4px;
     border-radius: 3px;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     cursor: pointer;
     margin-bottom: 2px;
+    min-width: 0;
 }
 
-/* 시작일 / 주 시작: 텍스트 표시, 너비 확장 */
-.cal-event-label.cal-ev-start,
-.cal-event-label.cal-ev-single {
-    border-radius: 3px 0 0 3px;
-}
-
+/* 1일 일정: 텍스트 잘림 */
 .cal-event-label.cal-ev-single {
     border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* 중간일: 투명 텍스트, 배경만 */
+/* 다일 시작: 옆 셀로 넘침 허용 */
+.cal-event-label.cal-ev-start {
+    border-radius: 3px 0 0 3px;
+    overflow: visible;
+}
+
+/* 중간일: 배경 유지, 텍스트 숨김 */
 .cal-event-label.cal-ev-mid {
     border-radius: 0;
-    color: transparent;
+    color: transparent !important;
     padding: 0;
 }
 
-/* 끝일: 배경만 */
+/* 끝일: 배경 유지, 텍스트 숨김 */
 .cal-event-label.cal-ev-end {
     border-radius: 0 3px 3px 0;
-    color: transparent;
+    color: transparent !important;
     padding: 0;
 }
 
@@ -1975,21 +1978,17 @@ ul {
     background-color: rgba(37, 99, 235, 0.15);
     color: #2563eb;
 }
-.cal-event-open.cal-ev-mid,
-.cal-event-open.cal-ev-end {
-    background-color: rgba(37, 99, 235, 0.15);
-    color: transparent;
-}
 
 /* 마감 */
 .cal-event-closed {
     background-color: rgba(220, 38, 38, 0.10);
     color: #dc2626;
 }
-.cal-event-closed.cal-ev-mid,
-.cal-event-closed.cal-ev-end {
-    background-color: rgba(220, 38, 38, 0.10);
-    color: transparent;
+
+/* 휴무 */
+.cal-event-holiday {
+    background-color: rgba(102, 102, 102, 0.15);
+    color: #666666;
 }
 
 /* 클릭 시 하이라이트 */
@@ -2006,6 +2005,7 @@ ul {
         padding: 0 2px;
     }
 }
+
 
 
 /* 기존 도트 (하위호환) */
