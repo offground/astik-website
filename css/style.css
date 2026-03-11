@@ -1963,15 +1963,18 @@ ul {
 .cal-event-label.cal-ev-mid {
     border-radius: 0;
     color: transparent !important;
-    padding: 0;
+    padding: 0 4px;
+    height: 20px;
 }
 
 /* 끝일: 배경 유지, 텍스트 숨김 */
 .cal-event-label.cal-ev-end {
     border-radius: 0 3px 3px 0;
     color: transparent !important;
-    padding: 0;
+    padding: 0 4px;
+    height: 20px;
 }
+
 
 /* 모집 중 */
 .cal-event-open {
