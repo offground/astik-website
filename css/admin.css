@@ -730,3 +730,36 @@ body {
         font-size: 13px;
     }
 }
+/* ========== 설정 탭 ========== */
+.setting-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.setting-item:last-of-type {
+    border-bottom: none;
+}
+
+.setting-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    cursor: pointer;
+}
+
+.setting-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #1C2955;
+    cursor: pointer;
+}
+
+.setting-desc {
+    font-size: 13px;
+    color: #888;
+    margin-top: 6px;
+    padding-left: 32px;
+}
