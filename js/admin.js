@@ -5,13 +5,13 @@
 (function () {
 
     // ── 설정 ──
-    // 비밀번호를 변경하려면 아래 값만 바꾸세요
     var ADMIN_PASSWORD = '1234';
 
     var SCHEDULE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQuHxjOjTjIBT2YBW74MLhS_oCcMAxnFw5XRX0ohcrwJhbjMVqmXiUUtpTQbZ9DcTRMvYEdgoyu8_cT/pub?output=csv';
-    var INQUIRY_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIirQhHIyUuu49-spRR-yGSYoRxfavdHzCTfyUuj4-hUJ5rt2VPtXvpMvMohArMWkGs7Uq0zij6Nlm/pub?output=csv';
+    var INQUIRY_CSV_URL  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIirQhHIyUuu49-spRR-yGSYoRxfavdHzCTfyUuj4-hUJ5rt2VPtXvpMvMohArMWkGs7Uq0zij6Nlm/pub?output=csv';
+    var SETTINGS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQuHxjOjTjIBT2YBW74MLhS_oCcMAxnFw5XRX0ohcrwJhbjMVqmXiUUtpTQbZ9DcTRMvYEdgoyu8_cT/pub?gid=342543323&single=true&output=csv';
 
-    // 일정 추가용 Apps Script URL
+    // 일정 추가 + 설정 저장 겸용 Apps Script URL
     var SCHEDULE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyowUNnmfJASb9iXhf8XNi95R6Sm_aK0NqClLWVhtIHgMlnzY8NZXkQ41-RDMSfRhnNiw/exec';
 
     var allInquiries = [];
@@ -79,6 +79,7 @@
     function loadAllData() {
         loadInquiries();
         loadSchedules();
+        loadSettings();
     }
 
     function parseCSVRows(csvText) {
@@ -93,7 +94,7 @@
 
     // ── 문의 데이터 ──
     function loadInquiries() {
-        fetch(INQUIRY_CSV_URL)
+        fetch(INQUIRY_CSV_URL + '&_t=' + Date.now())
             .then(function (r) { return r.text(); })
             .then(function (csv) {
                 var rows = parseCSVRows(csv);
@@ -123,7 +124,7 @@
 
     // ── 일정 데이터 ──
     function loadSchedules() {
-        fetch(SCHEDULE_CSV_URL)
+        fetch(SCHEDULE_CSV_URL + '&_t=' + Date.now())
             .then(function (r) { return r.text(); })
             .then(function (csv) {
                 var rows = parseCSVRows(csv);
@@ -242,6 +243,9 @@
         if (num.length === 10 && num.charAt(0) !== '0') {
             num = '0' + num;
         }
+        if (num.length === 12) {
+            return num.substring(0, 4) + '-' + num.substring(4, 8) + '-' + num.substring(8);
+        }
         if (num.length === 11) {
             return num.substring(0, 3) + '-' + num.substring(3, 7) + '-' + num.substring(7);
         }
@@ -280,7 +284,7 @@
         var sorted = allInquiries.slice().reverse();
         var html = '';
         sorted.forEach(function (inq) {
-var inqId = (inq.datetime || '').replace(/\s/g,'') + '_' + (inq.name || '').replace(/\s/g,'') + '_' + (inq.email || '').replace(/\s/g,'');
+            var inqId = (inq.datetime || '').replace(/\s/g, '') + '_' + (inq.name || '').replace(/\s/g, '') + '_' + (inq.email || '').replace(/\s/g, '');
             var isRead = readList.indexOf(inqId) !== -1;
             var phone = formatPhoneNumber(inq.phone);
 
@@ -429,6 +433,71 @@ var inqId = (inq.datetime || '').replace(/\s/g,'') + '_' + (inq.name || '').repl
         });
     }
 
+    // ══════════════════════════════════
+    //  설정 (교육일정 메뉴 / 홈 교육일정 / 일정목록 on·off)
+    // ══════════════════════════════════
+    function initSettings() {
+        var saveBtn = document.getElementById('saveSettingsBtn');
+        if (!saveBtn) return;
+
+        saveBtn.addEventListener('click', function () {
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 저장 중...';
+
+            var chkMenu = document.getElementById('settingScheduleMenu');
+            var chkHome = document.getElementById('settingHomeSchedule');
+            var chkList = document.getElementById('settingScheduleList');
+
+            var data = {
+                action: 'updateSettings',
+                교육일정메뉴: chkMenu && chkMenu.checked ? '보임' : '숨김',
+                홈교육일정: chkHome && chkHome.checked ? '보임' : '숨김',
+                일정목록: chkList && chkList.checked ? '보임' : '숨김'
+            };
+
+            fetch(SCHEDULE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(function () {
+                alert('설정이 저장되었습니다. 반영까지 1~2분 소요될 수 있습니다.');
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> 설정 저장';
+            })
+            .catch(function () {
+                alert('설정 저장에 실패했습니다. 다시 시도해주세요.');
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> 설정 저장';
+            });
+        });
+    }
+
+    function loadSettings() {
+        fetch(SETTINGS_CSV_URL + '&_t=' + Date.now())
+            .then(function (r) { return r.text(); })
+            .then(function (csv) {
+                var lines = csv.trim().split('\n');
+                var settings = {};
+                for (var i = 1; i < lines.length; i++) {
+                    var cols = lines[i].split(',').map(function (v) { return v.trim().replace(/^"|"$/g, ''); });
+                    if (cols[0]) settings[cols[0]] = cols[1] || '';
+                }
+
+                var chkMenu = document.getElementById('settingScheduleMenu');
+                var chkHome = document.getElementById('settingHomeSchedule');
+                var chkList = document.getElementById('settingScheduleList');
+
+                if (chkMenu) chkMenu.checked = (settings['교육일정메뉴'] !== '숨김');
+                if (chkHome) chkHome.checked = (settings['홈교육일정'] !== '숨김');
+                if (chkList) chkList.checked = (settings['일정목록'] !== '숨김');
+            })
+            .catch(function () {
+                // 설정 로드 실패 시 기본값(체크됨) 유지
+            });
+    }
+
     // ── 유틸 ──
     function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
@@ -446,6 +515,7 @@ var inqId = (inq.datetime || '').replace(/\s/g,'') + '_' + (inq.name || '').repl
         initLogin();
         initTabs();
         initScheduleForm();
+        initSettings();
     });
 
 })();
