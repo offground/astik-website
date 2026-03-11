@@ -242,32 +242,46 @@
     // ══════════════════════════════════
     //  문의 내역 탭
     // ══════════════════════════════════
-    function renderInquiries() {
-        var tbody = document.getElementById('allInquiries');
-        var countEl = document.getElementById('inquiryCount');
-        if (!tbody) return;
+   function renderInquiries() {
+    var wrap = document.getElementById('allInquiries');
+    var countEl = document.getElementById('inquiryCount');
+    if (!wrap) return;
 
-        if (countEl) countEl.textContent = allInquiries.length;
+    if (countEl) countEl.textContent = allInquiries.length;
 
-        var sorted = allInquiries.slice().reverse();
-        var html = '';
-        sorted.forEach(function (inq) {
-            html += '<tr>' +
-                '<td>' + inq.datetime + '</td>' +
-                '<td>' + inq.name + '</td>' +
-                '<td>' + inq.phone + '</td>' +
-                '<td>' + inq.email + '</td>' +
-                '<td>' + inq.organization + '</td>' +
-                '<td><span class="type-tag">' + inq.type + '</span></td>' +
-                '<td>' + inq.course + '</td>' +
-                '<td>' + inq.preferredDate + '</td>' +
-                '<td>' + inq.participants + '</td>' +
-                '<td class="msg-cell">' + inq.message + '</td>' +
-                '</tr>';
-        });
-
-        tbody.innerHTML = html || '<tr><td colspan="10" class="empty-cell">문의 내역이 없습니다.</td></tr>';
+    if (allInquiries.length === 0) {
+        wrap.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;">문의 내역이 없습니다.</p>';
+        return;
     }
+
+    var sorted = allInquiries.slice().reverse();
+    var html = '';
+    sorted.forEach(function(inq) {
+        html += '<div class="inquiry-card">';
+        html += '  <div class="inq-card-header">';
+        html += '    <span class="inq-type-badge">' + (inq.type || '-') + '</span>';
+        html += '    <span class="inq-date">' + (inq.datetime || '-') + '</span>';
+        html += '  </div>';
+        html += '  <div class="inq-card-body">';
+        html += '    <div class="inq-card-row"><span class="inq-label">이름</span><span class="inq-value">' + (inq.name || '-') + '</span></div>';
+        html += '    <div class="inq-card-row"><span class="inq-label">연락처</span><span class="inq-value">' + (inq.phone || '-') + '</span></div>';
+        html += '    <div class="inq-card-row"><span class="inq-label">이메일</span><span class="inq-value">' + (inq.email || '-') + '</span></div>';
+        html += '    <div class="inq-card-row"><span class="inq-label">소속기관</span><span class="inq-value">' + (inq.organization || '-') + '</span></div>';
+        html += '    <div class="inq-card-row"><span class="inq-label">희망과정</span><span class="inq-value">' + (inq.course || '-') + '</span></div>';
+        html += '    <div class="inq-card-row"><span class="inq-label">희망시작일</span><span class="inq-value">' + (inq.preferredDate || '-') + '</span></div>';
+        html += '    <div class="inq-card-row"><span class="inq-label">인원</span><span class="inq-value">' + (inq.participants || '-') + '</span></div>';
+        if (inq.message) {
+            html += '  <div class="inq-card-message">';
+            html += '    <span class="inq-label">문의내용</span>';
+            html += '    <p class="inq-message-text">' + inq.message + '</p>';
+            html += '  </div>';
+        }
+        html += '  </div>';
+        html += '</div>';
+    });
+    wrap.innerHTML = html;
+}
+
 
     // ══════════════════════════════════
     //  일정 관리 탭
