@@ -2322,6 +2322,10 @@ ul {
    문의 페이지 (contact.html)
    =================================== */
 
+.contact-info-list {
+    margin-top: 32px;
+}
+
 .contact-section {
     background-color: #ffffff;
 }
