@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(function () {
             contactLayout.style.display = 'none';
             formSuccess.classList.remove('hidden');
+            formSuccess.style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         })
         .catch(function (error) {
@@ -55,15 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var inquirySelect = document.getElementById('inquiry-type');
     var courseGroup = document.getElementById('course').closest('.form-group');
 
-if (inquirySelect && courseGroup) {
-    inquirySelect.addEventListener('change', function () {
-        if (this.value === '안전장비 구입' || this.value === '기타 문의') {
-            courseGroup.style.display = 'none';
-        } else {
-            courseGroup.style.display = 'block';
-        }
-    });
-}
-
+    if (inquirySelect && courseGroup) {
+        inquirySelect.addEventListener('change', function () {
+            if (this.value === '안전장비 구입' || this.value === '기타 문의') {
+                courseGroup.style.display = 'none';
+            } else {
+                courseGroup.style.display = 'block';
+            }
+        });
+    }
 
 });
