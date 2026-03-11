@@ -2381,6 +2381,9 @@ ul {
     font-size: 13px;
     color: #666666;
     line-height: 1.6;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .contact-form-side {
