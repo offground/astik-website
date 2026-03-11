@@ -2646,3 +2646,7 @@ ul {
     color: #888888;
     border: 1px solid #ccc;
 }
+.footer-admin {
+    color: inherit;
+    text-decoration: none;
+}
