@@ -242,7 +242,7 @@
     // ══════════════════════════════════
     //  문의 내역 탭
     // ══════════════════════════════════
-   function renderInquiries() {
+function renderInquiries() {
     var wrap = document.getElementById('allInquiries');
     var countEl = document.getElementById('inquiryCount');
     if (!wrap) return;
@@ -250,38 +250,91 @@
     if (countEl) countEl.textContent = allInquiries.length;
 
     if (allInquiries.length === 0) {
-        wrap.innerHTML = '<p style="text-align:center;color:#999;padding:40px 0;">문의 내역이 없습니다.</p>';
+        wrap.innerHTML = '<p class="inquiry-empty">문의 내역이 없습니다.</p>';
         return;
     }
 
+    // 읽음 상태 로컬스토리지에서 불러오기
+    var readList = JSON.parse(localStorage.getItem('astik_read_inquiries') || '[]');
+
     var sorted = allInquiries.slice().reverse();
     var html = '';
-    sorted.forEach(function(inq) {
-        html += '<div class="inquiry-card">';
-        html += '  <div class="inq-card-header">';
-        html += '    <span class="inq-type-badge">' + (inq.type || '-') + '</span>';
-        html += '    <span class="inq-date">' + (inq.datetime || '-') + '</span>';
+    sorted.forEach(function(inq, idx) {
+        var inqId = (inq.datetime || '') + '_' + (inq.name || '') + '_' + idx;
+        var isRead = readList.indexOf(inqId) !== -1;
+
+        html += '<div class="inquiry-item' + (isRead ? ' read' : '') + '" data-inq-id="' + inqId + '">';
+
+        // 요약 행 (접힌 상태에서 보이는 부분)
+        html += '  <div class="inq-summary">';
+        html += '    <div class="inq-summary-left">';
+        html += '      <span class="inq-unread-dot' + (isRead ? ' hidden' : '') + '"></span>';
+        html += '      <span class="inq-summary-type">' + (inq.type || '기타') + '</span>';
+        html += '      <span class="inq-summary-name">' + (inq.name || '-') + '</span>';
+        html += '      <span class="inq-summary-org">' + (inq.organization || '') + '</span>';
+        html += '    </div>';
+        html += '    <div class="inq-summary-right">';
+        html += '      <span class="inq-summary-date">' + (inq.datetime || '-') + '</span>';
+        html += '      <i class="fas fa-chevron-down inq-chevron"></i>';
+        html += '    </div>';
         html += '  </div>';
-        html += '  <div class="inq-card-body">';
-        html += '    <div class="inq-card-row"><span class="inq-label">이름</span><span class="inq-value">' + (inq.name || '-') + '</span></div>';
-        html += '    <div class="inq-card-row"><span class="inq-label">연락처</span><span class="inq-value">' + (inq.phone || '-') + '</span></div>';
-        html += '    <div class="inq-card-row"><span class="inq-label">이메일</span><span class="inq-value">' + (inq.email || '-') + '</span></div>';
-        html += '    <div class="inq-card-row"><span class="inq-label">소속기관</span><span class="inq-value">' + (inq.organization || '-') + '</span></div>';
-        html += '    <div class="inq-card-row"><span class="inq-label">희망과정</span><span class="inq-value">' + (inq.course || '-') + '</span></div>';
-        html += '    <div class="inq-card-row"><span class="inq-label">희망시작일</span><span class="inq-value">' + (inq.preferredDate || '-') + '</span></div>';
-        html += '    <div class="inq-card-row"><span class="inq-label">인원</span><span class="inq-value">' + (inq.participants || '-') + '</span></div>';
+
+        // 상세 내용 (펼쳐지는 부분)
+        html += '  <div class="inq-detail">';
+        html += '    <div class="inq-detail-grid">';
+        html += '      <div class="inq-field"><div class="inq-field-label">이름</div><div class="inq-field-value">' + (inq.name || '-') + '</div></div>';
+        html += '      <div class="inq-field"><div class="inq-field-label">연락처</div><div class="inq-field-value">' + (inq.phone || '-') + '</div></div>';
+        html += '      <div class="inq-field"><div class="inq-field-label">이메일</div><div class="inq-field-value">' + (inq.email || '-') + '</div></div>';
+        html += '      <div class="inq-field"><div class="inq-field-label">소속기관</div><div class="inq-field-value">' + (inq.organization || '-') + '</div></div>';
+        html += '      <div class="inq-field"><div class="inq-field-label">문의유형</div><div class="inq-field-value">' + (inq.type || '-') + '</div></div>';
+        html += '      <div class="inq-field"><div class="inq-field-label">희망과정</div><div class="inq-field-value">' + (inq.course || '-') + '</div></div>';
+        html += '      <div class="inq-field"><div class="inq-field-label">희망시작일</div><div class="inq-field-value">' + (inq.preferredDate || '-') + '</div></div>';
+        html += '      <div class="inq-field"><div class="inq-field-label">인원</div><div class="inq-field-value">' + (inq.participants || '-') + '</div></div>';
+        html += '    </div>';
         if (inq.message) {
-            html += '  <div class="inq-card-message">';
-            html += '    <span class="inq-label">문의내용</span>';
-            html += '    <p class="inq-message-text">' + inq.message + '</p>';
-            html += '  </div>';
+            html += '    <div class="inq-message-section">';
+            html += '      <div class="inq-field-label">문의내용</div>';
+            html += '      <div class="inq-message-box">' + inq.message + '</div>';
+            html += '    </div>';
         }
         html += '  </div>';
+
         html += '</div>';
     });
     wrap.innerHTML = html;
-}
 
+    // 클릭 이벤트: 펼치기/접기 + 읽음 처리
+    var items = wrap.querySelectorAll('.inquiry-item');
+    items.forEach(function(item) {
+        var summary = item.querySelector('.inq-summary');
+        summary.addEventListener('click', function() {
+            var wasOpen = item.classList.contains('open');
+
+            // 다른 열린 항목 닫기
+            items.forEach(function(other) {
+                other.classList.remove('open');
+            });
+
+            if (!wasOpen) {
+                item.classList.add('open');
+
+                // 읽음 처리
+                if (!item.classList.contains('read')) {
+                    item.classList.add('read');
+                    var dot = item.querySelector('.inq-unread-dot');
+                    if (dot) dot.classList.add('hidden');
+
+                    var id = item.getAttribute('data-inq-id');
+                    var stored = JSON.parse(localStorage.getItem('astik_read_inquiries') || '[]');
+                    if (stored.indexOf(id) === -1) {
+                        stored.push(id);
+                        localStorage.setItem('astik_read_inquiries', JSON.stringify(stored));
+                    }
+                }
+            }
+        });
+    });
+}
 
     // ══════════════════════════════════
     //  일정 관리 탭
