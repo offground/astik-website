@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var form = document.getElementById('contactForm');
     var submitBtn = document.getElementById('submitBtn');
     var formSuccess = document.getElementById('formSuccess');
+    var contactLayout = document.querySelector('.contact-layout');
 
     if (!form) return;
 
@@ -16,16 +17,19 @@ document.addEventListener('DOMContentLoaded', function () {
         submitBtn.disabled = true;
         submitBtn.textContent = '전송 중...';
 
+        var inquiryType = document.getElementById('inquiry-type').value;
+
         var formData = {
             name: document.getElementById('name').value,
             phone: document.getElementById('phone').value,
             email: document.getElementById('email').value,
             organization: document.getElementById('organization').value,
-            inquiry_type: document.getElementById('inquiry-type').value,
+            inquiry_type: inquiryType,
             course: document.getElementById('course').value,
             preferred_date: document.getElementById('preferred-date').value,
             participants: document.getElementById('participants').value,
-            message: document.getElementById('message').value
+            message: document.getElementById('message').value,
+            subject: '[ASTIK 문의] ' + inquiryType
         };
 
         fetch(form.action, {
@@ -37,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify(formData)
         })
         .then(function () {
-            form.style.display = 'none';
+            contactLayout.style.display = 'none';
             formSuccess.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         })
@@ -48,12 +52,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    var inquiryType = document.getElementById('inquiry-type');
+    var inquirySelect = document.getElementById('inquiry-type');
     var courseGroup = document.getElementById('course').closest('.form-group');
 
-    if (inquiryType && courseGroup) {
-        inquiryType.addEventListener('change', function () {
-            if (this.value === '기타 문의') {
+    if (inquirySelect && courseGroup) {
+        inquirySelect.addEventListener('change', function () {
+            if (this.value === '기타 문의' || this.value === '장비 구입') {
                 courseGroup.style.display = 'none';
             } else {
                 courseGroup.style.display = 'block';
