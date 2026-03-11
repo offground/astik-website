@@ -2572,30 +2572,39 @@ ul {
     color: #999;
     font-size: 12px;
 }
-/* ========== FAQ 아코디언 ========== */
-.faq-section {
-    padding-bottom: 0;
+/* ========== FAQ (문의 페이지 왼쪽 영역 내부) ========== */
+.contact-faq {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid #e8e8e8;
 }
 
-.faq-list {
-    max-width: 800px;
-    margin: 0 auto;
+.contact-faq-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1C2955;
+    margin-bottom: 8px;
 }
 
-.faq-item {
-    border-bottom: 1px solid #e8e8e8;
+.contact-faq .faq-list {
+    max-width: none;
+    margin: 0;
 }
 
-.faq-item:last-child {
+.contact-faq .faq-item {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.contact-faq .faq-item:last-child {
     border-bottom: none;
 }
 
-.faq-question {
+.contact-faq .faq-question {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 24px 0;
+    gap: 10px;
+    padding: 16px 0;
     background: none;
     border: none;
     cursor: pointer;
@@ -2603,72 +2612,79 @@ ul {
     font-family: 'Pretendard', sans-serif;
 }
 
-.faq-number {
+.contact-faq .faq-number {
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #FFCD4A;
     color: #1C2955;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
     border-radius: 50%;
 }
 
-.faq-q-text {
+.contact-faq .faq-q-text {
     flex: 1;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color: #1C2955;
     line-height: 1.5;
 }
 
-.faq-icon {
+.contact-faq .faq-icon {
     flex-shrink: 0;
-    font-size: 14px;
+    font-size: 12px;
     color: #999;
     transition: transform 0.3s ease;
 }
 
-.faq-item.active .faq-icon {
+.contact-faq .faq-item.active .faq-icon {
     transform: rotate(180deg);
 }
 
-.faq-answer {
+.contact-faq .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
+    transition: max-height 0.3s ease;
 }
 
-.faq-item.active .faq-answer {
-    max-height: 200px;
+.contact-faq .faq-item.active .faq-answer {
+    max-height: 300px;
 }
 
-.faq-answer p {
-    padding: 0 0 24px 52px;
-    font-size: 14px;
+.contact-faq .faq-answer p {
+    padding: 0 0 16px 38px;
+    font-size: 13px;
     color: #666;
     line-height: 1.8;
 }
 
 /* ---------- FAQ 모바일 ---------- */
 @media (max-width: 768px) {
-    .faq-question {
-        gap: 12px;
-        padding: 20px 0;
+    .contact-faq {
+        margin-top: 32px;
+        padding-top: 24px;
     }
-    .faq-number {
-        width: 30px;
-        height: 30px;
-        font-size: 11px;
+    .contact-faq-title {
+        font-size: 15px;
     }
-    .faq-q-text {
-        font-size: 14px;
+    .contact-faq .faq-question {
+        gap: 8px;
+        padding: 14px 0;
     }
-    .faq-answer p {
-        padding: 0 0 20px 42px;
+    .contact-faq .faq-number {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+    .contact-faq .faq-q-text {
         font-size: 13px;
+    }
+    .contact-faq .faq-answer p {
+        padding: 0 0 14px 32px;
+        font-size: 12px;
     }
 }
