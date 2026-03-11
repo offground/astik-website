@@ -280,9 +280,7 @@
         var sorted = allInquiries.slice().reverse();
         var html = '';
         sorted.forEach(function (inq) {
-            var inqId = btoa(unescape(encodeURIComponent(
-                (inq.datetime || '') + '|' + (inq.name || '') + '|' + (inq.email || '') + '|' + (inq.message || '')
-            )));
+var inqId = (inq.datetime || '').replace(/\s/g,'') + '_' + (inq.name || '').replace(/\s/g,'') + '_' + (inq.email || '').replace(/\s/g,'');
             var isRead = readList.indexOf(inqId) !== -1;
             var phone = formatPhoneNumber(inq.phone);
 
