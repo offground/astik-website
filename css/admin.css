@@ -476,6 +476,203 @@ body {
     cursor: default;
 }
 
+/* ========== 문의 내역 리스트 ========== */
+.inquiry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.inquiry-empty {
+    text-align: center;
+    color: #999;
+    padding: 60px 0;
+    font-size: 14px;
+}
+
+/* --- 개별 문의 항목 --- */
+.inquiry-item {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.inquiry-item:first-child {
+    border-top: 1px solid #e5e7eb;
+}
+
+/* --- 요약 행 --- */
+.inq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.inq-summary:hover {
+    background-color: #f9fafb;
+}
+
+.inq-summary-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.inq-summary-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+/* 안읽음 점 */
+.inq-unread-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2563eb;
+    flex-shrink: 0;
+}
+
+.inq-unread-dot.hidden {
+    visibility: hidden;
+}
+
+/* 문의유형 뱃지 */
+.inq-summary-type {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #1C2955;
+    color: #fff;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* 이름 */
+.inq-summary-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111;
+    white-space: nowrap;
+}
+
+/* 소속 */
+.inq-summary-org {
+    font-size: 13px;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 날짜 */
+.inq-summary-date {
+    font-size: 13px;
+    color: #999;
+    white-space: nowrap;
+}
+
+/* 화살표 */
+.inq-chevron {
+    font-size: 12px;
+    color: #bbb;
+    transition: transform 0.25s;
+}
+
+/* --- 읽음 상태 --- */
+.inquiry-item.read .inq-summary-name {
+    font-weight: 400;
+    color: #999;
+}
+
+.inquiry-item.read .inq-summary-type {
+    background: #d1d5db;
+    color: #6b7280;
+}
+
+.inquiry-item.read .inq-summary-org {
+    color: #bbb;
+}
+
+/* --- 펼침 상태 --- */
+.inquiry-item.open .inq-chevron {
+    transform: rotate(180deg);
+}
+
+.inquiry-item.open .inq-summary {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* --- 상세 내용 (기본 숨김) --- */
+.inq-detail {
+    display: none;
+    padding: 20px 20px 24px;
+    background: #fff;
+}
+
+.inquiry-item.open .inq-detail {
+    display: block;
+}
+
+/* 상세 그리드 */
+.inq-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+
+.inq-field {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.inq-field-label {
+    width: 80px;
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1C2955;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.inq-field-value {
+    font-size: 14px;
+    color: #222;
+    word-break: break-word;
+}
+
+/* 문의내용 영역 */
+.inq-message-section {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.inq-message-section .inq-field-label {
+    margin-bottom: 8px;
+    width: auto;
+}
+
+.inq-message-box {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: #f8f9fb;
+    padding: 16px 20px;
+    border-radius: 8px;
+    border: 1px solid #eef0f3;
+}
+
 /* ========== 반응형 ========== */
 @media (max-width: 1024px) {
     .dashboard-cards {
@@ -503,5 +700,33 @@ body {
         padding: 12px 0;
         gap: 8px;
     }
+
+    .inq-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 14px 16px;
+    }
+
+    .inq-summary-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .inq-detail {
+        padding: 16px;
+    }
+
+    .inq-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .inq-field-label {
+        width: 70px;
+        font-size: 11px;
+    }
+
+    .inq-field-value {
+        font-size: 13px;
+    }
 }
-undefined
