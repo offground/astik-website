@@ -12,7 +12,7 @@
     var INQUIRY_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIirQhHIyUuu49-spRR-yGSYoRxfavdHzCTfyUuj4-hUJ5rt2VPtXvpMvMohArMWkGs7Uq0zij6Nlm/pub?output=csv';
 
     // 일정 추가용 Apps Script URL (아래에서 새로 배포 필요)
-    var SCHEDULE_SCRIPT_URL = '';
+    var SCHEDULE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyowUNnmfJASb9iXhf8XNi95R6Sm_aK0NqClLWVhtIHgMlnzY8NZXkQ41-RDMSfRhnNiw/exec';
 
     var allInquiries = [];
     var allSchedules = [];
