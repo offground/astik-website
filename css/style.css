@@ -2189,27 +2189,14 @@ ul {
     gap: 8px;
 }
 
-.email-input-wrap input[type="text"] {
+.email-input-wrap .form-input {
     flex: 1;
     min-width: 0;
-    padding: 12px 14px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
-    font-family: 'Pretendard', sans-serif;
-    color: #333;
-    background-color: #ffffff;
-    transition: border-color 0.3s ease;
 }
 
-.email-input-wrap input[type="text"]:focus {
-    outline: none;
-    border-color: #1C2955;
-}
-
-.email-input-wrap input[readonly] {
-    background-color: #f5f5f5;
-    color: #666;
+.email-input-wrap .form-select {
+    width: 140px;
+    flex-shrink: 0;
 }
 
 .email-at {
@@ -2219,23 +2206,20 @@ ul {
     flex-shrink: 0;
 }
 
-.email-input-wrap select {
-    width: 140px;
-    flex-shrink: 0;
-    padding: 12px 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
-    font-family: 'Pretendard', sans-serif;
-    color: #333;
-    background-color: #ffffff;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-}
+@media (max-width: 768px) {
+    .email-input-wrap {
+        flex-wrap: wrap;
+    }
 
-.email-input-wrap select:focus {
-    outline: none;
-    border-color: #1C2955;
+    .email-input-wrap .form-input {
+        flex: 1 1 calc(50% - 20px);
+        min-width: 80px;
+    }
+
+    .email-input-wrap .form-select {
+        width: 100%;
+        margin-top: 6px;
+    }
 }
 
 /* ===================================
