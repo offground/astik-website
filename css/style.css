@@ -273,7 +273,6 @@ ul {
     color: #1C2955;
     font-weight: 700;
 }
-
 /* ---------- 히어로 섹션 ---------- */
 .hero {
     position: relative;
@@ -296,11 +295,7 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(28, 41, 85, 0.75) 0%,
-        rgba(28, 41, 85, 0.6) 100%
-    );
+    background: linear-gradient(to bottom, rgba(28, 41, 85, 0.75) 0%, rgba(28, 41, 85, 0.6) 100%);
 }
 
 .hero-content {
@@ -455,7 +450,7 @@ ul {
     color: #D94925;
 }
 
-/* ---------- 홈 교육과정 카드 – 텍스트 뱃지 ---------- */
+/* ---------- 홈 교육과정 카드 뱃지 ---------- */
 .card-badge-group {
     display: flex;
     gap: 6px;
@@ -703,6 +698,11 @@ ul {
     color: rgba(255, 255, 255, 0.4);
 }
 
+.footer-admin {
+    color: inherit;
+    text-decoration: none;
+}
+
 /* ---------- 스크롤 애니메이션 ---------- */
 .fade-in {
     opacity: 0;
@@ -714,115 +714,6 @@ ul {
     opacity: 1;
     transform: translateY(0);
 }
-
-/* ---------- 반응형: 태블릿 (공통) ---------- */
- @media (max-width: 1024px) {
-    .service-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* ---------- 반응형: 모바일 (공통) ---------- */
-@media (max-width: 768px) {
-    .gnb {
-        display: none;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    .btn-contact-sm {
-        display: inline-block;
-    }
-
-    .header-inner {
-        height: 60px;
-    }
-
-    .logo-img {
-        height: 28px;
-    }
-
-    .hero {
-        margin-top: 60px;
-        min-height: 500px;
-        max-height: 700px;
-        background-position: 90% center;
-    }
-
-    .hero-title {
-        font-size: 28px;
-    }
-
-    .hero-subtitle {
-        font-size: 15px;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero-buttons .btn {
-        width: 100%;
-        max-width: 280px;
-    }
-
-    .section {
-        padding: 64px 0;
-    }
-
-    .section-title {
-        font-size: 24px;
-    }
-
-    .service-cards {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .trust-logos {
-        gap: 40px;
-    }
-
-    .stats-grid {
-        gap: 40px;
-    }
-
-    .stat-number {
-        font-size: 36px;
-    }
-
-    .cta-title {
-        font-size: 24px;
-    }
-
-    .footer-inner {
-        flex-direction: column;
-        gap: 24px;
-    }
-
-    .schedule-item {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .schedule-date {
-        margin-right: 0;
-        margin-bottom: 12px;
-    }
-
-    /* 시설 갤러리 & 주석 – 모바일 */
-    .facility-sub { font-size: 10px; }
-    .facility-label { font-size: 12px; }
-    .facility-footnotes { margin-top: 40px; padding-top: 20px; }
-    .facility-footnotes p { font-size: 11px; }
-    .facility-footnotes strong { font-size: 11px; }
-    .footnote-standard { font-size: 10px; }
-}
-
-
 
 /* ===================================
    소개 페이지 (about.html)
@@ -1094,7 +985,8 @@ ul {
     font-size: 13px;
     color: #999999;
 }
-/* 서비스 대상 시설 사진 갤러리 */
+
+/* ---------- 시설 갤러리 ---------- */
 .facility-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1125,91 +1017,47 @@ ul {
     font-weight: 600;
     color: #1C2955;
 }
-/* about 반응형 */
-@media (max-width: 1024px) {
-    .trainer-profile {
-        gap: 40px;
-    }
 
-    .trainer-photo {
-        width: 220px;
-    }
-
-    .facility-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
+.facility-sub {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: #666;
+    margin-top: 2px;
 }
 
-@media (max-width: 768px) {
-    .page-hero {
-        margin-top: 60px;
-        padding: 72px 24px 56px;
-    }
-
-    .page-hero-title {
-        font-size: 28px;
-    }
-
-    .page-hero-desc {
-        font-size: 15px;
-    }
-
-    .philosophy-title {
-        font-size: 22px;
-    }
-
-    .target-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .facility-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin-top: 32px;
-    }
-
-    .facility-label {
-        font-size: 13px;
-    }
-
-    .trainer-profile {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .trainer-photo {
-        width: 200px;
-    }
-
-    .trainer-info {
-        width: 100%;
-    }
-
-    .trainer-name {
-        font-size: 26px;
-    }
-
-    .cert-org {
-        justify-content: center;
-    }
-
-    .cert-list {
-        align-items: center;
-    }
-
-    .cert-list li {
-        justify-content: center;
-    }
-
-    .cert-sub {
-        padding-left: 12px;
-    }
+.facility-footnotes {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
 }
 
+.facility-footnotes p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
 
+.facility-footnotes p:last-child {
+    margin-bottom: 0;
+}
+
+.facility-footnotes sup {
+    color: #D94925;
+    font-weight: 700;
+    margin-right: 2px;
+}
+
+.facility-footnotes strong {
+    color: #1C2955;
+    font-weight: 700;
+}
+
+.footnote-standard {
+    color: #999;
+    font-size: 12px;
+}
 /* ===================================
    교육과정 페이지 (courses.html)
    =================================== */
@@ -1577,7 +1425,7 @@ ul {
     text-align: center;
 }
 
-/* 교육과정 – 3장 사진 갤러리 */
+/* ---------- 교육과정 3장 사진 갤러리 ---------- */
 .course-gallery {
     flex-shrink: 0;
     width: 420px;
@@ -1595,89 +1443,6 @@ ul {
     object-fit: cover;
     aspect-ratio: 4 / 3;
     background-color: #e8e8e8;
-}
-
-/* courses 반응형 */
-@media (max-width: 1024px) {
-    .course-layout {
-        gap: 40px;
-    }
-
-    .course-image {
-        width: 340px;
-    }
-
-    .course-gallery {
-        width: 340px;
-    }
-}
-
-@media (max-width: 768px) {
-    .course-track-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .course-layout,
-    .layout-reverse {
-        flex-direction: column;
-    }
-
-    .course-image {
-        width: 100%;
-    }
-
-    .course-detail {
-        padding: 48px 0;
-    }
-
-    .course-name {
-        font-size: 22px;
-    }
-
-    .course-grade {
-        padding: 16px;
-    }
-
-    .example-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .spec-label {
-        width: 70px;
-    }
-
-    .course-gallery {
-        width: 100%;
-    }
-
-    .course-gallery-track {
-        flex-direction: row;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        padding-bottom: 8px;
-    }
-
-    .course-gallery-track img {
-        width: 85%;
-        flex-shrink: 0;
-        scroll-snap-align: center;
-    }
-
-    .course-gallery-track::-webkit-scrollbar {
-        height: 4px;
-    }
-
-    .course-gallery-track::-webkit-scrollbar-track {
-        background: #f0f0f0;
-        border-radius: 2px;
-    }
-
-    .course-gallery-track::-webkit-scrollbar-thumb {
-        background: #D94925;
-        border-radius: 2px;
-    }
 }
 
 /* ===================================
@@ -1716,7 +1481,6 @@ ul {
     line-height: 1.6;
 }
 
-/* 필터 버튼 */
 .schedule-filters {
     display: flex;
     gap: 8px;
@@ -1746,7 +1510,6 @@ ul {
     color: #ffffff;
 }
 
-/* 달력 네비게이션 */
 .calendar-nav {
     display: flex;
     align-items: center;
@@ -1784,7 +1547,6 @@ ul {
     text-align: center;
 }
 
-/* 달력 그리드 */
 .calendar-grid {
     max-width: 900px;
     margin: 0 auto 60px;
@@ -1820,7 +1582,6 @@ ul {
     grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
-/* 개별 셀 */
 .cal-cell {
     min-height: 84px;
     padding: 4px 0 2px;
@@ -1859,7 +1620,6 @@ ul {
     background-color: rgba(28, 41, 85, 0.04);
 }
 
-/* 이전달·다음달 날짜 */
 .cal-cell.other-month {
     background-color: #fafafa;
 }
@@ -1876,8 +1636,6 @@ ul {
     color: #b5d4f5;
 }
 
-
-/* 날짜 숫자 */
 .cal-date-num {
     display: block;
     text-align: right;
@@ -1900,7 +1658,6 @@ ul {
     color: #D94925;
 }
 
-/* 공휴일 이름 */
 .cal-holiday-name {
     font-size: 9px;
     color: #D94925;
@@ -1916,15 +1673,7 @@ ul {
     color: rgba(217, 73, 37, 0.4);
 }
 
-/* 이벤트 컨테이너 */
-.cal-events {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    overflow: hidden;
-}
-
-/* ========== 달력 이벤트 바 ========== */
+/* ---------- 달력 이벤트 바 ---------- */
 .cal-events {
     position: relative;
     min-height: 20px;
@@ -1946,20 +1695,17 @@ ul {
     min-width: 0;
 }
 
-/* 1일 일정: 텍스트 잘림 */
 .cal-event-label.cal-ev-single {
     border-radius: 3px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* 다일 시작: 옆 셀로 넘침 허용 */
 .cal-event-label.cal-ev-start {
     border-radius: 3px 0 0 3px;
     overflow: visible;
 }
 
-/* 중간일: 배경 유지, 텍스트 숨김 */
 .cal-event-label.cal-ev-mid {
     border-radius: 0;
     color: transparent !important;
@@ -1967,7 +1713,6 @@ ul {
     height: 20px;
 }
 
-/* 끝일: 배경 유지, 텍스트 숨김 */
 .cal-event-label.cal-ev-end {
     border-radius: 0 3px 3px 0;
     color: transparent !important;
@@ -1975,43 +1720,27 @@ ul {
     height: 20px;
 }
 
-
-/* 모집 중 */
 .cal-event-open {
     background-color: rgba(37, 99, 235, 0.15);
     color: #2563eb;
 }
 
-/* 마감 */
 .cal-event-closed {
     background-color: rgba(220, 38, 38, 0.10);
     color: #dc2626;
 }
 
-/* 휴무 */
 .cal-event-holiday {
     background-color: rgba(102, 102, 102, 0.15);
     color: #666666;
 }
 
-/* 클릭 시 하이라이트 */
 .sch-item.highlight {
-    box-shadow: 0 0 0 2px #FFCD4A;
+    box-shadow: 0 0 0 3px rgba(217, 73, 37, 0.3);
     transition: box-shadow 0.3s ease;
 }
 
-/* ---------- 모바일 ---------- */
-@media (max-width: 768px) {
-    .cal-event-label {
-        font-size: 9px;
-        line-height: 16px;
-        padding: 0 2px;
-    }
-}
-
-
-
-/* 기존 도트 (하위호환) */
+/* ---------- 기존 도트 (하위호환) ---------- */
 .cal-dots {
     display: flex;
     gap: 3px;
@@ -2033,7 +1762,7 @@ ul {
     background-color: #cccccc;
 }
 
-/* 일정 리스트 */
+/* ---------- 일정 리스트 ---------- */
 .schedule-list-section {
     margin-bottom: 40px;
 }
@@ -2061,13 +1790,13 @@ ul {
     box-shadow: 0 4px 20px rgba(28, 41, 85, 0.1);
 }
 
-.sch-item.highlight {
-    box-shadow: 0 0 0 3px rgba(217, 73, 37, 0.3);
-}
-
 .sch-item[data-status="마감"] {
     border-left-color: #cccccc;
     opacity: 0.7;
+}
+
+.sch-item.sch-holiday {
+    border-left-color: #999999;
 }
 
 .sch-date {
@@ -2131,6 +1860,31 @@ ul {
     border: 1px solid #ddd;
 }
 
+.status-holiday {
+    background-color: rgba(102, 102, 102, 0.1);
+    color: #888888;
+    border: 1px solid #ccc;
+}
+
+.sch-type-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+}
+
+.badge-event {
+    background-color: rgba(255, 205, 74, 0.2);
+    color: #b8960a;
+}
+
+.badge-holiday {
+    background-color: rgba(102, 102, 102, 0.12);
+    color: #666666;
+}
+
 .sch-meta {
     display: flex;
     gap: 20px;
@@ -2162,7 +1916,6 @@ ul {
     margin-left: 24px;
 }
 
-/* 지난 교육 섹션 */
 .past-schedule-section {
     margin-top: 48px;
     border-top: 1px solid #e8e8e8;
@@ -2210,7 +1963,6 @@ ul {
     opacity: 0.8;
 }
 
-/* 로딩·빈 상태 */
 .schedule-loading {
     text-align: center;
     padding: 60px 0;
@@ -2241,116 +1993,6 @@ ul {
     color: #888888;
     margin-bottom: 24px;
 }
-
-/* schedule 반응형 */
-@media (max-width: 1024px) {
-    .calendar-grid {
-        max-width: 100%;
-    }
-
-    .cal-cell {
-        min-height: 72px;
-    }
-
-    .cal-event-label {
-        font-size: 10px;
-        line-height: 16px;
-        height: 16px;
-        padding: 0 3px;
-    }
-}
-
-@media (max-width: 768px) {
-    .schedule-filters {
-        flex-wrap: wrap;
-    }
-
-    .calendar-grid {
-        margin-bottom: 40px;
-    }
-
-    .cal-nav-title {
-        font-size: 18px;
-        min-width: 120px;
-    }
-
-    .cal-cell {
-        min-height: 56px;
-        padding: 2px 0 1px;
-    }
-
-    .cal-cell .cal-date-num {
-        font-size: 11px;
-        padding-right: 3px;
-    }
-
-    .cal-event-label {
-        font-size: 8px;
-        line-height: 13px;
-        height: 13px;
-        padding: 0 2px;
-    }
-
-    .cal-ev-single {
-        margin: 0 1px;
-    }
-
-    .cal-ev-start {
-        margin-left: 1px;
-    }
-
-    .cal-ev-end {
-        margin-right: 1px;
-    }
-
-    .cal-holiday-name {
-        font-size: 7px;
-    }
-
-    .sch-item {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .sch-date {
-        margin-right: 0;
-        margin-bottom: 12px;
-    }
-
-    .sch-date-text {
-        font-size: 22px;
-    }
-
-
-    .sch-action {
-        margin-left: 0;
-        margin-top: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .cal-cell {
-        min-height: 44px;
-        padding: 1px;
-    }
-
-    .cal-date-num {
-        font-size: 10px;
-        padding-right: 2px;
-    }
-
-    .cal-event-label {
-        font-size: 7px;
-        line-height: 11px;
-        height: 11px;
-        padding: 0 1px;
-    }
-
-    .cal-holiday-name {
-        display: none;
-    }
-}
-
 /* ===================================
    문의 페이지 (contact.html)
    =================================== */
@@ -2540,121 +2182,11 @@ ul {
     color: #666666;
 }
 
-/* contact 반응형 */
-@media (max-width: 1024px) {
-    .contact-layout {
-        gap: 40px;
-    }
-
-    .contact-info-side {
-        width: 280px;
-    }
-}
-
-@media (max-width: 768px) {
-    .contact-layout {
-        flex-direction: column;
-    }
-
-    .contact-info-side {
-        width: 100%;
-    }
-
-    .contact-form {
-        padding: 24px;
-    }
-}
-/* 시설 갤러리 – 서브 텍스트 & 별표 주석 */
-.facility-sub {
-    display: block;
-    font-size: 13px;
-    font-weight: 400;
-    color: #666;
-    margin-top: 2px;
-}
-
-.facility-footnotes {
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid #e0e0e0;
-}
-
-.facility-footnotes p {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.8;
-    margin-bottom: 8px;
-}
-
-.facility-footnotes p:last-child {
-    margin-bottom: 0;
-}
-
-.facility-footnotes sup {
-    color: #D94925;
-    font-weight: 700;
-    margin-right: 2px;
-}
-
-.facility-footnotes strong {
-    color: #1C2955;
-    font-weight: 700;
-}
-
-.footnote-standard {
-    color: #999;
-    font-size: 12px;
-}
-/* ========== 유형별 달력 색상 ========== */
-.cal-event-holiday {
-    background-color: rgba(102, 102, 102, 0.15);
-    color: #666666;
-}
-.cal-event-holiday.cal-ev-mid,
-.cal-event-holiday.cal-ev-end {
-    background-color: rgba(102, 102, 102, 0.15);
-    color: transparent;
-}
-
-/* ========== 일정 카드 유형 뱃지 ========== */
-.sch-type-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    font-size: 11px;
-    font-weight: 700;
-    border-radius: 4px;
-    letter-spacing: 0.02em;
-}
-
-.badge-event {
-    background-color: rgba(255, 205, 74, 0.2);
-    color: #b8960a;
-}
-
-.badge-holiday {
-    background-color: rgba(102, 102, 102, 0.12);
-    color: #666666;
-}
-
-/* 휴무 카드 스타일 */
-.sch-item.sch-holiday {
-    border-left-color: #999999;
-}
-
-.status-holiday {
-    background-color: rgba(102, 102, 102, 0.1);
-    color: #888888;
-    border: 1px solid #ccc;
-}
-.footer-admin {
-    color: inherit;
-    text-decoration: none;
-}
-/* ========== 이메일 입력 ========== */
+/* ---------- 이메일 입력 ---------- */
 .email-input-wrap {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .email-input-wrap input[type="text"] {
@@ -2666,6 +2198,8 @@ ul {
     font-size: 14px;
     font-family: 'Pretendard', sans-serif;
     color: #333;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease;
 }
 
 .email-input-wrap input[type="text"]:focus {
@@ -2674,7 +2208,7 @@ ul {
 }
 
 .email-input-wrap input[readonly] {
-    background: #f5f5f5;
+    background-color: #f5f5f5;
     color: #666;
 }
 
@@ -2686,16 +2220,17 @@ ul {
 }
 
 .email-input-wrap select {
-    width: 130px;
+    width: 140px;
     flex-shrink: 0;
-    padding: 12px 8px;
+    padding: 12px 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 14px;
     font-family: 'Pretendard', sans-serif;
     color: #333;
-    background: #fff;
+    background-color: #ffffff;
     cursor: pointer;
+    transition: border-color 0.3s ease;
 }
 
 .email-input-wrap select:focus {
@@ -2703,7 +2238,390 @@ ul {
     border-color: #1C2955;
 }
 
+/* ===================================
+   반응형: 태블릿
+   =================================== */
+@media (max-width: 1024px) {
+    .service-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .trainer-profile {
+        gap: 40px;
+    }
+
+    .trainer-photo {
+        width: 220px;
+    }
+
+    .facility-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .course-layout {
+        gap: 40px;
+    }
+
+    .course-image {
+        width: 340px;
+    }
+
+    .course-gallery {
+        width: 340px;
+    }
+
+    .contact-layout {
+        gap: 40px;
+    }
+
+    .contact-info-side {
+        width: 280px;
+    }
+
+    .calendar-grid {
+        max-width: 100%;
+    }
+
+    .cal-cell {
+        min-height: 72px;
+    }
+
+    .cal-event-label {
+        font-size: 10px;
+        line-height: 16px;
+        height: 16px;
+        padding: 0 3px;
+    }
+}
+
+/* ===================================
+   반응형: 모바일
+   =================================== */
 @media (max-width: 768px) {
+    .gnb {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .btn-contact-sm {
+        display: inline-block;
+    }
+
+    .header-inner {
+        height: 60px;
+    }
+
+    .logo-img {
+        height: 28px;
+    }
+
+    .hero {
+        margin-top: 60px;
+        min-height: 500px;
+        max-height: 700px;
+        background-position: 90% center;
+    }
+
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .hero-subtitle {
+        font-size: 15px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .section {
+        padding: 64px 0;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .service-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .trust-logos {
+        gap: 40px;
+    }
+
+    .stats-grid {
+        gap: 40px;
+    }
+
+    .stat-number {
+        font-size: 36px;
+    }
+
+    .cta-title {
+        font-size: 24px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .schedule-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .schedule-date {
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+
+    /* 소개 페이지 */
+    .page-hero {
+        margin-top: 60px;
+        padding: 72px 24px 56px;
+    }
+
+    .page-hero-title {
+        font-size: 28px;
+    }
+
+    .page-hero-desc {
+        font-size: 15px;
+    }
+
+    .philosophy-title {
+        font-size: 22px;
+    }
+
+    .target-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .facility-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-top: 32px;
+    }
+
+    .facility-label {
+        font-size: 13px;
+    }
+
+    .facility-sub {
+        font-size: 10px;
+    }
+
+    .facility-footnotes {
+        margin-top: 40px;
+        padding-top: 20px;
+    }
+
+    .facility-footnotes p {
+        font-size: 11px;
+    }
+
+    .facility-footnotes strong {
+        font-size: 11px;
+    }
+
+    .footnote-standard {
+        font-size: 10px;
+    }
+
+    .trainer-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .trainer-photo {
+        width: 200px;
+    }
+
+    .trainer-info {
+        width: 100%;
+    }
+
+    .trainer-name {
+        font-size: 26px;
+    }
+
+    .cert-org {
+        justify-content: center;
+    }
+
+    .cert-list {
+        align-items: center;
+    }
+
+    .cert-list li {
+        justify-content: center;
+    }
+
+    .cert-sub {
+        padding-left: 12px;
+    }
+
+    /* 교육과정 */
+    .course-track-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .course-layout,
+    .layout-reverse {
+        flex-direction: column;
+    }
+
+    .course-image {
+        width: 100%;
+    }
+
+    .course-detail {
+        padding: 48px 0;
+    }
+
+    .course-name {
+        font-size: 22px;
+    }
+
+    .course-grade {
+        padding: 16px;
+    }
+
+    .example-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .spec-label {
+        width: 70px;
+    }
+
+    .course-gallery {
+        width: 100%;
+    }
+
+    .course-gallery-track {
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        padding-bottom: 8px;
+    }
+
+    .course-gallery-track img {
+        width: 85%;
+        flex-shrink: 0;
+        scroll-snap-align: center;
+    }
+
+    .course-gallery-track::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .course-gallery-track::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 2px;
+    }
+
+    .course-gallery-track::-webkit-scrollbar-thumb {
+        background: #D94925;
+        border-radius: 2px;
+    }
+
+    /* 교육일정 */
+    .schedule-filters {
+        flex-wrap: wrap;
+    }
+
+    .calendar-grid {
+        margin-bottom: 40px;
+    }
+
+    .cal-nav-title {
+        font-size: 18px;
+        min-width: 120px;
+    }
+
+    .cal-cell {
+        min-height: 56px;
+        padding: 2px 0 1px;
+    }
+
+    .cal-cell .cal-date-num {
+        font-size: 11px;
+        padding-right: 3px;
+    }
+
+    .cal-event-label {
+        font-size: 8px;
+        line-height: 13px;
+        height: 13px;
+        padding: 0 2px;
+    }
+
+    .cal-ev-single {
+        margin: 0 1px;
+    }
+
+    .cal-ev-start {
+        margin-left: 1px;
+    }
+
+    .cal-ev-end {
+        margin-right: 1px;
+    }
+
+    .cal-holiday-name {
+        font-size: 7px;
+    }
+
+    .sch-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sch-date {
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+
+    .sch-date-text {
+        font-size: 22px;
+    }
+
+    .sch-action {
+        margin-left: 0;
+        margin-top: 16px;
+    }
+
+    /* 문의 */
+    .contact-layout {
+        flex-direction: column;
+    }
+
+    .contact-info-side {
+        width: 100%;
+    }
+
+    .contact-form {
+        padding: 24px;
+    }
+
     .email-input-wrap {
         flex-wrap: wrap;
     }
@@ -2715,6 +2633,29 @@ ul {
 
     .email-input-wrap select {
         width: 100%;
-        margin-top: 4px;
+        margin-top: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cal-cell {
+        min-height: 44px;
+        padding: 1px;
+    }
+
+    .cal-date-num {
+        font-size: 10px;
+        padding-right: 2px;
+    }
+
+    .cal-event-label {
+        font-size: 7px;
+        line-height: 11px;
+        height: 11px;
+        padding: 0 1px;
+    }
+
+    .cal-holiday-name {
+        display: none;
     }
 }
