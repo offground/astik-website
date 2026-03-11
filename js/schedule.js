@@ -1,6 +1,6 @@
 // ===================================
 // ASTIK 교육일정 - 구글 시트 연동
-// (2026-03-09 최종)
+// (2026-03-11 최종)
 // ===================================
 
 (function () {
@@ -141,7 +141,7 @@
     }
 
     // ══════════════════════════════════
-    //  달력 렌더링 (이전달/다음달 포함)
+    //  달력 렌더링
     // ══════════════════════════════════
     function renderCalendar() {
         var titleEl = document.getElementById('calTitle');
@@ -196,6 +196,7 @@
             if (holidayName || dayOfWeek === 0) { cellClass += ' cal-holiday'; }
             else if (dayOfWeek === 6) { cellClass += ' cal-saturday-cell'; }
 
+            // 이 셀에 해당하는 일정 찾기
             var daySchedules = [];
             for (var si = 0; si < allSchedules.length; si++) {
                 if (isDateInRange(cellYear, cellMonth, dayNum, allSchedules[si].startDate, allSchedules[si].endDate)) {
@@ -222,9 +223,27 @@
                     else if (isEnd || isRowEnd) { posClass = ' cal-ev-end'; }
                     else { posClass = ' cal-ev-mid'; }
 
-                    var label = (isStart || isRowStart) ? ev.course : '';
+                    // 시작일(또는 주 시작)에서 이번 주 내 남은 일수 계산
+                    var spanDays = 1;
+                    var label = '';
+                    if (isStart || isRowStart) {
+                        label = ev.course;
+                        var evEnd = parseLocalDate(ev.endDate);
+                        evEnd.setHours(0, 0, 0, 0);
+                        var rowEndDate = new Date(cellYear, cellMonth, dayNum + (6 - dayOfWeek));
+                        rowEndDate.setHours(0, 0, 0, 0);
+                        var actualEnd = evEnd < rowEndDate ? evEnd : rowEndDate;
+                        spanDays = Math.round((actualEnd - cellDate) / (1000 * 60 * 60 * 24)) + 1;
+                    }
 
-                    eventHTML += '<span class="cal-event-label ' + evClass + posClass + '" title="' + ev.course + ' (' + ev.status + ')">' + label + '</span>';
+                    var widthStyle = '';
+                    if ((isStart || isRowStart) && spanDays > 1) {
+                        widthStyle = ' style="width: calc(' + spanDays + '00% + ' + (spanDays - 1) + 'px);"';
+                    }
+
+                    var dataAttr = ' data-start="' + ev.startDate + '" data-end="' + ev.endDate + '"';
+
+                    eventHTML += '<span class="cal-event-label ' + evClass + posClass + '"' + widthStyle + dataAttr + ' title="' + ev.course + ' (' + ev.status + ')">' + label + '</span>';
                 }
             }
 
@@ -239,6 +258,18 @@
 
         bodyEl.innerHTML = html;
 
+        // 모든 이벤트 라벨 클릭 → 하단 일정으로 스크롤
+        var eventLabels = bodyEl.querySelectorAll('.cal-event-label');
+        for (var li = 0; li < eventLabels.length; li++) {
+            (function (lbl) {
+                lbl.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    scrollToScheduleByRange(lbl.getAttribute('data-start'), lbl.getAttribute('data-end'));
+                });
+            })(eventLabels[li]);
+        }
+
+        // 셀 클릭도 유지
         var cells = bodyEl.querySelectorAll('.cal-cell.has-event');
         for (var ci = 0; ci < cells.length; ci++) {
             (function (c) {
@@ -255,6 +286,19 @@
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
             if (isDateInRange(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]), item.getAttribute('data-start'), item.getAttribute('data-end'))) {
+                item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                item.classList.add('highlight');
+                (function (el) { setTimeout(function () { el.classList.remove('highlight'); }, 2000); })(item);
+                break;
+            }
+        }
+    }
+
+    function scrollToScheduleByRange(startStr, endStr) {
+        var items = document.querySelectorAll('.sch-item');
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            if (item.getAttribute('data-start') === startStr && item.getAttribute('data-end') === endStr) {
                 item.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 item.classList.add('highlight');
                 (function (el) { setTimeout(function () { el.classList.remove('highlight'); }, 2000); })(item);
