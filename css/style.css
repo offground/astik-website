@@ -1817,7 +1817,7 @@ ul {
 
 .cal-body {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 /* 개별 셀 */
@@ -1833,6 +1833,8 @@ ul {
     position: relative;
     background: #fff;
     transition: background-color 0.2s ease;
+    overflow: visible;
+    min-width: 0;
 }
 
 .cal-cell.empty {
@@ -1873,6 +1875,7 @@ ul {
 .cal-cell.other-month.cal-saturday-cell .cal-date-num {
     color: #b5d4f5;
 }
+
 
 /* 날짜 숫자 */
 .cal-date-num {
