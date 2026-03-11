@@ -3,3 +3,5 @@ Allow: /
 Disallow: /admin.html
 
 Sitemap: https://astik.co.kr/sitemap.xml
+
+#DaumWebMasterTool:efa1d2decd8c7a3d77eb87f9c645c7a17ec8cee77f1737a9fc93f689ebadbc02:v7Xp0NDmJXjax3Clnl3VCA==
