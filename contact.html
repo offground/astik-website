@@ -136,31 +136,26 @@
                             method="POST"
                             class="contact-form"
                         >
-                            <!-- 이름 -->
                             <div class="form-group">
                                 <label for="name" class="form-label">이름 <span class="required">*</span></label>
                                 <input type="text" id="name" name="name" class="form-input" placeholder="홍길동" required>
                             </div>
 
-                            <!-- 연락처 -->
                             <div class="form-group">
                                 <label for="phone" class="form-label">연락처 <span class="required">*</span></label>
                                 <input type="tel" id="phone" name="phone" class="form-input" placeholder="010-0000-0000" required>
                             </div>
 
-                            <!-- 이메일 -->
                             <div class="form-group">
                                 <label for="email" class="form-label">이메일 <span class="required">*</span></label>
                                 <input type="email" id="email" name="email" class="form-input" placeholder="example@email.com" required>
                             </div>
 
-                            <!-- 소속 기관/시설명 -->
                             <div class="form-group">
                                 <label for="organization" class="form-label">소속 기관 · 시설명</label>
                                 <input type="text" id="organization" name="organization" class="form-input" placeholder="소속 기관 또는 시설 이름">
                             </div>
 
-                            <!-- 문의 유형 -->
                             <div class="form-group">
                                 <label for="inquiry-type" class="form-label">문의 유형 <span class="required">*</span></label>
                                 <select id="inquiry-type" name="inquiry_type" class="form-select" required>
@@ -172,7 +167,6 @@
                                 </select>
                             </div>
 
-                            <!-- 희망 교육 과정 -->
                             <div class="form-group">
                                 <label for="course" class="form-label">희망 교육 과정</label>
                                 <select id="course" name="course" class="form-select">
@@ -187,7 +181,6 @@
                                 </select>
                             </div>
 
-                            <!-- 희망 일정 -->
                             <div class="form-row">
                                 <div class="form-group form-half">
                                     <label for="preferred-date" class="form-label">희망 교육 시작일</label>
@@ -199,13 +192,11 @@
                                 </div>
                             </div>
 
-                            <!-- 기타 문의 내용 -->
                             <div class="form-group">
                                 <label for="message" class="form-label">문의 내용</label>
                                 <textarea id="message" name="message" class="form-textarea" rows="5" placeholder="궁금하신 사항이나 요청사항을 자유롭게 작성해주세요."></textarea>
                             </div>
 
-                            <!-- 개인정보 동의 -->
                             <div class="form-group form-checkbox-group">
                                 <label class="form-checkbox-label">
                                     <input type="checkbox" name="privacy_agree" required>
@@ -215,20 +206,25 @@
                                 <p class="privacy-notice">수집 항목: 이름, 연락처, 이메일, 소속 기관 / 이용 목적: 문의 응대 / 보유 기간: 문의 처리 완료 후 1년</p>
                             </div>
 
-                            <!-- 제출 버튼 -->
                             <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
                                 문의하기
                             </button>
-
-                            <!-- 전송 완료 메시지 -->
-                            <div class="form-success hidden" id="formSuccess">
-                                <i class="fas fa-circle-check"></i>
-                                <h4>문의가 접수되었습니다</h4>
-                                <p>영업일 기준 1~2일 이내 회신드리겠습니다. 감사합니다.</p>
-                            </div>
                         </form>
                     </div>
 
+                </div>
+
+                <!-- 전송 완료 화면 -->
+                <div class="form-success hidden" id="formSuccess">
+                    <div class="success-icon">
+                        <i class="fas fa-circle-check"></i>
+                    </div>
+                    <h3>문의가 접수되었습니다</h3>
+                    <p>영업일 기준 1~2일 이내 회신드리겠습니다.<br>감사합니다.</p>
+                    <div class="success-buttons">
+                        <a href="courses.html" class="btn btn-primary">교육과정 보기</a>
+                        <a href="https://blog.naver.com/astik_official" class="btn btn-outline" target="_blank" rel="noopener noreferrer">교육자료 보기</a>
+                    </div>
                 </div>
             </div>
         </section>
