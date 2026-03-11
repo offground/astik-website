@@ -763,3 +763,10 @@ body {
     margin-top: 6px;
     padding-left: 32px;
 }
+/* GA 대시보드 */
+.ga-dashboard-wrap {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 16px;
+}
