@@ -12,7 +12,7 @@
     var SETTINGS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQuHxjOjTjIBT2YBW74MLhS_oCcMAxnFw5XRX0ohcrwJhbjMVqmXiUUtpTQbZ9DcTRMvYEdgoyu8_cT/pub?gid=342543323&single=true&output=csv';
 
     // 일정 추가 + 설정 저장 겸용 Apps Script URL
-    var SCHEDULE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyowUNnmfJASb9iXhf8XNi95R6Sm_aK0NqClLWVhtIHgMlnzY8NZXkQ41-RDMSfRhnNiw/exec';
+    var SCHEDULE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2VGvC9yQSNiYItwzrlCZySHI0RO_mZW2Q8JvImY18f4vQDgem4W2dMKIfurncOSq0vw/exec';
 
     var allInquiries = [];
     var allSchedules = [];
