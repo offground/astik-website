@@ -2602,3 +2602,44 @@ ul {
     color: #999;
     font-size: 12px;
 }
+/* ========== 유형별 달력 색상 ========== */
+.cal-event-holiday {
+    background-color: rgba(102, 102, 102, 0.15);
+    color: #666666;
+}
+.cal-event-holiday.cal-ev-mid,
+.cal-event-holiday.cal-ev-end {
+    background-color: rgba(102, 102, 102, 0.15);
+    color: transparent;
+}
+
+/* ========== 일정 카드 유형 뱃지 ========== */
+.sch-type-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+}
+
+.badge-event {
+    background-color: rgba(255, 205, 74, 0.2);
+    color: #b8960a;
+}
+
+.badge-holiday {
+    background-color: rgba(102, 102, 102, 0.12);
+    color: #666666;
+}
+
+/* 휴무 카드 스타일 */
+.sch-item.sch-holiday {
+    border-left-color: #999999;
+}
+
+.status-holiday {
+    background-color: rgba(102, 102, 102, 0.1);
+    color: #888888;
+    border: 1px solid #ccc;
+}
