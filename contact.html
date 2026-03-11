@@ -141,15 +141,31 @@
                                 <input type="text" id="name" name="name" class="form-input" placeholder="홍길동" required>
                             </div>
 
-                            <div class="form-group">
-                                <label for="phone" class="form-label">연락처 <span class="required">*</span></label>
-                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="010-0000-0000" required>
-                            </div>
+<div class="form-group">
+    <label for="phone">연락처 *</label>
+    <input type="tel" id="phone" name="phone" required placeholder="000-0000-0000" maxlength="13" oninput="formatPhone(this)">
+</div>
 
-                            <div class="form-group">
-                                <label for="email" class="form-label">이메일 <span class="required">*</span></label>
-                                <input type="email" id="email" name="email" class="form-input" placeholder="example@email.com" required>
-                            </div>
+<div class="form-group">
+    <label for="email">이메일 *</label>
+    <div class="email-input-wrap">
+        <input type="text" id="emailId" required placeholder="이메일 아이디">
+        <span class="email-at">@</span>
+        <input type="text" id="emailDomain" placeholder="직접 입력">
+        <select id="emailDomainSelect" onchange="selectEmailDomain(this)">
+            <option value="">직접 입력</option>
+            <option value="naver.com">naver.com</option>
+            <option value="gmail.com">gmail.com</option>
+            <option value="daum.net">daum.net</option>
+            <option value="hanmail.net">hanmail.net</option>
+            <option value="kakao.com">kakao.com</option>
+            <option value="nate.com">nate.com</option>
+            <option value="outlook.com">outlook.com</option>
+            <option value="hotmail.com">hotmail.com</option>
+        </select>
+    </div>
+    <input type="hidden" id="email" name="email">
+</div>
 
                             <div class="form-group">
                                 <label for="organization" class="form-label">소속 기관 · 시설명</label>
