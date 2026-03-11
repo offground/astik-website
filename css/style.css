@@ -2650,3 +2650,71 @@ ul {
     color: inherit;
     text-decoration: none;
 }
+/* ========== 이메일 입력 ========== */
+.email-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.email-input-wrap input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Pretendard', sans-serif;
+    color: #333;
+}
+
+.email-input-wrap input[type="text"]:focus {
+    outline: none;
+    border-color: #1C2955;
+}
+
+.email-input-wrap input[readonly] {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.email-at {
+    font-size: 15px;
+    font-weight: 600;
+    color: #888;
+    flex-shrink: 0;
+}
+
+.email-input-wrap select {
+    width: 130px;
+    flex-shrink: 0;
+    padding: 12px 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'Pretendard', sans-serif;
+    color: #333;
+    background: #fff;
+    cursor: pointer;
+}
+
+.email-input-wrap select:focus {
+    outline: none;
+    border-color: #1C2955;
+}
+
+@media (max-width: 768px) {
+    .email-input-wrap {
+        flex-wrap: wrap;
+    }
+
+    .email-input-wrap input[type="text"] {
+        flex: 1 1 calc(50% - 20px);
+        min-width: 80px;
+    }
+
+    .email-input-wrap select {
+        width: 100%;
+        margin-top: 4px;
+    }
+}
