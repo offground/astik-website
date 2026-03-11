@@ -94,12 +94,23 @@
         var data = [];
         for (var i = 1; i < lines.length; i++) {
             var values = lines[i].split(',').map(function (v) { return v.trim().replace(/^"|"$/g, ''); });
-            if (values.length >= 6 && values[0]) {
+            if (values.length >= 8 && values[0]) {
+                // 공개 일정만 수집
+                var visibility = values[7].trim();
+                if (visibility !== '공개') continue;
+
+                var type = values[2].trim();
+
                 data.push({
-                    startDate: values[0].trim(), endDate: values[1].trim(),
-                    course: values[2].trim(), location: values[3].trim(),
-                    capacity: values[4].trim(), status: values[5].trim(),
-                    note: (values[6] || '').trim()
+                    startDate: values[0].trim(),
+                    endDate: values[1].trim(),
+                    type: type,
+                    course: values[3].trim(),
+                    location: values[4].trim(),
+                    capacity: values[5].trim(),
+                    status: values[6].trim(),
+                    visibility: visibility,
+                    note: (values[8] || '').trim()
                 });
             }
         }
@@ -143,11 +154,6 @@
     // ══════════════════════════════════
     //  지난 일정 토글 헬퍼
     // ══════════════════════════════════
-    function isPastListOpen() {
-        var pastList = document.getElementById('pastList');
-        return pastList && pastList.style.display !== 'none';
-    }
-
     function openPastList() {
         var pastList = document.getElementById('pastList');
         var arrow = document.getElementById('pastArrow');
@@ -234,7 +240,16 @@
                 cellClass += ' has-event';
                 for (var ei = 0; ei < daySchedules.length; ei++) {
                     var ev = daySchedules[ei];
-                    var evClass = ev.status === '모집 중' ? 'cal-event-open' : 'cal-event-closed';
+
+                    // 유형별 색상 클래스
+                    var evClass = '';
+                    if (ev.type === '휴무') {
+                        evClass = 'cal-event-holiday';
+                    } else if (ev.status === '모집 중') {
+                        evClass = 'cal-event-open';
+                    } else {
+                        evClass = 'cal-event-closed';
+                    }
 
                     var isStart = isSameLocalDate(cellYear, cellMonth, dayNum, ev.startDate);
                     var isEnd = isSameLocalDate(cellYear, cellMonth, dayNum, ev.endDate);
@@ -248,7 +263,6 @@
                     else if (isEnd || isRowEnd) { posClass = ' cal-ev-end'; }
                     else { posClass = ' cal-ev-mid'; }
 
-                    // 시작일(또는 주 시작)에서 이번 주 내 남은 일수 계산
                     var spanDays = 1;
                     var label = '';
                     if (isSingle) {
@@ -286,7 +300,6 @@
 
         bodyEl.innerHTML = html;
 
-        // 모든 이벤트 라벨 클릭
         var eventLabels = bodyEl.querySelectorAll('.cal-event-label');
         for (var li = 0; li < eventLabels.length; li++) {
             (function (lbl) {
@@ -299,7 +312,6 @@
             })(eventLabels[li]);
         }
 
-        // 셀 클릭
         var cells = bodyEl.querySelectorAll('.cal-cell.has-event');
         for (var ci = 0; ci < cells.length; ci++) {
             (function (c) {
@@ -323,7 +335,6 @@
         var isPast = isSchedulePast(startStr, endStr);
 
         if (isPast) {
-            // 지난 일정이면: 펼치고 스크롤
             openPastList();
             setTimeout(function () {
                 var items = document.querySelectorAll('.sch-item');
@@ -335,7 +346,6 @@
                 }
             }, 100);
         } else {
-            // 예정 일정이면: 지난 일정 접고 스크롤
             closePastList();
             var items = document.querySelectorAll('.sch-item');
             for (var i = 0; i < items.length; i++) {
@@ -351,7 +361,6 @@
         var parts = dateStr.split('-');
         var year = parseInt(parts[0]), month = parseInt(parts[1]) - 1, day = parseInt(parts[2]);
 
-        // 이 날짜에 해당하는 일정 찾기
         var matchedSchedule = null;
         for (var si = 0; si < allSchedules.length; si++) {
             if (isDateInRange(year, month, day, allSchedules[si].startDate, allSchedules[si].endDate)) {
@@ -384,24 +393,35 @@
             var statusClass, statusIcon, statusText;
             if (isPast) {
                 statusClass = 'status-done'; statusIcon = 'fa-circle-check'; statusText = '완료';
+            } else if (s.type === '휴무') {
+                statusClass = 'status-holiday'; statusIcon = 'fa-calendar-xmark'; statusText = '휴무';
             } else if (s.status === '모집 중') {
                 statusClass = 'status-open'; statusIcon = 'fa-circle-check'; statusText = '모집 중';
             } else {
                 statusClass = 'status-closed'; statusIcon = 'fa-circle-xmark'; statusText = '마감';
             }
 
-            html += '<div class="sch-item' + (isPast ? ' sch-past' : '') + '" data-start="' + s.startDate + '" data-end="' + s.endDate + '" data-status="' + s.status + '">' +
+            // 유형 뱃지
+            var typeBadge = '';
+            if (s.type === '행사') {
+                typeBadge = '<span class="sch-type-badge badge-event">행사</span>';
+            } else if (s.type === '휴무') {
+                typeBadge = '<span class="sch-type-badge badge-holiday">휴무</span>';
+            }
+
+            html += '<div class="sch-item' + (isPast ? ' sch-past' : '') + (s.type === '휴무' ? ' sch-holiday' : '') + '" data-start="' + s.startDate + '" data-end="' + s.endDate + '" data-status="' + s.status + '">' +
                 '<div class="sch-date"><span class="sch-date-text">' + startMonth + '월</span></div>' +
                 '<div class="sch-content">' +
-                '<div class="sch-top"><h4 class="sch-course">' + s.course + '</h4>' +
+                '<div class="sch-top">' + typeBadge + '<h4 class="sch-course">' + s.course + '</h4>' +
                 '<span class="sch-status ' + statusClass + '"><i class="fas ' + statusIcon + '"></i> ' + statusText + '</span></div>' +
                 '<div class="sch-meta">' +
                 '<span><i class="fas fa-calendar-days"></i> ' + dateRange + ' (' + days + '일)</span>' +
-                '<span><i class="fas fa-location-dot"></i> ' + s.location + '</span>' +
-                '<span><i class="fas fa-users"></i> ' + s.capacity + '</span></div>' +
+                (s.location ? '<span><i class="fas fa-location-dot"></i> ' + s.location + '</span>' : '') +
+                (s.capacity ? '<span><i class="fas fa-users"></i> ' + s.capacity + '</span>' : '') +
+                '</div>' +
                 (s.note ? '<p class="sch-note">' + s.note + '</p>' : '') +
                 '</div>' +
-                (!isPast && s.status === '모집 중' ? '<div class="sch-action"><a href="contact.html" class="btn btn-primary btn-sm">신청 문의</a></div>' : '') +
+                (!isPast && s.status === '모집 중' && s.type === '교육' ? '<div class="sch-action"><a href="contact.html" class="btn btn-primary btn-sm">신청 문의</a></div>' : '') +
                 '</div>';
         });
         return html;
@@ -524,7 +544,7 @@
                 var schedules = parseCSV(csv);
                 var today = new Date(); today.setHours(0, 0, 0, 0);
                 var upcoming = schedules
-                    .filter(function (s) { var e = parseLocalDate(s.endDate); e.setHours(0, 0, 0, 0); return e >= today && s.status === '모집 중'; })
+                    .filter(function (s) { var e = parseLocalDate(s.endDate); e.setHours(0, 0, 0, 0); return e >= today && s.status === '모집 중' && s.type === '교육'; })
                     .sort(function (a, b) { return parseLocalDate(a.startDate) - parseLocalDate(b.startDate); })
                     .slice(0, 2);
                 if (upcoming.length === 0) return;
