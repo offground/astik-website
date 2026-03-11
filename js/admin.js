@@ -11,7 +11,7 @@
     var SCHEDULE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQuHxjOjTjIBT2YBW74MLhS_oCcMAxnFw5XRX0ohcrwJhbjMVqmXiUUtpTQbZ9DcTRMvYEdgoyu8_cT/pub?output=csv';
     var INQUIRY_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIirQhHIyUuu49-spRR-yGSYoRxfavdHzCTfyUuj4-hUJ5rt2VPtXvpMvMohArMWkGs7Uq0zij6Nlm/pub?output=csv';
 
-    // 일정 추가용 Apps Script URL (아래에서 새로 배포 필요)
+    // 일정 추가용 Apps Script URL
     var SCHEDULE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyowUNnmfJASb9iXhf8XNi95R6Sm_aK0NqClLWVhtIHgMlnzY8NZXkQ41-RDMSfRhnNiw/exec';
 
     var allInquiries = [];
@@ -28,7 +28,6 @@
         var adminWrap = document.getElementById('adminWrap');
         var logoutBtn = document.getElementById('logoutBtn');
 
-        // 세션 유지
         if (sessionStorage.getItem('astik_admin') === 'true') {
             loginScreen.classList.add('hidden');
             adminWrap.classList.remove('hidden');
@@ -158,7 +157,6 @@
         var thisMonth = now.getFullYear() + '-' + pad(now.getMonth() + 1);
         var today = new Date(); today.setHours(0, 0, 0, 0);
 
-        // 문의 통계
         var totalEl = document.getElementById('totalInquiries');
         var monthEl = document.getElementById('monthInquiries');
         if (totalEl) totalEl.textContent = allInquiries.length;
@@ -168,7 +166,6 @@
         }).length;
         if (monthEl) monthEl.textContent = monthCount;
 
-        // 일정 통계
         var upcomingEl = document.getElementById('upcomingSchedules');
         var openEl = document.getElementById('openSchedules');
 
@@ -182,10 +179,7 @@
         if (upcomingEl) upcomingEl.textContent = upcoming.length;
         if (openEl) openEl.textContent = open.length;
 
-        // 문의 유형 분포
         renderTypeBars();
-
-        // 최근 문의 (최신 5건)
         renderRecentInquiries();
     }
 
@@ -240,101 +234,120 @@
     }
 
     // ══════════════════════════════════
-    //  문의 내역 탭
+    //  연락처 포맷
     // ══════════════════════════════════
-function renderInquiries() {
-    var wrap = document.getElementById('allInquiries');
-    var countEl = document.getElementById('inquiryCount');
-    if (!wrap) return;
-
-    if (countEl) countEl.textContent = allInquiries.length;
-
-    if (allInquiries.length === 0) {
-        wrap.innerHTML = '<p class="inquiry-empty">문의 내역이 없습니다.</p>';
-        return;
+    function formatPhoneNumber(raw) {
+        if (!raw) return '-';
+        var num = raw.replace(/[^0-9]/g, '');
+        if (num.length === 10 && num.charAt(0) !== '0') {
+            num = '0' + num;
+        }
+        if (num.length === 11) {
+            return num.substring(0, 3) + '-' + num.substring(3, 7) + '-' + num.substring(7);
+        }
+        if (num.length === 10) {
+            if (num.substring(0, 2) === '02') {
+                return num.substring(0, 2) + '-' + num.substring(2, 6) + '-' + num.substring(6);
+            }
+            return num.substring(0, 3) + '-' + num.substring(3, 6) + '-' + num.substring(6);
+        }
+        if (num.length === 9 && num.substring(0, 2) === '02') {
+            return num.substring(0, 2) + '-' + num.substring(2, 5) + '-' + num.substring(5);
+        }
+        if (num.length === 8) {
+            return num.substring(0, 4) + '-' + num.substring(4);
+        }
+        return raw;
     }
 
-    // 읽음 상태 로컬스토리지에서 불러오기
-    var readList = JSON.parse(localStorage.getItem('astik_read_inquiries') || '[]');
+    // ══════════════════════════════════
+    //  문의 내역 탭
+    // ══════════════════════════════════
+    function renderInquiries() {
+        var wrap = document.getElementById('allInquiries');
+        var countEl = document.getElementById('inquiryCount');
+        if (!wrap) return;
 
-    var sorted = allInquiries.slice().reverse();
-    var html = '';
-    sorted.forEach(function(inq, idx) {
-        var inqId = (inq.datetime || '') + '_' + (inq.name || '') + '_' + idx;
-        var isRead = readList.indexOf(inqId) !== -1;
+        if (countEl) countEl.textContent = allInquiries.length;
 
-        html += '<div class="inquiry-item' + (isRead ? ' read' : '') + '" data-inq-id="' + inqId + '">';
-
-        // 요약 행 (접힌 상태에서 보이는 부분)
-        html += '  <div class="inq-summary">';
-        html += '    <div class="inq-summary-left">';
-        html += '      <span class="inq-unread-dot' + (isRead ? ' hidden' : '') + '"></span>';
-        html += '      <span class="inq-summary-type">' + (inq.type || '기타') + '</span>';
-        html += '      <span class="inq-summary-name">' + (inq.name || '-') + '</span>';
-        html += '      <span class="inq-summary-org">' + (inq.organization || '') + '</span>';
-        html += '    </div>';
-        html += '    <div class="inq-summary-right">';
-        html += '      <span class="inq-summary-date">' + (inq.datetime || '-') + '</span>';
-        html += '      <i class="fas fa-chevron-down inq-chevron"></i>';
-        html += '    </div>';
-        html += '  </div>';
-
-        // 상세 내용 (펼쳐지는 부분)
-        html += '  <div class="inq-detail">';
-        html += '    <div class="inq-detail-grid">';
-        html += '      <div class="inq-field"><div class="inq-field-label">이름</div><div class="inq-field-value">' + (inq.name || '-') + '</div></div>';
-        html += '      <div class="inq-field"><div class="inq-field-label">연락처</div><div class="inq-field-value">' + (inq.phone || '-') + '</div></div>';
-        html += '      <div class="inq-field"><div class="inq-field-label">이메일</div><div class="inq-field-value">' + (inq.email || '-') + '</div></div>';
-        html += '      <div class="inq-field"><div class="inq-field-label">소속기관</div><div class="inq-field-value">' + (inq.organization || '-') + '</div></div>';
-        html += '      <div class="inq-field"><div class="inq-field-label">문의유형</div><div class="inq-field-value">' + (inq.type || '-') + '</div></div>';
-        html += '      <div class="inq-field"><div class="inq-field-label">희망과정</div><div class="inq-field-value">' + (inq.course || '-') + '</div></div>';
-        html += '      <div class="inq-field"><div class="inq-field-label">희망시작일</div><div class="inq-field-value">' + (inq.preferredDate || '-') + '</div></div>';
-        html += '      <div class="inq-field"><div class="inq-field-label">인원</div><div class="inq-field-value">' + (inq.participants || '-') + '</div></div>';
-        html += '    </div>';
-        if (inq.message) {
-            html += '    <div class="inq-message-section">';
-            html += '      <div class="inq-field-label">문의내용</div>';
-            html += '      <div class="inq-message-box">' + inq.message + '</div>';
-            html += '    </div>';
+        if (allInquiries.length === 0) {
+            wrap.innerHTML = '<p class="inquiry-empty">문의 내역이 없습니다.</p>';
+            return;
         }
-        html += '  </div>';
 
-        html += '</div>';
-    });
-    wrap.innerHTML = html;
+        var readList = JSON.parse(localStorage.getItem('astik_read_inquiries') || '[]');
 
-    // 클릭 이벤트: 펼치기/접기 + 읽음 처리
-    var items = wrap.querySelectorAll('.inquiry-item');
-    items.forEach(function(item) {
-        var summary = item.querySelector('.inq-summary');
-        summary.addEventListener('click', function() {
-            var wasOpen = item.classList.contains('open');
+        var sorted = allInquiries.slice().reverse();
+        var html = '';
+        sorted.forEach(function (inq) {
+            var inqId = btoa(unescape(encodeURIComponent(
+                (inq.datetime || '') + '|' + (inq.name || '') + '|' + (inq.email || '') + '|' + (inq.message || '')
+            )));
+            var isRead = readList.indexOf(inqId) !== -1;
+            var phone = formatPhoneNumber(inq.phone);
 
-            // 다른 열린 항목 닫기
-            items.forEach(function(other) {
-                other.classList.remove('open');
-            });
+            html += '<div class="inquiry-item' + (isRead ? ' read' : '') + '" data-inq-id="' + inqId + '">';
 
-            if (!wasOpen) {
-                item.classList.add('open');
+            html += '  <div class="inq-summary">';
+            html += '    <div class="inq-summary-left">';
+            html += '      <span class="inq-unread-dot' + (isRead ? ' hidden' : '') + '"></span>';
+            html += '      <span class="inq-summary-type">' + (inq.type || '기타') + '</span>';
+            html += '      <span class="inq-summary-name">' + (inq.name || '-') + '</span>';
+            html += '      <span class="inq-summary-org">' + (inq.organization || '') + '</span>';
+            html += '    </div>';
+            html += '    <div class="inq-summary-right">';
+            html += '      <span class="inq-summary-date">' + (inq.datetime || '-') + '</span>';
+            html += '      <i class="fas fa-chevron-down inq-chevron"></i>';
+            html += '    </div>';
+            html += '  </div>';
 
-                // 읽음 처리
-                if (!item.classList.contains('read')) {
-                    item.classList.add('read');
-                    var dot = item.querySelector('.inq-unread-dot');
-                    if (dot) dot.classList.add('hidden');
+            html += '  <div class="inq-detail">';
+            html += '    <div class="inq-detail-grid">';
+            html += '      <div class="inq-field"><div class="inq-field-label">이름</div><div class="inq-field-value">' + (inq.name || '-') + '</div></div>';
+            html += '      <div class="inq-field"><div class="inq-field-label">연락처</div><div class="inq-field-value">' + phone + '</div></div>';
+            html += '      <div class="inq-field"><div class="inq-field-label">이메일</div><div class="inq-field-value">' + (inq.email || '-') + '</div></div>';
+            html += '      <div class="inq-field"><div class="inq-field-label">소속기관</div><div class="inq-field-value">' + (inq.organization || '-') + '</div></div>';
+            html += '      <div class="inq-field"><div class="inq-field-label">문의유형</div><div class="inq-field-value">' + (inq.type || '-') + '</div></div>';
+            html += '      <div class="inq-field"><div class="inq-field-label">희망과정</div><div class="inq-field-value">' + (inq.course || '-') + '</div></div>';
+            html += '      <div class="inq-field"><div class="inq-field-label">희망시작일</div><div class="inq-field-value">' + (inq.preferredDate || '-') + '</div></div>';
+            html += '      <div class="inq-field"><div class="inq-field-label">인원</div><div class="inq-field-value">' + (inq.participants || '-') + '</div></div>';
+            html += '    </div>';
+            if (inq.message) {
+                html += '    <div class="inq-message-section">';
+                html += '      <div class="inq-field-label">문의내용</div>';
+                html += '      <div class="inq-message-box">' + inq.message + '</div>';
+                html += '    </div>';
+            }
+            html += '  </div>';
 
-                    var id = item.getAttribute('data-inq-id');
-                    var stored = JSON.parse(localStorage.getItem('astik_read_inquiries') || '[]');
-                    if (stored.indexOf(id) === -1) {
-                        stored.push(id);
-                        localStorage.setItem('astik_read_inquiries', JSON.stringify(stored));
+            html += '</div>';
+        });
+        wrap.innerHTML = html;
+
+        var items = wrap.querySelectorAll('.inquiry-item');
+        items.forEach(function (item) {
+            var summary = item.querySelector('.inq-summary');
+            summary.addEventListener('click', function () {
+                var wasOpen = item.classList.contains('open');
+                items.forEach(function (other) { other.classList.remove('open'); });
+
+                if (!wasOpen) {
+                    item.classList.add('open');
+                    if (!item.classList.contains('read')) {
+                        item.classList.add('read');
+                        var dot = item.querySelector('.inq-unread-dot');
+                        if (dot) dot.classList.add('hidden');
+                        var id = item.getAttribute('data-inq-id');
+                        var stored = JSON.parse(localStorage.getItem('astik_read_inquiries') || '[]');
+                        if (stored.indexOf(id) === -1) {
+                            stored.push(id);
+                            localStorage.setItem('astik_read_inquiries', JSON.stringify(stored));
+                        }
                     }
                 }
-            }
+            });
         });
-    });
-}
+    }
 
     // ══════════════════════════════════
     //  일정 관리 탭
