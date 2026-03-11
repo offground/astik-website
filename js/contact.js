@@ -1,4 +1,31 @@
 // ===================================
+// FAQ 아코디언
+// ===================================
+document.addEventListener('DOMContentLoaded', function () {
+    var faqButtons = document.querySelectorAll('.faq-question');
+
+    faqButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var item = this.closest('.faq-item');
+            var isActive = item.classList.contains('active');
+
+            // 다른 항목 닫기
+            document.querySelectorAll('.faq-item.active').forEach(function (openItem) {
+                openItem.classList.remove('active');
+                openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            });
+
+            // 클릭한 항목 토글
+            if (!isActive) {
+                item.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+});
+
+
+// ===================================
 // ASTIK 문의 폼 - 구글 시트 연동
 // ===================================
 
