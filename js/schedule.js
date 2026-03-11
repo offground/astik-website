@@ -141,6 +141,32 @@
     }
 
     // ══════════════════════════════════
+    //  지난 일정 토글 헬퍼
+    // ══════════════════════════════════
+    function isPastListOpen() {
+        var pastList = document.getElementById('pastList');
+        return pastList && pastList.style.display !== 'none';
+    }
+
+    function openPastList() {
+        var pastList = document.getElementById('pastList');
+        var arrow = document.getElementById('pastArrow');
+        if (pastList && pastList.style.display === 'none') {
+            pastList.style.display = 'block';
+            if (arrow) arrow.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    function closePastList() {
+        var pastList = document.getElementById('pastList');
+        var arrow = document.getElementById('pastArrow');
+        if (pastList && pastList.style.display !== 'none') {
+            pastList.style.display = 'none';
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+        }
+    }
+
+    // ══════════════════════════════════
     //  달력 렌더링
     // ══════════════════════════════════
     function renderCalendar() {
@@ -196,7 +222,6 @@
             if (holidayName || dayOfWeek === 0) { cellClass += ' cal-holiday'; }
             else if (dayOfWeek === 6) { cellClass += ' cal-saturday-cell'; }
 
-            // 이 셀에 해당하는 일정 찾기
             var daySchedules = [];
             for (var si = 0; si < allSchedules.length; si++) {
                 if (isDateInRange(cellYear, cellMonth, dayNum, allSchedules[si].startDate, allSchedules[si].endDate)) {
@@ -226,7 +251,10 @@
                     // 시작일(또는 주 시작)에서 이번 주 내 남은 일수 계산
                     var spanDays = 1;
                     var label = '';
-                    if (isStart || isRowStart) {
+                    if (isSingle) {
+                        label = ev.course;
+                        spanDays = 1;
+                    } else if (isStart || isRowStart) {
                         label = ev.course;
                         var evEnd = parseLocalDate(ev.endDate);
                         evEnd.setHours(0, 0, 0, 0);
@@ -237,7 +265,7 @@
                     }
 
                     var widthStyle = '';
-                    if ((isStart || isRowStart) && spanDays > 1) {
+                    if (!isSingle && (isStart || isRowStart) && spanDays > 1) {
                         widthStyle = ' style="width: calc(' + spanDays + '00% + ' + (spanDays - 1) + 'px);"';
                     }
 
@@ -258,18 +286,20 @@
 
         bodyEl.innerHTML = html;
 
-        // 모든 이벤트 라벨 클릭 → 하단 일정으로 스크롤
+        // 모든 이벤트 라벨 클릭
         var eventLabels = bodyEl.querySelectorAll('.cal-event-label');
         for (var li = 0; li < eventLabels.length; li++) {
             (function (lbl) {
                 lbl.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    scrollToScheduleByRange(lbl.getAttribute('data-start'), lbl.getAttribute('data-end'));
+                    var startStr = lbl.getAttribute('data-start');
+                    var endStr = lbl.getAttribute('data-end');
+                    scrollToScheduleByRange(startStr, endStr);
                 });
             })(eventLabels[li]);
         }
 
-        // 셀 클릭도 유지
+        // 셀 클릭
         var cells = bodyEl.querySelectorAll('.cal-cell.has-event');
         for (var ci = 0; ci < cells.length; ci++) {
             (function (c) {
@@ -280,31 +310,64 @@
         }
     }
 
-    function scrollToSchedule(dateStr) {
-        var items = document.querySelectorAll('.sch-item');
-        var parts = dateStr.split('-');
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            if (isDateInRange(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]), item.getAttribute('data-start'), item.getAttribute('data-end'))) {
-                item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                item.classList.add('highlight');
-                (function (el) { setTimeout(function () { el.classList.remove('highlight'); }, 2000); })(item);
-                break;
+    // ══════════════════════════════════
+    //  스크롤 함수
+    // ══════════════════════════════════
+    function isSchedulePast(startStr, endStr) {
+        var today = new Date(); today.setHours(0, 0, 0, 0);
+        var end = parseLocalDate(endStr); end.setHours(0, 0, 0, 0);
+        return end < today;
+    }
+
+    function scrollToScheduleByRange(startStr, endStr) {
+        var isPast = isSchedulePast(startStr, endStr);
+
+        if (isPast) {
+            // 지난 일정이면: 펼치고 스크롤
+            openPastList();
+            setTimeout(function () {
+                var items = document.querySelectorAll('.sch-item');
+                for (var i = 0; i < items.length; i++) {
+                    if (items[i].getAttribute('data-start') === startStr && items[i].getAttribute('data-end') === endStr) {
+                        highlightAndScroll(items[i]);
+                        break;
+                    }
+                }
+            }, 100);
+        } else {
+            // 예정 일정이면: 지난 일정 접고 스크롤
+            closePastList();
+            var items = document.querySelectorAll('.sch-item');
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].getAttribute('data-start') === startStr && items[i].getAttribute('data-end') === endStr) {
+                    highlightAndScroll(items[i]);
+                    break;
+                }
             }
         }
     }
 
-    function scrollToScheduleByRange(startStr, endStr) {
-        var items = document.querySelectorAll('.sch-item');
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            if (item.getAttribute('data-start') === startStr && item.getAttribute('data-end') === endStr) {
-                item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                item.classList.add('highlight');
-                (function (el) { setTimeout(function () { el.classList.remove('highlight'); }, 2000); })(item);
+    function scrollToSchedule(dateStr) {
+        var parts = dateStr.split('-');
+        var year = parseInt(parts[0]), month = parseInt(parts[1]) - 1, day = parseInt(parts[2]);
+
+        // 이 날짜에 해당하는 일정 찾기
+        var matchedSchedule = null;
+        for (var si = 0; si < allSchedules.length; si++) {
+            if (isDateInRange(year, month, day, allSchedules[si].startDate, allSchedules[si].endDate)) {
+                matchedSchedule = allSchedules[si];
                 break;
             }
         }
+        if (!matchedSchedule) return;
+
+        scrollToScheduleByRange(matchedSchedule.startDate, matchedSchedule.endDate);
+    }
+
+    function highlightAndScroll(el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add('highlight');
+        setTimeout(function () { el.classList.remove('highlight'); }, 2000);
     }
 
     // ══════════════════════════════════
