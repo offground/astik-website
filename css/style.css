@@ -1721,24 +1721,40 @@ ul {
 }
 
 .cal-event-open {
-    background-color: rgba(37, 99, 235, 0.15);
+    background-color: #dbeafe;
     color: #2563eb;
 }
 
+.cal-event-open.cal-ev-mid,
+.cal-event-open.cal-ev-end {
+    background-color: #dbeafe;
+}
+
 .cal-event-closed {
-    background-color: rgba(220, 38, 38, 0.10);
+    background-color: #fee2e2;
     color: #dc2626;
 }
 
+.cal-event-closed.cal-ev-mid,
+.cal-event-closed.cal-ev-end {
+    background-color: #fee2e2;
+}
+
 .cal-event-holiday {
-    background-color: rgba(102, 102, 102, 0.15);
+    background-color: #e5e5e5;
     color: #666666;
+}
+
+.cal-event-holiday.cal-ev-mid,
+.cal-event-holiday.cal-ev-end {
+    background-color: #e5e5e5;
 }
 
 .sch-item.highlight {
     box-shadow: 0 0 0 3px rgba(217, 73, 37, 0.3);
     transition: box-shadow 0.3s ease;
 }
+
 
 /* ---------- 기존 도트 (하위호환) ---------- */
 .cal-dots {
