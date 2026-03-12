@@ -192,6 +192,22 @@ ul {
     gap: 16px;
 }
 
+.lang-switch {
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1C2955;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.lang-switch:hover {
+    background: #1C2955;
+    color: #fff;
+    border-color: #1C2955;
+}
+
 .btn-contact-sm {
     display: none;
     padding: 8px 16px;
@@ -273,6 +289,7 @@ ul {
     color: #1C2955;
     font-weight: 700;
 }
+
 /* ---------- 히어로 섹션 ---------- */
 .hero {
     position: relative;
@@ -327,6 +344,15 @@ ul {
     gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+/* ---------- 영어 hero 풀네임 ---------- */
+.hero-subtitle-en {
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 12px;
 }
 
 /* ---------- 공통 섹션 ---------- */
@@ -903,6 +929,14 @@ ul {
     letter-spacing: 0;
 }
 
+/* ---------- 트레이너 위치 정보 간격 ---------- */
+.trainer-location {
+    margin-top: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
 .trainer-certs {
     display: flex;
     flex-direction: column;
@@ -1058,6 +1092,7 @@ ul {
     color: #999;
     font-size: 12px;
 }
+
 /* ===================================
    교육과정 페이지 (courses.html)
    =================================== */
@@ -1233,16 +1268,15 @@ ul {
     background-color: rgba(28, 41, 85, 0.03);
     border-radius: 8px;
     padding: 4px 0 4px 20px;
+    margin-top: 12px;
     margin-bottom: 24px;
 }
-
 
 .spec-row {
     display: flex;
     padding: 10px 20px 10px 24px;
     border-bottom: 1px solid rgba(28, 41, 85, 0.06);
 }
-
 
 .spec-row:last-child {
     border-bottom: none;
@@ -1262,6 +1296,7 @@ ul {
 }
 
 .course-curriculum {
+    margin-top: 12px;
     margin-bottom: 28px;
 }
 
@@ -1757,7 +1792,6 @@ ul {
     transition: box-shadow 0.3s ease;
 }
 
-
 /* ---------- 기존 도트 (하위호환) ---------- */
 .cal-dots {
     display: flex;
@@ -2011,6 +2045,7 @@ ul {
     color: #888888;
     margin-bottom: 24px;
 }
+
 /* ===================================
    문의 페이지 (contact.html)
    =================================== */
@@ -2079,8 +2114,13 @@ ul {
     color: #666666;
     line-height: 1.6;
     display: flex;
-    align-items: center;
-    gap: 8px;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.contact-notice i {
+    margin-top: 3px;
+    flex-shrink: 0;
 }
 
 .contact-form-side {
@@ -2222,22 +2262,6 @@ ul {
     font-weight: 600;
     color: #888;
     flex-shrink: 0;
-}
-
-@media (max-width: 768px) {
-    .email-input-wrap {
-        flex-wrap: wrap;
-    }
-
-    .email-input-wrap .form-input {
-        flex: 1 1 calc(50% - 20px);
-        min-width: 80px;
-    }
-
-    .email-input-wrap .form-select {
-        width: 100%;
-        margin-top: 6px;
-    }
 }
 
 /* ===================================
@@ -2477,15 +2501,8 @@ ul {
     .cert-sub {
         padding-left: 12px;
     }
-    .spec-label {
-        width: 60px;
-    }
 
-    .course-spec-table {
-        padding: 4px 0 4px 8px;
-    }
-
-    /* 교육과정 */
+    /* 교육과정 – 모바일 */
     .course-track-cards {
         grid-template-columns: 1fr;
     }
@@ -2509,6 +2526,18 @@ ul {
 
     .course-grade {
         padding: 16px;
+    }
+
+    .spec-label {
+        width: 60px;
+    }
+
+    .course-spec-table {
+        padding: 4px 0 4px 8px;
+    }
+
+    .spec-row {
+        padding: 8px 12px 8px 12px;
     }
 
     .example-cards {
@@ -2548,7 +2577,7 @@ ul {
         border-radius: 2px;
     }
 
-    /* 교육일정 */
+    /* 교육일정 – 모바일 */
     .schedule-filters {
         flex-wrap: wrap;
     }
@@ -2614,7 +2643,7 @@ ul {
         margin-top: 16px;
     }
 
-    /* 문의 */
+    /* 문의 – 모바일 */
     .contact-layout {
         flex-direction: column;
     }
@@ -2642,6 +2671,9 @@ ul {
     }
 }
 
+/* ===================================
+   반응형: 소형 모바일
+   =================================== */
 @media (max-width: 480px) {
     .cal-cell {
         min-height: 44px;
@@ -2664,32 +2696,6 @@ ul {
         display: none;
     }
 }
-/* ---------- 교육과정 간격 수정 ---------- */
-.course-spec-table {
-    margin-top: 12px;
-}
-.course-spec-table .spec-row {
-    padding: 10px 20px 10px 28px;
-}
-.course-grade .grade-title {
-    margin-bottom: 8px;
-}
-.course-curriculum {
-    margin-top: 12px;
-}
-.course-curriculum h4 {
-    margin-bottom: 8px;
-}
-
-.course-grade .grade-title {
-    margin-bottom: 8px;
-}
-.course-curriculum {
-    margin-top: 12px;
-}
-.course-curriculum h4 {
-    margin-bottom: 8px;
-}
 
 /* ---------- 날짜 입력 영어 표기 ---------- */
 input[type="date"] {
@@ -2697,34 +2703,9 @@ input[type="date"] {
     -moz-appearance: none;
     appearance: none;
 }
+
 :lang(en) input[type="date"]::-webkit-datetime-edit-year-field::after,
 :lang(en) input[type="date"]::-webkit-datetime-edit-month-field::after,
 :lang(en) input[type="date"]::-webkit-datetime-edit-day-field::after {
     content: "";
-}
-
-/* ---------- 응답 안내 시계 아이콘 정렬 ---------- */
-.contact-notice {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-}
-.contact-notice i {
-    margin-top: 3px;
-    flex-shrink: 0;
-}
-/* ---------- 영어 hero 풀네임 ---------- */
-.hero-subtitle-en {
-    font-size: 0.95rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    opacity: 0.85;
-    margin-bottom: 12px;
-}
-/* ---------- 트레이너 위치 정보 간격 ---------- */
-.trainer-location {
-    margin-top: 8px;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-    opacity: 0.85;
 }
