@@ -2706,3 +2706,10 @@ input[type="date"] {
     opacity: 0.85;
     margin-bottom: 12px;
 }
+/* ---------- 트레이너 위치 정보 간격 ---------- */
+.trainer-location {
+    margin-top: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
