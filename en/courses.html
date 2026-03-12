@@ -73,7 +73,7 @@
     <!-- ========== Main Content ========== -->
     <main>
 
-        <!-- Hero -->
+        <!-- Page Hero -->
         <section class="page-hero">
             <div class="page-hero-inner">
                 <h1 class="page-hero-title">Training Courses</h1>
@@ -82,51 +82,64 @@
         </section>
 
         <!-- Course Intro -->
-        <section class="course-intro section">
+        <section class="section course-intro">
             <div class="container">
-                <p class="course-intro-text">
-                    ASTIK's training is divided into two tracks. <strong>Track A – Certified Courses</strong> follows a fixed curriculum with a set number of participants and certification upon completion. <strong>Track B – Custom Training</strong> is tailored to the client's facility and needs, with flexible scheduling and participant numbers.
-                </p>
+                <div class="course-intro-content">
+                    <h2 class="section-title">Training Programs by ASTIK</h2>
+                    <p class="section-desc">ASTIK's training is divided into two tracks: certified qualification courses and custom training.</p>
+
+                    <div class="course-track-cards">
+                        <div class="track-card">
+                            <div class="track-badge">TRACK A</div>
+                            <h3>Certified Courses</h3>
+                            <p>Fixed curriculum · Set duration<br>Per-person pricing · Certificate issued<br>4–10 participants · On-site at your facility</p>
+                        </div>
+                        <div class="track-card track-card-custom">
+                            <div class="track-badge badge-custom">TRACK B</div>
+                            <h3>Custom Training</h3>
+                            <p>Tailored to your needs<br>Per-day pricing · No participant limit<br>Content and schedule negotiated</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Adventure Park Instructor -->
-        <section id="adventure" class="course-detail section">
+        <!-- Track A Label -->
+        <section class="section-label-bar">
             <div class="container">
-                <div class="course-header">
-                    <div class="course-badge-group">
-                        <span class="course-badge badge-track">Track A</span>
-                        <span class="course-badge badge-level">Level 1 · Level 2</span>
-                    </div>
-                    <h3 class="course-title">ASTIK Adventure Park Instructor</h3>
-                </div>
+                <span class="label-bar-text">TRACK A &mdash; Certified Courses</span>
+            </div>
+        </section>
 
-                <div class="course-content">
-                    <div class="course-image">
-                        <img src="../images/course-adventure.jpg" alt="Adventure Park Instructor Training">
+        <!-- Course 1: Adventure Park Instructor -->
+        <section class="section course-detail" id="adventure">
+            <div class="container">
+                <div class="course-layout">
+                    <div class="course-gallery">
+                        <div class="course-gallery-track">
+                            <img src="../images/course-adventure-1.jpg" alt="Adventure Park Instructor Training 1">
+                            <img src="../images/course-adventure-2.jpg" alt="Adventure Park Instructor Training 2">
+                            <img src="../images/course-adventure-3.jpg" alt="Adventure Park Instructor Training 3">
+                        </div>
                     </div>
-
                     <div class="course-info">
-                        <!-- Level 1 - Operator -->
+                        <div class="course-badge-group">
+                            <span class="course-badge">Certified</span>
+                            <span class="course-badge badge-level">Level 1 · Level 2</span>
+                        </div>
+                        <h2 class="course-name">ASTIK Adventure Park Instructor</h2>
+                        <p class="course-desc-text">A certified training course for staff working at adventure parks, ropes courses, zip-lines, zip-coasters, climbing walls, and other multi-element adventure facilities. Covers facility operation (Lv.1) through rescue techniques (Lv.2).</p>
+
                         <div class="course-grade">
-                            <h4 class="grade-title">Lv.1 – Operator</h4>
+                            <h3 class="grade-title"><span class="grade-badge">Lv.1</span> Operator</h3>
                             <div class="course-spec-table">
-                                <div class="spec-row">
-                                    <span class="spec-label">Duration</span>
-                                    <span class="spec-value">2 days</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Participants</span>
-                                    <span class="spec-value">4 – 10</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Prerequisites</span>
-                                    <span class="spec-value">No qualification required / Age 19+</span>
-                                </div>
+                                <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">2 days</span></div>
+                                <div class="spec-row"><span class="spec-label">Participants</span><span class="spec-value">4 – 10</span></div>
+                                <div class="spec-row"><span class="spec-label">Prerequisites</span><span class="spec-value">No qualification required / Age 19+</span></div>
                             </div>
                             <div class="course-curriculum">
                                 <h4>Curriculum</h4>
-                                <ul class="curriculum-list">
+                                <ul>
                                     <li>Understanding adventure parks and ropes courses</li>
                                     <li>Operator duties and responsibilities</li>
                                     <li>Facility operation procedures</li>
@@ -134,26 +147,16 @@
                             </div>
                         </div>
 
-                        <!-- Level 2 - Rescuer -->
                         <div class="course-grade">
-                            <h4 class="grade-title">Lv.2 – Rescuer</h4>
+                            <h3 class="grade-title"><span class="grade-badge badge-advanced">Lv.2</span> Rescuer</h3>
                             <div class="course-spec-table">
-                                <div class="spec-row">
-                                    <span class="spec-label">Duration</span>
-                                    <span class="spec-value">3 days</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Participants</span>
-                                    <span class="spec-value">4 – 10</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Prerequisites</span>
-                                    <span class="spec-value">Operator (Lv.1) course completed</span>
-                                </div>
+                                <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">3 days</span></div>
+                                <div class="spec-row"><span class="spec-label">Participants</span><span class="spec-value">4 – 10</span></div>
+                                <div class="spec-row"><span class="spec-label">Prerequisites</span><span class="spec-value">Operator (Lv.1) course completed</span></div>
                             </div>
                             <div class="course-curriculum">
                                 <h4>Curriculum</h4>
-                                <ul class="curriculum-list">
+                                <ul>
                                     <li>Rescue methods and procedures</li>
                                     <li>Rescue equipment operation</li>
                                     <li>Practical rescue training</li>
@@ -161,51 +164,41 @@
                             </div>
                         </div>
 
-                        <a href="contact.html" class="btn btn-primary course-inquiry-btn">
-                            <i class="fas fa-envelope"></i> Inquire About This Course
-                        </a>
+                        <a href="contact.html" class="btn btn-primary">Inquire About This Course</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Zip-line / Zip-coaster Instructor -->
-        <section id="descent" class="course-detail section">
+        <!-- Course 2: Zip-line / Zip-coaster Instructor -->
+        <section class="section course-detail course-detail-alt" id="descent">
             <div class="container">
-                <div class="course-header">
-                    <div class="course-badge-group">
-                        <span class="course-badge badge-track">Track A</span>
-                        <span class="course-badge badge-level">Level 1 · Level 2</span>
+                <div class="course-layout layout-reverse">
+                    <div class="course-gallery">
+                        <div class="course-gallery-track">
+                            <img src="../images/course-descent-1.jpg" alt="Zip-line / Zip-coaster Instructor Training 1">
+                            <img src="../images/course-descent-2.jpg" alt="Zip-line / Zip-coaster Instructor Training 2">
+                            <img src="../images/course-descent-3.jpg" alt="Zip-line / Zip-coaster Instructor Training 3">
+                        </div>
                     </div>
-                    <h3 class="course-title">ASTIK Zip-line / Zip-coaster Instructor</h3>
-                </div>
-
-                <div class="course-content">
-                    <div class="course-image">
-                        <img src="../images/course-descent.jpg" alt="Zip-line / Zip-coaster Instructor Training">
-                    </div>
-
                     <div class="course-info">
-                        <!-- Level 1 - Operator -->
+                        <div class="course-badge-group">
+                            <span class="course-badge">Certified</span>
+                            <span class="course-badge badge-level">Level 1 · Level 2</span>
+                        </div>
+                        <h2 class="course-name">ASTIK Zip-line / Zip-coaster Instructor</h2>
+                        <p class="course-desc-text">A certified training course for staff operating zip-line and zip-coaster facilities. Covers facility operation (Lv.1) through rescue techniques (Lv.2).</p>
+
                         <div class="course-grade">
-                            <h4 class="grade-title">Lv.1 – Operator</h4>
+                            <h3 class="grade-title"><span class="grade-badge">Lv.1</span> Operator</h3>
                             <div class="course-spec-table">
-                                <div class="spec-row">
-                                    <span class="spec-label">Duration</span>
-                                    <span class="spec-value">2 days</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Participants</span>
-                                    <span class="spec-value">4 – 10</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Prerequisites</span>
-                                    <span class="spec-value">No qualification required / Age 19+</span>
-                                </div>
+                                <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">2 days</span></div>
+                                <div class="spec-row"><span class="spec-label">Participants</span><span class="spec-value">4 – 10</span></div>
+                                <div class="spec-row"><span class="spec-label">Prerequisites</span><span class="spec-value">No qualification required / Age 19+</span></div>
                             </div>
                             <div class="course-curriculum">
                                 <h4>Curriculum</h4>
-                                <ul class="curriculum-list">
+                                <ul>
                                     <li>Understanding zip-line and zip-coaster systems</li>
                                     <li>Operator duties and responsibilities</li>
                                     <li>Facility operation procedures</li>
@@ -213,26 +206,16 @@
                             </div>
                         </div>
 
-                        <!-- Level 2 - Rescuer -->
                         <div class="course-grade">
-                            <h4 class="grade-title">Lv.2 – Rescuer</h4>
+                            <h3 class="grade-title"><span class="grade-badge badge-advanced">Lv.2</span> Rescuer</h3>
                             <div class="course-spec-table">
-                                <div class="spec-row">
-                                    <span class="spec-label">Duration</span>
-                                    <span class="spec-value">3 days</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Participants</span>
-                                    <span class="spec-value">4 – 10</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Prerequisites</span>
-                                    <span class="spec-value">Operator (Lv.1) course completed</span>
-                                </div>
+                                <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">3 days</span></div>
+                                <div class="spec-row"><span class="spec-label">Participants</span><span class="spec-value">4 – 10</span></div>
+                                <div class="spec-row"><span class="spec-label">Prerequisites</span><span class="spec-value">Operator (Lv.1) course completed</span></div>
                             </div>
                             <div class="course-curriculum">
                                 <h4>Curriculum</h4>
-                                <ul class="curriculum-list">
+                                <ul>
                                     <li>Rescue methods and procedures</li>
                                     <li>Rescue equipment operation</li>
                                     <li>Practical rescue training</li>
@@ -240,176 +223,150 @@
                             </div>
                         </div>
 
-                        <a href="contact.html" class="btn btn-primary course-inquiry-btn">
-                            <i class="fas fa-envelope"></i> Inquire About This Course
-                        </a>
+                        <a href="contact.html" class="btn btn-primary">Inquire About This Course</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- PPE Inspection -->
-        <section id="ppe" class="course-detail section">
+        <!-- Course 3: PPE Inspection -->
+        <section class="section course-detail" id="ppe">
             <div class="container">
-                <div class="course-header">
-                    <div class="course-badge-group">
-                        <span class="course-badge badge-track">Track A</span>
-                    </div>
-                    <h3 class="course-title">ASTIK PPE Inspection Course</h3>
-                </div>
-
-                <div class="course-content">
+                <div class="course-layout">
                     <div class="course-image">
                         <img src="../images/course-ppe.jpg" alt="PPE Inspection Course">
                     </div>
-
                     <div class="course-info">
-                        <div class="course-grade">
-                            <div class="course-spec-table">
-                                <div class="spec-row">
-                                    <span class="spec-label">Duration</span>
-                                    <span class="spec-value">2 days</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Participants</span>
-                                    <span class="spec-value">4 – 10</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Location</span>
-                                    <span class="spec-value">On-site at your facility</span>
-                                </div>
-                            </div>
-                            <div class="course-curriculum">
-                                <h4>Curriculum</h4>
-                                <ul class="curriculum-list">
-                                    <li>Understanding PPE types and standards</li>
-                                    <li>PPE marking and documentation</li>
-                                    <li>PPE management and lifecycle</li>
-                                    <li>Hands-on PPE inspection practice</li>
-                                </ul>
-                            </div>
+                        <div class="course-badge-group">
+                            <span class="course-badge">Certified</span>
+                            <span class="course-badge badge-single">Single Level</span>
+                        </div>
+                        <h2 class="course-name">ASTIK PPE Inspection Course</h2>
+                        <p class="course-desc-text">A certified course for understanding, managing, and inspecting Personal Protective Equipment (PPE) used in adventure parks and ropes courses.</p>
+
+                        <div class="course-spec-table">
+                            <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">2 days</span></div>
+                            <div class="spec-row"><span class="spec-label">Participants</span><span class="spec-value">4 – 10</span></div>
+                            <div class="spec-row"><span class="spec-label">Location</span><span class="spec-value">On-site at your facility</span></div>
+                            <div class="spec-row"><span class="spec-label">Prerequisites</span><span class="spec-value">No qualification required / Age 19+</span></div>
                         </div>
 
-                        <a href="contact.html" class="btn btn-primary course-inquiry-btn">
-                            <i class="fas fa-envelope"></i> Inquire About This Course
-                        </a>
+                        <div class="course-curriculum">
+                            <h4>Curriculum</h4>
+                            <ul>
+                                <li>Understanding PPE types and standards</li>
+                                <li>PPE marking and documentation</li>
+                                <li>PPE management and lifecycle</li>
+                                <li>Hands-on PPE inspection practice</li>
+                            </ul>
+                        </div>
+
+                        <a href="contact.html" class="btn btn-primary">Inquire About This Course</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Operational Inspection -->
-        <section id="inspection" class="course-detail section">
+        <!-- Course 4: Operational Inspection -->
+        <section class="section course-detail course-detail-alt" id="inspection">
             <div class="container">
-                <div class="course-header">
-                    <div class="course-badge-group">
-                        <span class="course-badge badge-track">Track A</span>
-                    </div>
-                    <h3 class="course-title">ASTIK Operational Inspection Course</h3>
-                </div>
-
-                <div class="course-content">
+                <div class="course-layout layout-reverse">
                     <div class="course-image">
                         <img src="../images/course-inspection.jpg" alt="Operational Inspection Course">
                     </div>
-
                     <div class="course-info">
-                        <div class="course-grade">
-                            <div class="course-spec-table">
-                                <div class="spec-row">
-                                    <span class="spec-label">Duration</span>
-                                    <span class="spec-value">2 days</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Participants</span>
-                                    <span class="spec-value">4 – 10</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Location</span>
-                                    <span class="spec-value">On-site at your facility</span>
-                                </div>
-                            </div>
-                            <div class="course-curriculum">
-                                <h4>Curriculum</h4>
-                                <ul class="curriculum-list">
-                                    <li>Inspection timing and scheduling</li>
-                                    <li>Inspection materials and tools</li>
-                                    <li>Inspection scope and documentation</li>
-                                    <li>Outsourcing standards and criteria</li>
-                                </ul>
-                            </div>
+                        <div class="course-badge-group">
+                            <span class="course-badge">Certified</span>
+                            <span class="course-badge badge-single">Single Level</span>
+                        </div>
+                        <h2 class="course-name">ASTIK Operational Inspection Course</h2>
+                        <p class="course-desc-text">A certified course covering inspection timing, materials, scope, and documentation for the safe operation of adventure parks and ropes courses.</p>
+
+                        <div class="course-spec-table">
+                            <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">2 days</span></div>
+                            <div class="spec-row"><span class="spec-label">Participants</span><span class="spec-value">4 – 10</span></div>
+                            <div class="spec-row"><span class="spec-label">Location</span><span class="spec-value">On-site at your facility</span></div>
+                            <div class="spec-row"><span class="spec-label">Prerequisites</span><span class="spec-value">No qualification required / Age 19+</span></div>
                         </div>
 
-                        <a href="contact.html" class="btn btn-primary course-inquiry-btn">
-                            <i class="fas fa-envelope"></i> Inquire About This Course
-                        </a>
+                        <div class="course-curriculum">
+                            <h4>Curriculum</h4>
+                            <ul>
+                                <li>Inspection timing and scheduling</li>
+                                <li>Inspection materials and tools</li>
+                                <li>Inspection scope and documentation</li>
+                                <li>Outsourcing standards and criteria</li>
+                            </ul>
+                        </div>
+
+                        <a href="contact.html" class="btn btn-primary">Inquire About This Course</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Custom Training -->
-        <section id="custom" class="course-detail section">
+        <!-- Track B Label -->
+        <section class="section-label-bar label-bar-custom">
             <div class="container">
-                <div class="course-header">
-                    <div class="course-badge-group">
-                        <span class="course-badge badge-track">Track B</span>
-                    </div>
-                    <h3 class="course-title">Site Specific Instructor</h3>
-                    <p class="course-subtitle">Custom Training</p>
-                </div>
+                <span class="label-bar-text">TRACK B &mdash; Custom Training</span>
+            </div>
+        </section>
 
-                <div class="course-content">
-                    <div class="course-image">
-                        <img src="../images/course-custom.jpg" alt="Site Specific Instructor Training">
+        <!-- Course 5: Custom Training -->
+        <section class="section course-detail" id="custom">
+            <div class="container">
+                <div class="custom-course-layout">
+                    <div class="custom-header">
+                        <div class="custom-icon">
+                            <i class="fas fa-pen-ruler"></i>
+                        </div>
+                        <h2 class="course-name">Site Specific Instructor</h2>
+                        <p class="course-desc-text">For cases where formal certification is not required, we design and deliver training tailored to your facility and team needs.</p>
                     </div>
 
-                    <div class="course-info">
-                        <div class="course-grade">
-                            <div class="course-spec-table">
-                                <div class="spec-row">
-                                    <span class="spec-label">Duration</span>
-                                    <span class="spec-value">Negotiated (typically 1+ days)</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Participants</span>
-                                    <span class="spec-value">No limit</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Pricing</span>
-                                    <span class="spec-value">Per day</span>
-                                </div>
-                                <div class="spec-row">
-                                    <span class="spec-label">Location</span>
-                                    <span class="spec-value">On-site at your facility</span>
-                                </div>
+                    <div class="custom-spec">
+                        <div class="course-spec-table">
+                            <div class="spec-row"><span class="spec-label">Pricing</span><span class="spec-value">Per day</span></div>
+                            <div class="spec-row"><span class="spec-label">Participants</span><span class="spec-value">No limit</span></div>
+                            <div class="spec-row"><span class="spec-label">Duration</span><span class="spec-value">Negotiated</span></div>
+                            <div class="spec-row"><span class="spec-label">Location</span><span class="spec-value">On-site at your facility</span></div>
+                        </div>
+                    </div>
+
+                    <div class="custom-examples">
+                        <h4>Available Programs</h4>
+                        <div class="example-cards">
+                            <div class="example-card">
+                                <div class="example-icon"><i class="fas fa-user-plus"></i></div>
+                                <h5>New Staff Safety Training</h5>
+                                <p>Safety fundamentals for newly hired operational staff.</p>
                             </div>
-                            <div class="course-curriculum">
-                                <h4>Available Programs</h4>
-                                <ul class="curriculum-list">
-                                    <li>New staff safety training</li>
-                                    <li>Pre-opening operator training</li>
-                                    <li>Specialized rescue training</li>
-                                </ul>
+                            <div class="example-card">
+                                <div class="example-icon"><i class="fas fa-door-open"></i></div>
+                                <h5>Pre-opening Operator Training</h5>
+                                <p>Comprehensive training before a new facility opens to the public.</p>
+                            </div>
+                            <div class="example-card">
+                                <div class="example-icon"><i class="fas fa-life-ring"></i></div>
+                                <h5>Specialized Rescue Training</h5>
+                                <p>Custom rescue scenarios and techniques designed for your facility environment.</p>
                             </div>
                         </div>
+                    </div>
 
-                        <a href="contact.html" class="btn btn-primary course-inquiry-btn">
-                            <i class="fas fa-envelope"></i> Inquire About This Course
-                        </a>
+                    <div class="custom-cta">
+                        <a href="contact.html" class="btn btn-primary btn-lg">Inquire About Custom Training</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
-        <section class="cta-section section">
+        <!-- CTA Section -->
+        <section class="section cta-section">
             <div class="container">
-                <h2 class="cta-title">Looking for a Tailored Training Program?</h2>
-                <p class="cta-desc">Contact us to discuss a custom training plan that fits your facility and team.</p>
-                <a href="contact.html" class="btn btn-primary btn-lg">
-                    <i class="fas fa-envelope"></i> Contact Us
-                </a>
+                <h2 class="cta-title">Not Sure Which Course You Need?</h2>
+                <p class="cta-desc">Tell us about your facility and team,<br>and ASTIK will recommend the best training program for you.</p>
+                <a href="contact.html" class="btn btn-primary btn-lg">Contact Us</a>
             </div>
         </section>
 
