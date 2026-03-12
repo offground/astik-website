@@ -2659,3 +2659,42 @@ ul {
         display: none;
     }
 }
+/* ---------- 영어 페이지 교육과정 간격 수정 ---------- */
+.course-spec-table {
+    margin-top: 12px;
+}
+.course-spec-table .spec-row {
+    padding: 6px 0;
+}
+.course-grade .grade-title {
+    margin-bottom: 8px;
+}
+.course-curriculum {
+    margin-top: 12px;
+}
+.course-curriculum h4 {
+    margin-bottom: 8px;
+}
+
+/* ---------- 날짜 입력 영어 표기 ---------- */
+input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+:lang(en) input[type="date"]::-webkit-datetime-edit-year-field::after,
+:lang(en) input[type="date"]::-webkit-datetime-edit-month-field::after,
+:lang(en) input[type="date"]::-webkit-datetime-edit-day-field::after {
+    content: "";
+}
+
+/* ---------- 응답 안내 시계 아이콘 정렬 ---------- */
+.contact-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.contact-notice i {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
