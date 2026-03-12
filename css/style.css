@@ -2477,6 +2477,13 @@ ul {
     .cert-sub {
         padding-left: 12px;
     }
+    .spec-label {
+        width: 60px;
+    }
+
+    .course-spec-table {
+        padding: 4px 0 4px 8px;
+    }
 
     /* 교육과정 */
     .course-track-cards {
@@ -2506,10 +2513,6 @@ ul {
 
     .example-cards {
         grid-template-columns: 1fr;
-    }
-
-    .spec-label {
-        width: 100px;
     }
 
     .course-gallery {
