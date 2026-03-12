@@ -72,7 +72,7 @@
         </div>
     </header>
 
-    <!-- ========== Main Content ========== -->
+    <!-- ========== メインコンテンツ ========== -->
     <main>
 
         <!-- ページヒーロー -->
@@ -84,132 +84,161 @@
         </section>
 
         <!-- お問い合わせセクション -->
-        <section class="contact-section">
-            <div class="contact-container">
+        <section class="section contact-section">
+            <div class="container">
+                <div class="contact-layout">
 
-                <!-- 左カラム：連絡先情報 -->
-                <div class="contact-info">
-                    <h2 class="contact-info-title">ご連絡先</h2>
-                    <p class="contact-info-desc">研修プログラムのご相談、お見積り、日程に関するご質問など、<br>下記よりお気軽にお問い合わせください。<br>1〜2営業日以内にご返信いたします。</p>
+                    <!-- 左カラム：連絡先情報 -->
+                    <div class="contact-info-side">
+                        <h2 class="contact-info-title">お気軽にお問い合わせください</h2>
+                        <p class="contact-info-desc">資格認定コース、カスタム研修、日程調整など、ご質問がございましたらお気軽にご連絡ください。迅速にご対応いたします。</p>
 
-                    <div class="contact-method">
-                        <div class="contact-method-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <strong>Eメール</strong>
-                                <a href="mailto:astik@astik.co.kr">astik@astik.co.kr</a>
+                        <div class="contact-info-list">
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4>Eメール</h4>
+                                    <a href="mailto:astik@astik.co.kr">astik@astik.co.kr</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                                <div>
+                                    <h4>Instagram</h4>
+                                    <a href="https://www.instagram.com/astik.co.kr" target="_blank" rel="noopener">@astik.co.kr</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fab fa-youtube"></i>
+                                </div>
+                                <div>
+                                    <h4>YouTube</h4>
+                                    <a href="https://youtube.com/@astik.training" target="_blank" rel="noopener">@astik.training</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="contact-method-item">
-                            <i class="fab fa-instagram"></i>
-                            <div>
-                                <strong>Instagram</strong>
-                                <a href="https://www.instagram.com/astik.co.kr" target="_blank" rel="noopener noreferrer">@astik.co.kr</a>
-                            </div>
-                        </div>
-                        <div class="contact-method-item">
-                            <i class="fab fa-youtube"></i>
-                            <div>
-                                <strong>YouTube</strong>
-                                <a href="https://youtube.com/@astik.training" target="_blank" rel="noopener noreferrer">@astik.training</a>
-                            </div>
+
+                        <div class="contact-notice">
+                            <i class="fas fa-clock"></i>
+                            <p>通常1〜2営業日以内にご返信いたします。</p>
                         </div>
                     </div>
-                </div>
 
-                <!-- 右カラム：お問い合わせフォーム -->
-                <div class="contact-form-wrap">
-                    <form class="contact-form" id="contactForm">
-
-                        <div class="form-row">
+                    <!-- 右カラム：お問い合わせフォーム -->
+                    <div class="contact-form-side">
+                        <form
+                            id="contactForm"
+                            action="https://script.google.com/macros/s/AKfycbzKK29VIXcLN5FIxnasdXyTsl-fgxz55djLVGdGbZxB8AeJTwl1DQvgPGQtl6ywqSif/exec"
+                            method="POST"
+                            class="contact-form"
+                        >
                             <div class="form-group">
-                                <label for="name">お名前 <span class="required">*</span></label>
-                                <input type="text" id="name" name="name" required placeholder="例：田中 太郎">
+                                <label for="name" class="form-label">お名前 <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" class="form-input" placeholder="例：田中 太郎" required>
                             </div>
+
                             <div class="form-group">
-                                <label for="phone">電話番号 <span class="required">*</span></label>
-                                <input type="tel" id="phone" name="phone" required placeholder="例：090-1234-5678">
+                                <label for="phone" class="form-label">電話番号 <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" class="form-input" required placeholder="例：090-1234-5678" maxlength="20">
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="email">メールアドレス <span class="required">*</span></label>
-                            <input type="email" id="email" name="email" required placeholder="例：tanaka@example.com">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="organization">施設名・団体名</label>
-                            <input type="text" id="organization" name="organization" placeholder="例：〇〇アドベンチャーパーク">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inquiry-type">お問い合わせ種別 <span class="required">*</span></label>
-                            <select id="inquiry-type" name="inquiry-type" required>
-                                <option value="" disabled selected>選択してください</option>
-                                <option value="certified-course">資格認定コースについて</option>
-                                <option value="custom-training">カスタム研修について</option>
-                                <option value="schedule">日程・スケジュールについて</option>
-                                <option value="quote">お見積りのご依頼</option>
-                                <option value="other">その他</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="course-interest">ご関心のある研修</label>
-                            <select id="course-interest" name="course-interest">
-                                <option value="" disabled selected>選択してください（任意）</option>
-                                <option value="adventure-park-lv1">アドベンチャーパーク インストラクター Lv.1</option>
-                                <option value="adventure-park-lv2">アドベンチャーパーク レスキュー担当者 Lv.2</option>
-                                <option value="zipline-lv1">ジップライン／ジップコースター インストラクター Lv.1</option>
-                                <option value="zipline-lv2">ジップライン／ジップコースター レスキュー担当者 Lv.2</option>
-                                <option value="ppe">PPE点検コース</option>
-                                <option value="operational">施設運営点検コース</option>
-                                <option value="custom">カスタム研修（施設専用）</option>
-                            </select>
-                        </div>
-
-                        <div class="form-row">
                             <div class="form-group">
-                                <label for="preferred-date">ご希望の研修開始日</label>
-                                <input type="date" id="preferred-date" name="preferred-date">
+                                <label class="form-label">メールアドレス <span class="required">*</span></label>
+                                <div class="email-input-wrap">
+                                    <input type="text" id="emailId" class="form-input" required placeholder="メールID">
+                                    <span class="email-at">@</span>
+                                    <input type="text" id="emailDomain" class="form-input" placeholder="ドメインを入力">
+                                    <select id="emailDomainSelect" class="form-select" onchange="selectEmailDomain(this)">
+                                        <option value="">直接入力</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="outlook.com">outlook.com</option>
+                                        <option value="hotmail.com">hotmail.com</option>
+                                        <option value="yahoo.co.jp">yahoo.co.jp</option>
+                                        <option value="icloud.com">icloud.com</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" id="email" name="email">
                             </div>
+
                             <div class="form-group">
-                                <label for="participants">受講予定人数</label>
-                                <input type="number" id="participants" name="participants" min="1" placeholder="例：6">
+                                <label for="organization" class="form-label">施設名・団体名</label>
+                                <input type="text" id="organization" name="organization" class="form-input" placeholder="例：〇〇アドベンチャーパーク">
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="message">お問い合わせ内容</label>
-                            <textarea id="message" name="message" rows="5" placeholder="ご質問やご要望をご記入ください。"></textarea>
-                        </div>
+                            <div class="form-group">
+                                <label for="inquiry-type" class="form-label">お問い合わせ種別 <span class="required">*</span></label>
+                                <select id="inquiry-type" name="inquiry_type" class="form-select" required>
+                                    <option value="" disabled selected>選択してください</option>
+                                    <option value="研修お問い合わせ">研修お問い合わせ（コース案内・お見積り）</option>
+                                    <option value="安全装備の購入">安全装備の購入</option>
+                                    <option value="その他">その他</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group form-consent">
-                            <label class="consent-label">
-                                <input type="checkbox" id="consent" name="consent" required>
-                                <span>個人情報の収集・利用に同意します（保有期間：1年）。<span class="required">*</span></span>
-                            </label>
-                        </div>
+                            <div class="form-group">
+                                <label for="course" class="form-label">ご関心のある研修</label>
+                                <select id="course" name="course" class="form-select">
+                                    <option value="" disabled selected>選択してください（任意）</option>
+                                    <option value="アドベンチャーパーク インストラクター Lv.1">アドベンチャーパーク インストラクター Lv.1（2日間）</option>
+                                    <option value="アドベンチャーパーク レスキュー担当者 Lv.2">アドベンチャーパーク レスキュー担当者 Lv.2（3日間）</option>
+                                    <option value="ジップライン／ジップコースター インストラクター Lv.1">ジップライン／ジップコースター インストラクター Lv.1（2日間）</option>
+                                    <option value="ジップライン／ジップコースター レスキュー担当者 Lv.2">ジップライン／ジップコースター レスキュー担当者 Lv.2（3日間）</option>
+                                    <option value="PPE点検コース">PPE点検コース（2日間）</option>
+                                    <option value="施設運営点検コース">施設運営点検コース（2日間）</option>
+                                    <option value="カスタム研修">カスタム研修（施設専用）</option>
+                                </select>
+                            </div>
 
-                        <button type="submit" class="btn-submit">送信する</button>
-                    </form>
+                            <div class="form-row">
+                                <div class="form-group form-half">
+                                    <label for="preferred-date" class="form-label">ご希望の研修開始日</label>
+                                    <input type="date" id="preferred-date" name="preferred_date" class="form-input">
+                                </div>
+                                <div class="form-group form-half">
+                                    <label for="participants" class="form-label">受講予定人数</label>
+                                    <input type="text" id="participants" name="participants" class="form-input" placeholder="例：6名">
+                                </div>
+                            </div>
 
-                    <div class="contact-notice">
-                        <p><i class="fas fa-info-circle"></i> 通常1〜2営業日以内にご返信いたします。お急ぎの場合はメールにてご連絡ください。</p>
+                            <div class="form-group">
+                                <label for="message" class="form-label">お問い合わせ内容</label>
+                                <textarea id="message" name="message" class="form-textarea" rows="5" placeholder="ご質問やご要望をご自由にご記入ください。"></textarea>
+                            </div>
+
+                            <div class="form-group form-checkbox-group">
+                                <label class="form-checkbox-label">
+                                    <input type="checkbox" name="privacy_agree" required>
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-text">個人情報の収集・利用に同意します。<span class="required">*</span></span>
+                                </label>
+                                <p class="privacy-notice">収集項目：氏名、電話番号、メールアドレス、所属施設 / 利用目的：お問い合わせ対応 / 保有期間：お問い合わせ処理完了後1年</p>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
+                                送信する
+                            </button>
+                        </form>
                     </div>
+
                 </div>
 
+                <!-- 送信完了画面 -->
+                <div class="form-success hidden" id="formSuccess">
+                    <div class="success-icon">
+                        <i class="fas fa-circle-check"></i>
+                    </div>
+                    <h3>お問い合わせを受け付けました</h3>
+                    <p>1〜2営業日以内にご返信いたします。<br><br>ありがとうございました。</p>
+                </div>
             </div>
         </section>
-
-        <!-- 送信完了メッセージ（非表示） -->
-        <div class="form-success" id="formSuccess" style="display:none;">
-            <div class="form-success-inner">
-                <i class="fas fa-check-circle"></i>
-                <h3>お問い合わせを受け付けました</h3>
-                <p>1〜2営業日以内にご返信いたします。<br>ありがとうございました。</p>
-            </div>
-        </div>
 
     </main>
 
@@ -220,8 +249,8 @@
                 <div class="footer-info">
                     <img src="../images/logo-horizontal-white.png" alt="ASTIK" class="footer-logo">
                     <p class="footer-company">
-                        ASTIK 韓国アドベンチャー安全技術院<br>
-                        대한민국 / Republic of Korea<br>
+                        代表・主任トレーナー：ヤン・ホンジュン<br>
+                        韓国拠点 · アジア全域で研修対応<br>
                         Email: <a href="mailto:astik@astik.co.kr">astik@astik.co.kr</a>
                     </p>
                 </div>
@@ -238,5 +267,6 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script src="../js/contact.js"></script>
 </body>
 </html>
