@@ -2660,13 +2660,23 @@ ul {
         display: none;
     }
 }
-/* ---------- 영어 페이지 교육과정 간격 수정 ---------- */
+/* ---------- 교육과정 간격 수정 ---------- */
 .course-spec-table {
     margin-top: 12px;
 }
 .course-spec-table .spec-row {
-    padding: 6px 0;
+    padding: 10px 20px 10px 28px;
 }
+.course-grade .grade-title {
+    margin-bottom: 8px;
+}
+.course-curriculum {
+    margin-top: 12px;
+}
+.course-curriculum h4 {
+    margin-bottom: 8px;
+}
+
 .course-grade .grade-title {
     margin-bottom: 8px;
 }
