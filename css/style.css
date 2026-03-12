@@ -1247,7 +1247,7 @@ ul {
 }
 
 .spec-label {
-    width: 80px;
+    width: 120px;
     flex-shrink: 0;
     font-size: 14px;
     font-weight: 600;
@@ -2507,7 +2507,7 @@ ul {
     }
 
     .spec-label {
-        width: 70px;
+        width: 100px;
     }
 
     .course-gallery {
