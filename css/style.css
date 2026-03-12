@@ -1238,9 +1238,10 @@ ul {
 
 .spec-row {
     display: flex;
-    padding: 10px 20px;
+    padding: 10px 20px 10px 24px;
     border-bottom: 1px solid rgba(28, 41, 85, 0.06);
 }
+
 
 .spec-row:last-child {
     border-bottom: none;
