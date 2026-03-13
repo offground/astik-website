@@ -2709,3 +2709,89 @@ input[type="date"] {
 :lang(en) input[type="date"]::-webkit-datetime-edit-day-field::after {
     content: "";
 }
+/* ===================================
+   언어 스위치 2개 대응 – 반응형 보정
+   =================================== */
+
+/* --- 태블릿 세로 (768px ~ 1024px) --- */
+@media (max-width: 1024px) and (min-width: 769px) {
+    /* 가로 메뉴 글자 크기와 간격 줄이기 */
+    .gnb-list {
+        gap: 2px;
+    }
+
+    .gnb-link {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    /* 언어 스위치 작게 */
+    .lang-switch {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    /* 헤더 우측 간격 줄이기 */
+    .header-right {
+        gap: 8px;
+    }
+}
+
+/* --- 태블릿 세로 좁은 구간 (769px ~ 900px) ---
+     한국어·일본어처럼 글자 폭이 넓은 메뉴는
+     이 구간에서도 넘칠 수 있으므로 햄버거로 전환 */
+@media (max-width: 900px) {
+    .gnb {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .btn-contact-sm {
+        display: inline-block;
+    }
+}
+
+/* --- 모바일 (768px 이하) --- */
+@media (max-width: 768px) {
+    /* 언어 스위치 더 작게 */
+    .lang-switch {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    /* 헤더 우측 요소 간격 최소화 */
+    .header-right {
+        gap: 6px;
+    }
+
+    /* 문의 버튼 텍스트 줄바꿈 방지 + 크기 축소 */
+    .btn-contact-sm {
+        padding: 6px 10px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+}
+
+/* --- 소형 모바일 (480px 이하) --- */
+@media (max-width: 480px) {
+    .lang-switch {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+    .btn-contact-sm {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .header-right {
+        gap: 4px;
+    }
+
+    .logo-img {
+        height: 24px;
+    }
+}
