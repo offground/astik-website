@@ -2795,3 +2795,13 @@ input[type="date"] {
         height: 24px;
     }
 }
+/* --- 모바일 spec 테이블 영어 겹침 수정 --- */
+@media (max-width: 768px) {
+    .spec-label {
+        width: 90px;
+    }
+
+    .spec-row {
+        gap: 8px;
+    }
+}
