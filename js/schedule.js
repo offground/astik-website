@@ -519,44 +519,69 @@
         }
     }
 
-    function loadScheduleData() {
-        fetch(SHEET_CSV_URL)
-            .then(function (r) { return r.text(); })
-            .then(function (csv) {
-                allSchedules = parseCSV(csv);
-                renderCalendar();
-                renderScheduleList();
-            })
-            .catch(function (err) {
-                console.error('일정 로드 실패:', err);
+function loadScheduleData(retryCount) {
+    if (retryCount === undefined) retryCount = 0;
+    fetch(SHEET_CSV_URL)
+        .then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.text();
+        })
+        .then(function (csv) {
+            if (!csv || csv.trim().length < 10) throw new Error('빈 응답');
+            allSchedules = parseCSV(csv);
+            renderCalendar();
+            renderScheduleList();
+        })
+        .catch(function (err) {
+            console.error('일정 로드 실패 (시도 ' + (retryCount + 1) + '):', err);
+            if (retryCount < 3) {
+                setTimeout(function () {
+                    loadScheduleData(retryCount + 1);
+                }, 1000 * (retryCount + 1));
+            } else {
                 allSchedules = [];
                 renderCalendar();
                 renderScheduleList();
-            });
-    }
+            }
+        });
+}
 
-    function loadHomePreview() {
-        var previewEl = document.getElementById('schedulePreview');
-        if (!previewEl || document.getElementById('scheduleList')) return;
-        fetch(SHEET_CSV_URL)
-            .then(function (r) { return r.text(); })
-            .then(function (csv) {
-                var schedules = parseCSV(csv);
-                var today = new Date(); today.setHours(0, 0, 0, 0);
-                var upcoming = schedules
-                    .filter(function (s) { var e = parseLocalDate(s.endDate); e.setHours(0, 0, 0, 0); return e >= today && s.status === '모집 중' && s.type === '교육'; })
-                    .sort(function (a, b) { return parseLocalDate(a.startDate) - parseLocalDate(b.startDate); })
-                    .slice(0, 2);
-                if (upcoming.length === 0) return;
-                var html = '';
-                upcoming.forEach(function (s) {
-                    var sDate = parseLocalDate(s.startDate);
-                    html += '<div class="schedule-item"><div class="schedule-date"><span class="sch-date-text">' + (sDate.getMonth() + 1) + '월</span></div><div class="schedule-info"><h4>' + s.course + '</h4><p>' + formatDateRange(s.startDate, s.endDate) + ' · ' + s.location + '</p></div></div>';
-                });
-                previewEl.innerHTML = html;
-            })
-            .catch(function () { });
-    }
+
+function loadHomePreview(retryCount) {
+    if (retryCount === undefined) retryCount = 0;
+    var previewEl = document.getElementById('schedulePreview');
+    if (!previewEl || document.getElementById('scheduleList')) return;
+    fetch(SHEET_CSV_URL)
+        .then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.text();
+        })
+        .then(function (csv) {
+            if (!csv || csv.trim().length < 10) throw new Error('빈 응답');
+            var schedules = parseCSV(csv);
+            var today = new Date(); today.setHours(0, 0, 0, 0);
+            var upcoming = schedules
+                .filter(function (s) { var e = parseLocalDate(s.endDate); e.setHours(0, 0, 0, 0); return e >= today && s.status === '모집 중' && s.type === '교육'; })
+                .sort(function (a, b) { return parseLocalDate(a.startDate) - parseLocalDate(b.startDate); })
+                .slice(0, 2);
+            if (upcoming.length === 0) return;
+            var html = '';
+            upcoming.forEach(function (s) {
+                var sDate = parseLocalDate(s.startDate);
+                html += '<div class="schedule-item"><div class="schedule-date"><span class="sch-date-text">' + (sDate.getMonth() + 1) + '월</span></div><div class="schedule-info"><h4>' + s.course + '</h4><p>' + formatDateRange(s.startDate, s.endDate) + ' · ' + s.location + '</p></div></div>';
+            });
+            previewEl.innerHTML = html;
+        })
+        .catch(function (err) {
+            console.error('홈 미리보기 로드 실패 (시도 ' + (retryCount + 1) + '):', err);
+            if (retryCount < 3) {
+                setTimeout(function () {
+                    loadHomePreview(retryCount + 1);
+                }, 1000 * (retryCount + 1));
+            }
+        });
+}
+
 
     document.addEventListener('DOMContentLoaded', function () {
         if (document.getElementById('scheduleList')) {
