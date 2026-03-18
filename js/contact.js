@@ -53,6 +53,43 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ===================================
+// 다국어 검증 메시지
+// ===================================
+
+function getValidationMessages() {
+    var lang = document.documentElement.lang || 'ko';
+
+    if (lang === 'en') {
+        return {
+            name: 'Please enter your name.',
+            phone: 'Please enter a valid phone number.',
+            email: 'Please enter a valid email address.',
+            sending: 'Sending...',
+            submit: 'Contact Us',
+            fail: 'Failed to send. Please contact us directly at astik@astik.co.kr'
+        };
+    } else if (lang === 'ja') {
+        return {
+            name: 'お名前を入力してください。',
+            phone: '正しい電話番号を入力してください。',
+            email: '正しいメールアドレスを入力してください。',
+            sending: '送信中...',
+            submit: 'お問い合わせ',
+            fail: '送信に失敗しました。メール（astik@astik.co.kr）で直接お問い合わせください。'
+        };
+    } else {
+        return {
+            name: '이름을 입력해주세요.',
+            phone: '올바른 연락처를 입력해주세요.',
+            email: '올바른 이메일을 입력해주세요.',
+            sending: '전송 중...',
+            submit: '문의하기',
+            fail: '문의 전송에 실패했습니다. 이메일(astik@astik.co.kr)로 직접 문의해주세요.'
+        };
+    }
+}
+
+// ===================================
 // ASTIK 문의 폼 - 구글 시트 연동
 // ===================================
 
@@ -68,8 +105,36 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 
+        var msg = getValidationMessages();
+
         submitBtn.disabled = true;
-        submitBtn.textContent = '전송 중...';
+        submitBtn.textContent = msg.sending;
+
+        // 입력값 검증
+        var nameVal = document.getElementById('name').value.trim();
+        var phoneVal = document.getElementById('phone').value;
+        var emailVal = document.getElementById('email').value;
+
+        if (!nameVal) {
+            alert(msg.name);
+            submitBtn.disabled = false;
+            submitBtn.textContent = msg.submit;
+            return;
+        }
+
+        if (!/^[0-9\-]+$/.test(phoneVal) || phoneVal.replace(/-/g, '').length < 9) {
+            alert(msg.phone);
+            submitBtn.disabled = false;
+            submitBtn.textContent = msg.submit;
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+            alert(msg.email);
+            submitBtn.disabled = false;
+            submitBtn.textContent = msg.submit;
+            return;
+        }
 
         var inquiryType = document.getElementById('inquiry-type').value;
 
@@ -101,9 +166,9 @@ document.addEventListener('DOMContentLoaded', function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         })
         .catch(function (error) {
-            alert('문의 전송에 실패했습니다. 이메일(astik@astik.co.kr)로 직접 문의해주세요.');
+            alert(msg.fail);
             submitBtn.disabled = false;
-            submitBtn.textContent = '문의하기';
+            submitBtn.textContent = msg.submit;
         });
     });
 
