@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify(formData)
         })
         .then(function () {
+            if (typeof gtag === 'function') { gtag('event', 'form_submit', { event_category: 'contact', event_label: inquiryType }); }
             contactLayout.style.display = 'none';
             formSuccess.classList.remove('hidden');
             formSuccess.style.display = 'block';
