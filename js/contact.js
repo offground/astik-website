@@ -220,14 +220,17 @@ document.addEventListener('DOMContentLoaded', function () {
             grecaptcha.execute('6Ld_L5EsAAAAAEO3YxVCIWfkk2WJN30jBSSttvNx', { action: 'contact_submit' }).then(function (token) {
                 formData.recaptcha_token = token;
 
+                                var params = new URLSearchParams();
+                Object.keys(formData).forEach(function(key) {
+                    params.append(key, formData[key]);
+                });
+
                 fetch(form.action, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
+                    body: params
                 })
+
                 .then(function () {
                     if (typeof gtag === 'function') { gtag('event', 'form_submit', { event_category: 'contact', event_label: inquiryType }); }
                     contactLayout.style.display = 'none';
