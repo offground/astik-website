@@ -53,6 +53,44 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ===================================
+// XSS 방어 — 입력값 검증
+// ===================================
+
+function containsXSS(value) {
+    if (!value) return false;
+    var lower = value.toLowerCase();
+    var patterns = [
+        /<script/i,
+        /<\/script/i,
+        /javascript\s*:/i,
+        /on\w+\s*=/i,
+        /<iframe/i,
+        /<object/i,
+        /<embed/i,
+        /<img[^>]+onerror/i,
+        /<svg[^>]+onload/i,
+        /eval\s*\(/i,
+        /document\s*\.\s*cookie/i,
+        /document\s*\.\s*location/i,
+        /window\s*\.\s*location/i,
+        /<link[^>]+rel\s*=\s*["']?import/i
+    ];
+    for (var i = 0; i < patterns.length; i++) {
+        if (patterns[i].test(value)) return true;
+    }
+    return false;
+}
+
+function sanitizeInput(value) {
+    if (!value) return '';
+    return String(value)
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+// ===================================
 // 다국어 검증 메시지
 // ===================================
 
@@ -64,6 +102,7 @@ function getValidationMessages() {
             name: 'Please enter your name.',
             phone: 'Please enter a valid phone number.',
             email: 'Please enter a valid email address.',
+            xss: 'Invalid characters detected. Please remove special characters like < > and try again.',
             sending: 'Sending...',
             submit: 'Contact Us',
             fail: 'Failed to send. Please contact us directly at astik@astik.co.kr'
@@ -73,6 +112,7 @@ function getValidationMessages() {
             name: 'お名前を入力してください。',
             phone: '正しい電話番号を入力してください。',
             email: '正しいメールアドレスを入力してください。',
+            xss: '無効な文字が検出されました。< > などの特殊文字を削除してもう一度お試しください。',
             sending: '送信中...',
             submit: 'お問い合わせ',
             fail: '送信に失敗しました。メール（astik@astik.co.kr）で直接お問い合わせください。'
@@ -82,6 +122,7 @@ function getValidationMessages() {
             name: '이름을 입력해주세요.',
             phone: '올바른 연락처를 입력해주세요.',
             email: '올바른 이메일을 입력해주세요.',
+            xss: '허용되지 않는 문자가 포함되어 있습니다. < > 등의 특수문자를 제거하고 다시 시도해주세요.',
             sending: '전송 중...',
             submit: '문의하기',
             fail: '문의 전송에 실패했습니다. 이메일(astik@astik.co.kr)로 직접 문의해주세요.'
@@ -114,6 +155,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var nameVal = document.getElementById('name').value.trim();
         var phoneVal = document.getElementById('phone').value;
         var emailVal = document.getElementById('email').value;
+        var orgVal = document.getElementById('organization').value;
+        var messageVal = document.getElementById('message').value;
 
         if (!nameVal) {
             alert(msg.name);
@@ -136,18 +179,35 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // XSS 검사 — 모든 텍스트 필드 확인
+        var fieldsToCheck = [nameVal, orgVal, messageVal];
+        var hasXSS = false;
+        for (var i = 0; i < fieldsToCheck.length; i++) {
+            if (containsXSS(fieldsToCheck[i])) {
+                hasXSS = true;
+                break;
+            }
+        }
+
+        if (hasXSS) {
+            alert(msg.xss);
+            submitBtn.disabled = false;
+            submitBtn.textContent = msg.submit;
+            return;
+        }
+
         var inquiryType = document.getElementById('inquiry-type').value;
 
         var formData = {
-            name: document.getElementById('name').value,
+            name: sanitizeInput(document.getElementById('name').value),
             phone: document.getElementById('phone').value,
             email: document.getElementById('email').value,
-            organization: document.getElementById('organization').value,
+            organization: sanitizeInput(document.getElementById('organization').value),
             inquiry_type: inquiryType,
             course: document.getElementById('course').value,
             preferred_date: document.getElementById('preferred-date').value,
             participants: document.getElementById('participants').value,
-            message: document.getElementById('message').value,
+            message: sanitizeInput(document.getElementById('message').value),
             subject: '[ASTIK 문의] ' + inquiryType
         };
 
