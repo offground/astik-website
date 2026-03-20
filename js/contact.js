@@ -216,26 +216,37 @@ document.addEventListener('DOMContentLoaded', function () {
             subject: '[ASTIK 문의] ' + inquiryType
         };
 
-        fetch(form.action, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(function () {
-            if (typeof gtag === 'function') { gtag('event', 'form_submit', { event_category: 'contact', event_label: inquiryType }); }
-            contactLayout.style.display = 'none';
-            formSuccess.classList.remove('hidden');
-            formSuccess.style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        })
-        .catch(function (error) {
-            alert(msg.fail);
-            submitBtn.disabled = false;
-            submitBtn.textContent = msg.submit;
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6Ld_L5EsAAAAAEO3YxVCIWfkk2WJN30jBSSttvNx', { action: 'contact_submit' }).then(function (token) {
+                formData.recaptcha_token = token;
+
+                fetch(form.action, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(function () {
+                    if (typeof gtag === 'function') { gtag('event', 'form_submit', { event_category: 'contact', event_label: inquiryType }); }
+                    contactLayout.style.display = 'none';
+                    formSuccess.classList.remove('hidden');
+                    formSuccess.style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                })
+                .catch(function (error) {
+                    alert(msg.fail);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = msg.submit;
+                });
+            }).catch(function () {
+                alert(msg.fail);
+                submitBtn.disabled = false;
+                submitBtn.textContent = msg.submit;
+            });
         });
+
     });
 
     var inquirySelect = document.getElementById('inquiry-type');
