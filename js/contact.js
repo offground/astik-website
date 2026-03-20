@@ -222,7 +222,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 fetch(form.action, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json'
                     },
