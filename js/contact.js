@@ -203,52 +203,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var inquiryType = document.getElementById('inquiry-type').value;
 
-        var formData = {
-            name: sanitizeInput(nameVal),
-            phone: phoneVal,
-            email: emailVal,
-            organization: sanitizeInput(orgVal),
-            inquiry_type: inquiryType,
-            course: sanitizeInput(courseVal),
-            preferred_date: sanitizeInput(dateVal),
-            participants: sanitizeInput(partVal),
-            message: sanitizeInput(messageVal),
-            subject: '[ASTIK 문의] ' + inquiryType
-        };
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Ld_L5EsAAAAAEO3YxVCIWfkk2WJN30jBSSttvNx', { action: 'contact_submit' })
+            .then(function(token) {
 
-        grecaptcha.ready(function () {
-            grecaptcha.execute('6Ld_L5EsAAAAAEO3YxVCIWfkk2WJN30jBSSttvNx', { action: 'contact_submit' }).then(function (token) {
-                formData.recaptcha_token = token;
-
-                                var params = new URLSearchParams();
-                Object.keys(formData).forEach(function(key) {
-                    params.append(key, formData[key]);
-                });
+                var formData = {
+                    name: sanitizeInput(nameVal),
+                    phone: phoneVal,
+                    email: emailVal,
+                    organization: sanitizeInput(orgVal),
+                    inquiry_type: inquiryType,
+                    course: sanitizeInput(courseVal),
+                    preferred_date: sanitizeInput(dateVal),
+                    participants: sanitizeInput(partVal),
+                    message: sanitizeInput(messageVal),
+                    subject: '[ASTIK 문의] ' + inquiryType,
+                    recaptcha_token: token
+                };
 
                 fetch(form.action, {
                     method: 'POST',
                     mode: 'no-cors',
-                    body: params
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
                 })
-
-                .then(function () {
+                .then(function() {
                     if (typeof gtag === 'function') { gtag('event', 'form_submit', { event_category: 'contact', event_label: inquiryType }); }
                     contactLayout.style.display = 'none';
                     formSuccess.classList.remove('hidden');
                     formSuccess.style.display = 'block';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 })
-                .catch(function (error) {
+                .catch(function(error) {
                     alert(msg.fail);
                     submitBtn.disabled = false;
                     submitBtn.textContent = msg.submit;
                 });
-            }).catch(function () {
+
+            }).catch(function() {
                 alert(msg.fail);
                 submitBtn.disabled = false;
                 submitBtn.textContent = msg.submit;
             });
         });
+
 
     });
 
