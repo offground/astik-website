@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function containsXSS(value) {
     if (!value) return false;
-    var lower = value.toLowerCase();
     var patterns = [
         /<script/i,
         /<\/script/i,
@@ -151,13 +150,17 @@ document.addEventListener('DOMContentLoaded', function () {
         submitBtn.disabled = true;
         submitBtn.textContent = msg.sending;
 
-        // 입력값 검증
+        // 입력값 수집
         var nameVal = document.getElementById('name').value.trim();
         var phoneVal = document.getElementById('phone').value;
         var emailVal = document.getElementById('email').value;
         var orgVal = document.getElementById('organization').value;
         var messageVal = document.getElementById('message').value;
+        var courseVal = document.getElementById('course').value;
+        var dateVal = document.getElementById('preferred-date').value;
+        var partVal = document.getElementById('participants').value;
 
+        // 필수 입력 검증
         if (!nameVal) {
             alert(msg.name);
             submitBtn.disabled = false;
@@ -180,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // XSS 검사 — 모든 텍스트 필드 확인
-        var fieldsToCheck = [nameVal, orgVal, messageVal];
+        var fieldsToCheck = [nameVal, orgVal, messageVal, courseVal, dateVal, partVal, emailVal];
         var hasXSS = false;
         for (var i = 0; i < fieldsToCheck.length; i++) {
             if (containsXSS(fieldsToCheck[i])) {
@@ -199,15 +202,15 @@ document.addEventListener('DOMContentLoaded', function () {
         var inquiryType = document.getElementById('inquiry-type').value;
 
         var formData = {
-            name: sanitizeInput(document.getElementById('name').value),
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
-            organization: sanitizeInput(document.getElementById('organization').value),
+            name: sanitizeInput(nameVal),
+            phone: phoneVal,
+            email: emailVal,
+            organization: sanitizeInput(orgVal),
             inquiry_type: inquiryType,
-            course: document.getElementById('course').value,
-            preferred_date: document.getElementById('preferred-date').value,
-            participants: document.getElementById('participants').value,
-            message: sanitizeInput(document.getElementById('message').value),
+            course: sanitizeInput(courseVal),
+            preferred_date: sanitizeInput(dateVal),
+            participants: sanitizeInput(partVal),
+            message: sanitizeInput(messageVal),
             subject: '[ASTIK 문의] ' + inquiryType
         };
 
