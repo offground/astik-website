@@ -183,7 +183,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // XSS 검사 — 모든 텍스트 필드 확인
-        var fieldsToCheck = [nameVal, orgVal, messageVal, courseVal, dateVal, partVal, emailVal];
+        var emailIdVal = document.getElementById('emailId').value;
+        var emailDomainVal = document.getElementById('emailDomain').value;
+        var fieldsToCheck = [nameVal, orgVal, messageVal, courseVal, dateVal, partVal, emailVal, emailIdVal, emailDomainVal];
         var hasXSS = false;
         for (var i = 0; i < fieldsToCheck.length; i++) {
             if (containsXSS(fieldsToCheck[i])) {
