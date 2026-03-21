@@ -2220,6 +2220,10 @@ ul {
     display: none;
     text-align: center;
     padding: 60px 20px;
+    min-height: 60vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .form-success i {
