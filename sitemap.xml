@@ -5,6 +5,8 @@
   <!-- 한국어 -->
   <url>
     <loc>https://astik.co.kr/</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/"/>
@@ -12,6 +14,8 @@
   </url>
   <url>
     <loc>https://astik.co.kr/about.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/about.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/about.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/about.html"/>
@@ -19,6 +23,8 @@
   </url>
   <url>
     <loc>https://astik.co.kr/courses.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/courses.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/courses.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/courses.html"/>
@@ -26,10 +32,14 @@
   </url>
   <url>
     <loc>https://astik.co.kr/schedule.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://astik.co.kr/contact.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/contact.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/contact.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/contact.html"/>
@@ -39,6 +49,8 @@
   <!-- 영어 -->
   <url>
     <loc>https://astik.co.kr/en/</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/"/>
@@ -46,6 +58,8 @@
   </url>
   <url>
     <loc>https://astik.co.kr/en/about.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/about.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/about.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/about.html"/>
@@ -53,6 +67,8 @@
   </url>
   <url>
     <loc>https://astik.co.kr/en/courses.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/courses.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/courses.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/courses.html"/>
@@ -60,6 +76,8 @@
   </url>
   <url>
     <loc>https://astik.co.kr/en/contact.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/contact.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/contact.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/contact.html"/>
@@ -69,6 +87,8 @@
   <!-- 일본어 -->
   <url>
     <loc>https://astik.co.kr/ja/</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/"/>
@@ -76,6 +96,8 @@
   </url>
   <url>
     <loc>https://astik.co.kr/ja/about.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/about.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/about.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/about.html"/>
@@ -83,6 +105,8 @@
   </url>
   <url>
     <loc>https://astik.co.kr/ja/courses.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/courses.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/courses.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/courses.html"/>
@@ -90,6 +114,8 @@
   </url>
   <url>
     <loc>https://astik.co.kr/ja/contact.html</loc>
+    <lastmod>2026-03-23</lastmod>
+    <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="ko" href="https://astik.co.kr/contact.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://astik.co.kr/en/contact.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://astik.co.kr/ja/contact.html"/>
