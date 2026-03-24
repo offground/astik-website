@@ -2799,3 +2799,14 @@ input[type="date"] {
         height: 24px;
     }
 }
+.footer-privacy {
+    color: #fff;
+    font-size: 13px;
+    text-decoration: underline;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.footer-privacy:hover {
+    color: #D94925;
+}
