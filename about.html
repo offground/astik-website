@@ -37,6 +37,37 @@
         gtag('js', new Date());
         gtag('config', 'G-8902FFH7Q3');
     </script>
+
+    <style>
+        .footer-legal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .legal-divider {
+            color: rgba(255,255,255,0.3);
+            font-size: 12px;
+        }
+        .footer-legal .footer-privacy {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .footer-legal .footer-privacy:hover {
+            color: rgba(255,255,255,0.8);
+        }
+        @media (max-width: 768px) {
+            .footer-legal {
+                flex-direction: column;
+                gap: 4px;
+            }
+            .legal-divider {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -266,10 +297,14 @@
                     <a href="https://youtube.com/@astik.training" target="_blank" rel="noopener" aria-label="유튜브"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-<div class="footer-bottom">
-    <a href="/privacy.html" class="footer-privacy">개인정보 처리방침</a>
-    <p>&copy; 2025 ASTIK. All Rights Reserved.</p>
-</div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <a href="/privacy.html" class="footer-privacy">개인정보 처리방침</a>
+                    <span class="legal-divider">|</span>
+                    <a href="/qualification.html" class="footer-privacy">자격 정보 안내(환불 포함)</a>
+                </div>
+                <p>&copy; 2025 ASTIK. All Rights Reserved.</p>
+            </div>
 
         </div>
     </footer>
