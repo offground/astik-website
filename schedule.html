@@ -37,6 +37,36 @@
         gtag('js', new Date());
         gtag('config', 'G-8902FFH7Q3');
     </script>
+        <style>
+        .footer-legal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .legal-divider {
+            color: rgba(255,255,255,0.3);
+            font-size: 12px;
+        }
+        .footer-legal .footer-privacy {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .footer-legal .footer-privacy:hover {
+            color: rgba(255,255,255,0.8);
+        }
+        @media (max-width: 768px) {
+            .footer-legal {
+                flex-direction: column;
+                gap: 4px;
+            }
+            .legal-divider {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
