@@ -39,11 +39,9 @@
 
         if (!form) return;
 
-        // 금액 포맷
         var amountInput = document.getElementById('cancel-amount');
         if (amountInput) formatAmount(amountInput);
 
-        // 계좌번호 숫자만
         var accountInput = document.getElementById('cancel-account');
         if (accountInput) numericOnly(accountInput);
 
@@ -59,7 +57,6 @@
             var amount = (document.getElementById('cancel-amount').value || '').replace(/,/g, '').trim();
             var reason = (document.getElementById('cancel-reason').value || '').trim();
 
-            // 은행명: 직접입력 처리
             var bankSelect = document.getElementById('cancel-bank');
             var bank = bankSelect.value === '__direct__'
                 ? (document.getElementById('cancel-bank-direct').value || '').trim()
@@ -69,7 +66,6 @@
             var holder = (document.getElementById('cancel-holder').value || '').trim();
             var agree = document.getElementById('cancel-agree').checked;
 
-            // 필수 체크
             if (!name || !phone || !email || !org || !course || !startDate || !amount || !reason || !bank || !account || !holder) {
                 alert('필수 항목을 모두 입력해 주세요.');
                 return;
@@ -83,7 +79,6 @@
                 return;
             }
 
-            // XSS 검사
             var fields = [name, phone, email, org, course, startDate, amount, reason, bank, account, holder];
             for (var i = 0; i < fields.length; i++) {
                 if (containsXSS(fields[i])) {
@@ -92,43 +87,45 @@
                 }
             }
 
-            // 전송
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 제출 중...';
 
-            var params = new URLSearchParams();
-            params.append('name', sanitizeInput(name));
-            params.append('phone', sanitizeInput(phone));
-            params.append('email', sanitizeInput(email));
-            params.append('organization', sanitizeInput(org));
-            params.append('course', sanitizeInput(course));
-            params.append('startDate', sanitizeInput(startDate));
-            params.append('amount', sanitizeInput(amount));
-            params.append('reason', sanitizeInput(reason));
-            params.append('bank', sanitizeInput(bank));
-            params.append('account', sanitizeInput(account));
-            params.append('holder', sanitizeInput(holder));
+            // Google Apps Script는 리다이렉트 방식이므로 no-cors + form 방식 사용
+            var formData = new FormData();
+            formData.append('name', sanitizeInput(name));
+            formData.append('phone', sanitizeInput(phone));
+            formData.append('email', sanitizeInput(email));
+            formData.append('organization', sanitizeInput(org));
+            formData.append('course', sanitizeInput(course));
+            formData.append('startDate', sanitizeInput(startDate));
+            formData.append('amount', sanitizeInput(amount));
+            formData.append('reason', sanitizeInput(reason));
+            formData.append('bank', sanitizeInput(bank));
+            formData.append('account', sanitizeInput(account));
+            formData.append('holder', sanitizeInput(holder));
 
             fetch(CANCEL_SCRIPT_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString()
+                mode: 'no-cors',
+                body: formData
             })
-            .then(function(res) { return res.json(); })
-            .then(function(data) {
-                if (data.result === 'success') {
-                    form.style.display = 'none';
-                    document.querySelector('.cancel-notice').style.display = 'none';
-                    successDiv.style.display = 'block';
-                    if (timestampEl && data.timestamp) {
-                        timestampEl.textContent = data.timestamp;
-                    }
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    alert(data.message || '오류가 발생했습니다. 다시 시도해 주세요.');
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 취소 신청하기';
+            .then(function() {
+                // no-cors에서는 응답을 읽을 수 없으므로 성공으로 처리
+                form.style.display = 'none';
+                var noticeEl = document.querySelector('.cancel-notice');
+                if (noticeEl) noticeEl.style.display = 'none';
+                successDiv.style.display = 'block';
+                if (timestampEl) {
+                    var now = new Date();
+                    var y = now.getFullYear();
+                    var m = String(now.getMonth() + 1).padStart(2, '0');
+                    var d = String(now.getDate()).padStart(2, '0');
+                    var h = String(now.getHours()).padStart(2, '0');
+                    var min = String(now.getMinutes()).padStart(2, '0');
+                    var s = String(now.getSeconds()).padStart(2, '0');
+                    timestampEl.textContent = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + s;
                 }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             })
             .catch(function() {
                 alert('네트워크 오류가 발생했습니다. 다시 시도해 주세요.');
