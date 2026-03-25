@@ -3117,3 +3117,48 @@ input[type="date"] {
 .cancel-guide-box strong {
     color: #D94925;
 }
+/* 민간자격 과정 라벨 바 내 링크 */
+.section-label-bar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.qual-page-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #D94925;
+    background: #FFF5F2;
+    border: 1px solid #F0C8B8;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.qual-page-link:hover {
+    background: #D94925;
+    color: #fff;
+    border-color: #D94925;
+}
+
+.qual-page-link i {
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .section-label-bar .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .qual-page-link {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
