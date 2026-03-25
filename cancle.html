@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="ASTIK 한국모험안전기술원 교육 취소 신청">
+    <title>교육 취소 신청 - ASTIK 한국모험안전기술원</title>
+
+    <link rel="canonical" href="https://astik.co.kr/cancel.html">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8902FFH7Q3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8902FFH7Q3');
+    </script>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="images/logo.png" alt="ASTIK 한국모험안전기술원 로고">
+        </a>
+        <nav class="nav" id="nav">
+            <a href="/">홈</a>
+            <a href="/about.html">소개</a>
+            <a href="/courses.html">교육과정</a>
+            <a href="/schedule.html">교육일정</a>
+            <a href="https://blog.naver.com/astik_official" target="_blank">블로그</a>
+            <a href="/contact.html">문의</a>
+            <div class="lang-switch">
+                <a href="/en/">EN</a>
+                <a href="/ja/">JA</a>
+            </div>
+        </nav>
+        <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="page-hero">
+    <div class="container">
+        <h1>교육 취소 신청</h1>
+        <p>취소 신청서 제출 시점을 기준으로 환불 규정이 적용됩니다</p>
+    </div>
+</section>
+
+<!-- 취소 신청 폼 -->
+<section class="cancel-section">
+    <div class="container">
+
+        <!-- 안내 문구 -->
+        <div class="cancel-notice">
+            <h3><i class="fas fa-exclamation-circle"></i> 취소 신청 전 확인사항</h3>
+            <ul>
+                <li>본 신청서의 <strong>제출 시점</strong>을 기준으로 환불 규정이 적용됩니다.</li>
+                <li>검정수수료(100,000원)는 과오납을 제외하고 환불되지 않습니다.</li>
+                <li>교육 당일(교육 시작일 포함)부터는 교육비 환불이 불가합니다.</li>
+                <li>접수 후 영업일 기준 3일 이내에 회신드립니다.</li>
+                <li>환불 규정 상세 내용은 <a href="/qualification.html" target="_blank">자격 정보 안내(환불 포함)</a>를 참고해 주세요.</li>
+            </ul>
+        </div>
+
+        <!-- 폼 -->
+        <form id="cancelForm" class="cancel-form" novalidate>
+
+            <!-- 신청자 정보 -->
+            <div class="form-group-title">신청자 정보</div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cancel-name">신청자 성명 <span class="required">*</span></label>
+                    <input type="text" id="cancel-name" name="name" required placeholder="홍길동">
+                </div>
+                <div class="form-group">
+                    <label for="cancel-phone">연락처 <span class="required">*</span></label>
+                    <input type="tel" id="cancel-phone" name="phone" required placeholder="010-0000-0000">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cancel-email">이메일 <span class="required">*</span></label>
+                    <input type="email" id="cancel-email" name="email" required placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="cancel-org">소속/기관명 <span class="required">*</span></label>
+                    <input type="text" id="cancel-org" name="organization" required placeholder="소속 기관명">
+                </div>
+            </div>
+
+            <!-- 취소 대상 교육 정보 -->
+            <div class="form-group-title">취소 대상 교육 정보</div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cancel-course">취소 대상 교육과정 <span class="required">*</span></label>
+                    <select id="cancel-course" name="course" required>
+                        <option value="">선택해 주세요</option>
+                        <option value="모험시설 지도자 2급">모험시설 지도자 2급</option>
+                        <option value="모험시설 지도자 1급">모험시설 지도자 1급</option>
+                        <option value="하강레포츠 지도자 2급">하강레포츠 지도자 2급</option>
+                        <option value="하강레포츠 지도자 1급">하강레포츠 지도자 1급</option>
+                        <option value="모험시설 PPE 점검요원">모험시설 PPE 점검요원</option>
+                        <option value="모험시설 점검요원">모험시설 점검요원</option>
+                        <option value="맞춤형 교육 (TRACK B)">맞춤형 교육 (TRACK B)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cancel-startdate">교육 시작 예정일 <span class="required">*</span></label>
+                    <input type="date" id="cancel-startdate" name="startDate" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cancel-amount">결제 금액 (원) <span class="required">*</span></label>
+                    <input type="text" id="cancel-amount" name="amount" required placeholder="400,000">
+                </div>
+                <div class="form-group">
+                    <!-- 빈 칸: 레이아웃 정렬용 -->
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="cancel-reason">취소 사유 <span class="required">*</span></label>
+                <textarea id="cancel-reason" name="reason" rows="4" required placeholder="취소 사유를 작성해 주세요"></textarea>
+            </div>
+
+            <!-- 환불 계좌 정보 -->
+            <div class="form-group-title">환불 계좌 정보</div>
+
+            <div class="form-row form-row-3">
+                <div class="form-group">
+                    <label for="cancel-bank">은행명 <span class="required">*</span></label>
+                    <select id="cancel-bank" name="bank" required>
+                        <option value="">선택해 주세요</option>
+                        <option value="KB국민은행">KB국민은행</option>
+                        <option value="신한은행">신한은행</option>
+                        <option value="하나은행">하나은행</option>
+                        <option value="우리은행">우리은행</option>
+                        <option value="NH농협은행">NH농협은행</option>
+                        <option value="IBK기업은행">IBK기업은행</option>
+                        <option value="카카오뱅크">카카오뱅크</option>
+                        <option value="토스뱅크">토스뱅크</option>
+                        <option value="케이뱅크">케이뱅크</option>
+                        <option value="SC제일은행">SC제일은행</option>
+                        <option value="대구은행">대구은행</option>
+                        <option value="부산은행">부산은행</option>
+                        <option value="경남은행">경남은행</option>
+                        <option value="광주은행">광주은행</option>
+                        <option value="전북은행">전북은행</option>
+                        <option value="제주은행">제주은행</option>
+                        <option value="수협은행">수협은행</option>
+                        <option value="신협">신협</option>
+                        <option value="우체국">우체국</option>
+                        <option value="새마을금고">새마을금고</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cancel-account">계좌번호 <span class="required">*</span></label>
+                    <input type="text" id="cancel-account" name="account" required placeholder="- 없이 숫자만 입력">
+                </div>
+                <div class="form-group">
+                    <label for="cancel-holder">예금주 <span class="required">*</span></label>
+                    <input type="text" id="cancel-holder" name="holder" required placeholder="예금주명">
+                </div>
+            </div>
+
+            <!-- 동의 -->
+            <div class="cancel-consent">
+                <label class="consent-label">
+                    <input type="checkbox" id="cancel-agree" required>
+                    <span>본 취소 신청서 제출 시점을 기준으로 <a href="/qualification.html" target="_blank">환불 규정</a>이 적용됨을 확인하였습니다. <span class="required">*</span></span>
+                </label>
+            </div>
+
+            <!-- 제출 버튼 -->
+            <div class="form-submit">
+                <button type="submit" class="btn-cancel-submit" id="cancelSubmitBtn">
+                    <i class="fas fa-paper-plane"></i> 취소 신청하기
+                </button>
+            </div>
+        </form>
+
+        <!-- 제출 완료 메시지 -->
+        <div class="cancel-success" id="cancelSuccess" style="display:none;">
+            <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+            <h3>취소 신청이 접수되었습니다</h3>
+            <p>접수 확인 이메일이 발송되었습니다.</p>
+            <p>접수 시점: <strong id="cancelTimestamp"></strong></p>
+            <p class="success-note">검토 후 영업일 기준 3일 이내에 회신드리겠습니다.</p>
+            <a href="/" class="btn-back-home">홈으로 돌아가기</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-info">
+                <img src="images/logo-white.png" alt="ASTIK 로고" class="footer-logo">
+                <p>한국모험안전기술원 (ASTIK)</p>
+                <p>대표: 양홍준 | 사업자등록번호: 361-32-01701</p>
+                <p><a href="mailto:astik@astik.co.kr">astik@astik.co.kr</a></p>
+            </div>
+            <div class="footer-links">
+                <h4>바로가기</h4>
+                <a href="/">홈</a>
+                <a href="/about.html">소개</a>
+                <a href="/courses.html">교육과정</a>
+                <a href="/schedule.html">교육일정</a>
+                <a href="/contact.html">문의</a>
+            </div>
+            <div class="footer-social">
+                <h4>소셜 미디어</h4>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/astik.co.kr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/@astik.training" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://blog.naver.com/astik_official" target="_blank" aria-label="Naver Blog"><i class="fas fa-blog"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-legal">
+                <a href="/privacy.html" class="footer-privacy">개인정보 처리방침</a>
+                <span class="legal-divider">|</span>
+                <a href="/qualification.html" class="footer-privacy">자격 정보 안내(환불 포함)</a>
+            </div>
+            <p>&copy; 2025 ASTIK. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js"></script>
+<script src="js/cancel.js"></script>
+
+</body>
+</html>
