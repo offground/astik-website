@@ -3,145 +3,134 @@
 // ========================================
 
 (function() {
-    'use strict';
-
     var CANCEL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzqsizssWFYi5yuYlF8YHMESPmLTcRkX8YvkAUD8F58GoWcOG0pvk0kfB4kFVqtO8s3/exec';
 
-    // XSS 검사
     function containsXSS(str) {
         if (!str) return false;
-        var xssPattern = /<script|<\/script|javascript:|on\w+\s*=|<iframe|<object|<embed|<form|<img\s+.*onerror/i;
-        return xssPattern.test(str);
+        var pattern = /<script|<\/script|javascript:|on\w+\s*=|<iframe|<object|<embed|<form|<img\s+.*onerror/i;
+        return pattern.test(str);
     }
 
-    // 입력값 정리
     function sanitizeInput(str) {
         if (!str) return '';
-        return str.replace(/[<>"'&]/g, function(match) {
-            var map = { '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;', '&': '&amp;' };
-            return map[match];
-        });
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
     }
 
-    // 금액 포맷 (콤마 자동 입력)
     function formatAmount(input) {
         input.addEventListener('input', function() {
-            var value = this.value.replace(/[^\d]/g, '');
-            if (value) {
-                this.value = Number(value).toLocaleString('ko-KR');
+            var val = this.value.replace(/[^\d]/g, '');
+            if (val) {
+                this.value = Number(val).toLocaleString('ko-KR');
             }
         });
     }
 
-    // 계좌번호 숫자만 허용
     function numericOnly(input) {
         input.addEventListener('input', function() {
             this.value = this.value.replace(/[^\d]/g, '');
         });
     }
 
-    // 폼 초기화
     function init() {
         var form = document.getElementById('cancelForm');
         var submitBtn = document.getElementById('cancelSubmitBtn');
-        var amountInput = document.getElementById('cancel-amount');
-        var accountInput = document.getElementById('cancel-account');
+        var successDiv = document.getElementById('cancelSuccess');
+        var timestampEl = document.getElementById('cancelTimestamp');
 
         if (!form) return;
 
-        // 금액 콤마 자동 입력
-        formatAmount(amountInput);
+        // 금액 포맷
+        var amountInput = document.getElementById('cancel-amount');
+        if (amountInput) formatAmount(amountInput);
 
         // 계좌번호 숫자만
-        numericOnly(accountInput);
+        var accountInput = document.getElementById('cancel-account');
+        if (accountInput) numericOnly(accountInput);
 
-        // 폼 제출
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // 동의 체크 확인
-            var agreeBox = document.getElementById('cancel-agree');
-            if (!agreeBox.checked) {
-                alert('환불 규정 적용에 동의해 주세요.');
-                agreeBox.focus();
+            var name = (document.getElementById('cancel-name').value || '').trim();
+            var phone = (document.getElementById('cancel-phone').value || '').trim();
+            var email = (document.getElementById('cancel-email').value || '').trim();
+            var org = (document.getElementById('cancel-org').value || '').trim();
+            var course = (document.getElementById('cancel-course').value || '').trim();
+            var startDate = (document.getElementById('cancel-startdate').value || '').trim();
+            var amount = (document.getElementById('cancel-amount').value || '').replace(/,/g, '').trim();
+            var reason = (document.getElementById('cancel-reason').value || '').trim();
+
+            // 은행명: 직접입력 처리
+            var bankSelect = document.getElementById('cancel-bank');
+            var bank = bankSelect.value === '__direct__'
+                ? (document.getElementById('cancel-bank-direct').value || '').trim()
+                : bankSelect.value;
+
+            var account = (document.getElementById('cancel-account').value || '').trim();
+            var holder = (document.getElementById('cancel-holder').value || '').trim();
+            var agree = document.getElementById('cancel-agree').checked;
+
+            // 필수 체크
+            if (!name || !phone || !email || !org || !course || !startDate || !amount || !reason || !bank || !account || !holder) {
+                alert('필수 항목을 모두 입력해 주세요.');
                 return;
             }
-
-            // 입력값 수집
-            var fields = {
-                name: document.getElementById('cancel-name').value.trim(),
-                phone: document.getElementById('cancel-phone').value.trim(),
-                email: document.getElementById('cancel-email').value.trim(),
-                organization: document.getElementById('cancel-org').value.trim(),
-                course: document.getElementById('cancel-course').value,
-                startDate: document.getElementById('cancel-startdate').value,
-                amount: amountInput.value.replace(/,/g, ''),
-                reason: document.getElementById('cancel-reason').value.trim(),
-                bank: document.getElementById('cancel-bank').value,
-                account: accountInput.value.trim(),
-                holder: document.getElementById('cancel-holder').value.trim()
-            };
-
-            // 필수값 검증
-            for (var key in fields) {
-                if (!fields[key]) {
-                    alert('모든 필수 항목을 입력해 주세요.');
-                    return;
-                }
+            if (!agree) {
+                alert('환불 규정 확인에 동의해 주세요.');
+                return;
             }
-
-            // 이메일 형식 검증
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(fields.email)) {
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 alert('올바른 이메일 형식을 입력해 주세요.');
-                document.getElementById('cancel-email').focus();
                 return;
             }
 
             // XSS 검사
-            for (var key in fields) {
-                if (containsXSS(fields[key])) {
+            var fields = [name, phone, email, org, course, startDate, amount, reason, bank, account, holder];
+            for (var i = 0; i < fields.length; i++) {
+                if (containsXSS(fields[i])) {
                     alert('유효하지 않은 입력이 포함되어 있습니다.');
                     return;
                 }
             }
 
-            // 제출 버튼 비활성화
+            // 전송
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 접수 중...';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 제출 중...';
 
-            // 데이터 전송
-            var formData = new URLSearchParams();
-            for (var key in fields) {
-                formData.append(key, sanitizeInput(fields[key]));
-            }
+            var params = new URLSearchParams();
+            params.append('name', sanitizeInput(name));
+            params.append('phone', sanitizeInput(phone));
+            params.append('email', sanitizeInput(email));
+            params.append('organization', sanitizeInput(org));
+            params.append('course', sanitizeInput(course));
+            params.append('startDate', sanitizeInput(startDate));
+            params.append('amount', sanitizeInput(amount));
+            params.append('reason', sanitizeInput(reason));
+            params.append('bank', sanitizeInput(bank));
+            params.append('account', sanitizeInput(account));
+            params.append('holder', sanitizeInput(holder));
 
             fetch(CANCEL_SCRIPT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formData.toString()
+                body: params.toString()
             })
-            .then(function(response) { return response.json(); })
+            .then(function(res) { return res.json(); })
             .then(function(data) {
                 if (data.result === 'success') {
-                    // 폼 숨기고 완료 메시지 표시
                     form.style.display = 'none';
                     document.querySelector('.cancel-notice').style.display = 'none';
-
-                    var successDiv = document.getElementById('cancelSuccess');
-                    var timestampEl = document.getElementById('cancelTimestamp');
-                    timestampEl.textContent = data.timestamp;
                     successDiv.style.display = 'block';
-
-                    // 상단으로 스크롤
-                    successDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (timestampEl && data.timestamp) {
+                        timestampEl.textContent = data.timestamp;
+                    }
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
                     alert(data.message || '오류가 발생했습니다. 다시 시도해 주세요.');
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 취소 신청하기';
                 }
             })
-            .catch(function(error) {
+            .catch(function() {
                 alert('네트워크 오류가 발생했습니다. 다시 시도해 주세요.');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 취소 신청하기';
@@ -149,7 +138,6 @@
         });
     }
 
-    // DOM 로드 후 초기화
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
