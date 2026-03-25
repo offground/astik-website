@@ -4,6 +4,7 @@
 
 (function() {
     var CANCEL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzqsizssWFYi5yuYlF8YHMESPmLTcRkX8YvkAUD8F58GoWcOG0pvk0kfB4kFVqtO8s3/exec';
+    var RECAPTCHA_SITE_KEY = '6Ld_L5EsAAAAAEO3YxVCIWfkk2WJN30jBSSttvNx';
 
     function containsXSS(str) {
         if (!str) return false;
@@ -90,47 +91,58 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 제출 중...';
 
-            // Google Apps Script는 리다이렉트 방식이므로 no-cors + form 방식 사용
-            var formData = new FormData();
-            formData.append('name', sanitizeInput(name));
-            formData.append('phone', sanitizeInput(phone));
-            formData.append('email', sanitizeInput(email));
-            formData.append('organization', sanitizeInput(org));
-            formData.append('course', sanitizeInput(course));
-            formData.append('startDate', sanitizeInput(startDate));
-            formData.append('amount', sanitizeInput(amount));
-            formData.append('reason', sanitizeInput(reason));
-            formData.append('bank', sanitizeInput(bank));
-            formData.append('account', sanitizeInput(account));
-            formData.append('holder', sanitizeInput(holder));
+            grecaptcha.ready(function() {
+                grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'cancel_submit' })
+                .then(function(token) {
 
-            fetch(CANCEL_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            })
-            .then(function() {
-                // no-cors에서는 응답을 읽을 수 없으므로 성공으로 처리
-                form.style.display = 'none';
-                var noticeEl = document.querySelector('.cancel-notice');
-                if (noticeEl) noticeEl.style.display = 'none';
-                successDiv.style.display = 'block';
-                if (timestampEl) {
-                    var now = new Date();
-                    var y = now.getFullYear();
-                    var m = String(now.getMonth() + 1).padStart(2, '0');
-                    var d = String(now.getDate()).padStart(2, '0');
-                    var h = String(now.getHours()).padStart(2, '0');
-                    var min = String(now.getMinutes()).padStart(2, '0');
-                    var s = String(now.getSeconds()).padStart(2, '0');
-                    timestampEl.textContent = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + s;
-                }
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            })
-            .catch(function() {
-                alert('네트워크 오류가 발생했습니다. 다시 시도해 주세요.');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 취소 신청하기';
+                    var formData = new FormData();
+                    formData.append('name', sanitizeInput(name));
+                    formData.append('phone', sanitizeInput(phone));
+                    formData.append('email', sanitizeInput(email));
+                    formData.append('organization', sanitizeInput(org));
+                    formData.append('course', sanitizeInput(course));
+                    formData.append('startDate', sanitizeInput(startDate));
+                    formData.append('amount', sanitizeInput(amount));
+                    formData.append('reason', sanitizeInput(reason));
+                    formData.append('bank', sanitizeInput(bank));
+                    formData.append('account', sanitizeInput(account));
+                    formData.append('holder', sanitizeInput(holder));
+                    formData.append('recaptchaToken', token);
+
+                    fetch(CANCEL_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: formData
+                    })
+                    .then(function() {
+                        form.style.display = 'none';
+                        var noticeEl = document.querySelector('.cancel-notice');
+                        if (noticeEl) noticeEl.style.display = 'none';
+                        successDiv.style.display = 'block';
+                        if (timestampEl) {
+                            var now = new Date();
+                            var y = now.getFullYear();
+                            var m = String(now.getMonth() + 1).padStart(2, '0');
+                            var d = String(now.getDate()).padStart(2, '0');
+                            var h = String(now.getHours()).padStart(2, '0');
+                            var min = String(now.getMinutes()).padStart(2, '0');
+                            var s = String(now.getSeconds()).padStart(2, '0');
+                            timestampEl.textContent = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + s;
+                        }
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    })
+                    .catch(function() {
+                        alert('네트워크 오류가 발생했습니다. 다시 시도해 주세요.');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 취소 신청하기';
+                    });
+
+                })
+                .catch(function() {
+                    alert('보안 인증에 실패했습니다. 페이지를 새로고침 후 다시 시도해 주세요.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 취소 신청하기';
+                });
             });
         });
     }
