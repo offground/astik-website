@@ -528,5 +528,20 @@
 
     <script src="js/main.js"></script>
     <script src="js/cancel.js"></script>
+        <script>
+        function toggleBankInput(sel) {
+            var directInput = document.getElementById('cancel-bank-direct');
+            if (sel.value === '__direct__') {
+                directInput.style.display = 'block';
+                directInput.required = true;
+                directInput.focus();
+            } else {
+                directInput.style.display = 'none';
+                directInput.required = false;
+                directInput.value = '';
+            }
+        }
+    </script>
+
 </body>
 </html>
