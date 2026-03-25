@@ -2810,3 +2810,292 @@ input[type="date"] {
 .footer-privacy:hover {
     color: #D94925;
 }
+/* ========================================
+   교육 취소 신청 페이지
+======================================== */
+.cancel-section {
+    padding: 60px 0 80px;
+}
+
+/* 안내 문구 박스 */
+.cancel-notice {
+    background: #FFF5F2;
+    border: 1px solid #F0C8B8;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 40px;
+}
+
+.cancel-notice h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #D94925;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cancel-notice ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cancel-notice li {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+    padding-left: 16px;
+    position: relative;
+}
+
+.cancel-notice li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: #D94925;
+    font-weight: 700;
+}
+
+.cancel-notice a {
+    color: #D94925;
+    text-decoration: underline;
+}
+
+/* 폼 그룹 타이틀 */
+.form-group-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #eee;
+}
+
+.form-group-title:first-of-type {
+    margin-top: 0;
+}
+
+/* 폼 행 */
+.cancel-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.cancel-form .form-row-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.cancel-form .full-width {
+    margin-bottom: 16px;
+}
+
+/* 폼 그룹 */
+.cancel-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.cancel-form .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.cancel-form .required {
+    color: #D94925;
+}
+
+/* 입력 필드 */
+.cancel-form input[type="text"],
+.cancel-form input[type="tel"],
+.cancel-form input[type="email"],
+.cancel-form input[type="date"],
+.cancel-form select,
+.cancel-form textarea {
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    color: #333;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.cancel-form input:focus,
+.cancel-form select:focus,
+.cancel-form textarea:focus {
+    outline: none;
+    border-color: #D94925;
+    box-shadow: 0 0 0 3px rgba(217, 73, 37, 0.1);
+}
+
+.cancel-form textarea {
+    resize: vertical;
+}
+
+.cancel-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+}
+
+/* 동의 체크박스 */
+.cancel-consent {
+    margin: 32px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.consent-label input[type="checkbox"] {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    accent-color: #D94925;
+}
+
+.consent-label a {
+    color: #D94925;
+    text-decoration: underline;
+}
+
+/* 제출 버튼 */
+.form-submit {
+    text-align: center;
+}
+
+.btn-cancel-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #fff;
+    background: #D94925;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel-submit:hover {
+    background: #C13A1A;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(217, 73, 37, 0.3);
+}
+
+.btn-cancel-submit:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 제출 완료 메시지 */
+.cancel-success {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.cancel-success .success-icon {
+    font-size: 60px;
+    color: #43A047;
+    margin-bottom: 20px;
+}
+
+.cancel-success h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.cancel-success p {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.cancel-success strong {
+    color: #D94925;
+}
+
+.cancel-success .success-note {
+    font-size: 14px;
+    color: #888;
+    margin-top: 16px;
+}
+
+.btn-back-home {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 12px 32px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    background: #D94925;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.btn-back-home:hover {
+    background: #C13A1A;
+}
+
+/* ========================================
+   반응형: 모바일
+======================================== */
+@media (max-width: 768px) {
+    .cancel-section {
+        padding: 40px 0 60px;
+    }
+
+    .cancel-form .form-row,
+    .cancel-form .form-row-3 {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .cancel-notice {
+        padding: 16px;
+    }
+
+    .cancel-notice li {
+        font-size: 13px;
+    }
+
+    .btn-cancel-submit {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cancel-success h3 {
+        font-size: 20px;
+    }
+}
