@@ -3099,3 +3099,21 @@ input[type="date"] {
         font-size: 20px;
     }
 }
+/* 취소 신청 안내 박스 */
+.cancel-guide-box {
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.cancel-guide-box p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 4px;
+}
+
+.cancel-guide-box strong {
+    color: #D94925;
+}
