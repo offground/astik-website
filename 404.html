@@ -4,16 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASTIK 한국모험안전기술원</title>
-
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="icon" type="image/png" href="/images/favicon.png">
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Pretendard', sans-serif;
             background: #f8f9fa;
@@ -23,88 +17,60 @@
             min-height: 100vh;
             padding: 20px;
         }
-        .container {
-            text-align: center;
-            max-width: 480px;
-        }
-        .logo {
-            margin-bottom: 48px;
-        }
-        .logo img {
-            height: 32px;
-        }
+        .container { text-align: center; max-width: 480px; }
+        .logo { margin-bottom: 56px; }
+        .logo img { height: 48px; }
         .message {
-            font-size: 17px;
-            font-weight: 500;
-            color: #1C2955;
-            line-height: 1.7;
-            margin-bottom: 8px;
-        }
-        .message-en {
-            font-size: 14px;
+            font-size: 15px;
             color: #999;
-            margin-bottom: 40px;
+            line-height: 1.8;
+            margin-bottom: 48px;
         }
         .btn-group {
             display: flex;
-            flex-direction: column;
             gap: 12px;
-            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         .btn-home {
             display: inline-block;
-            padding: 14px 36px;
+            padding: 14px 32px;
             background: #1C2955;
             color: #fff;
             border-radius: 8px;
             font-size: 15px;
             font-weight: 600;
             text-decoration: none;
-            transition: background 0.2s;
-            width: 220px;
+            transition: background .2s;
+            min-width: 140px;
         }
-        .btn-home:hover {
-            background: #2a3a6a;
+        .btn-home:hover { background: #2a3a6a; }
+        .btn-home.outline {
+            background: transparent;
+            color: #1C2955;
+            border: 1.5px solid #1C2955;
         }
-        .btn-sub {
-            display: inline-flex;
-            gap: 16px;
-            margin-top: 8px;
-        }
-        .btn-sub a {
-            font-size: 14px;
-            color: #999;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .btn-sub a:hover {
-            color: #D94925;
-        }
-        .btn-sub span {
-            color: #ddd;
-            font-size: 12px;
+        .btn-home.outline:hover {
+            background: #1C2955;
+            color: #fff;
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="logo">
-            <a href="/">
-                <img src="/images/logo-horizontal.png" alt="ASTIK 한국모험안전기술원">
-            </a>
+            <a href="/"><img src="/images/logo-horizontal.png" alt="ASTIK 한국모험안전기술원"></a>
         </div>
-        <p class="message">아래에서 원하시는 페이지로 이동해 주세요</p>
-        <p class="message-en">Please navigate to the page you're looking for below.</p>
+        <p class="message">
+            요청하신 주소는 존재하지 않는 페이지입니다.<br>
+            아래에서 원하시는 페이지로 이동해 주세요.<br><br>
+            The page you requested does not exist.<br>
+            Please select your language below.
+        </p>
         <div class="btn-group">
-            <a href="/" class="btn-home">홈으로 이동 (Home)</a>
-            <div class="btn-sub">
-                <a href="/courses.html">교육과정</a>
-                <span>|</span>
-                <a href="/schedule.html">교육일정</a>
-                <span>|</span>
-                <a href="/contact.html">문의</a>
-            </div>
+            <a href="/" class="btn-home">한국어</a>
+            <a href="/en/" class="btn-home outline">English</a>
+            <a href="/ja/" class="btn-home outline">日本語</a>
         </div>
     </div>
 </body>
