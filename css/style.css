@@ -200,6 +200,8 @@ ul {
     border: 1px solid #ddd;
     border-radius: 4px;
     transition: all 0.3s ease;
+    min-width: 40px;
+    text-align: center;
 }
 
 .lang-switch:hover {
