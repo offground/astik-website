@@ -202,6 +202,7 @@ ul {
     transition: all 0.3s ease;
     min-width: 40px;
     text-align: center;
+    display: inline-block;
 }
 
 .lang-switch:hover {
