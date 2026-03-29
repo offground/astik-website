@@ -158,7 +158,6 @@ ul {
 .gnb {
     display: flex;
     align-items: center;
-    flex: 1;
 }
 
 .gnb-list {
@@ -191,6 +190,8 @@ ul {
     display: flex;
     align-items: center;
     gap: 16px;
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 .lang-switch {
