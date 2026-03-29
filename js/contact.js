@@ -228,30 +228,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     body: JSON.stringify(formData)
                 })
                 .then(function() {
-                    if (typeof gtag === 'function') { gtag('event', 'form_submit', { event_category: 'contact', event_label: inquiryType }); }
-                    contactLayout.style.display = 'none';
+    if (typeof gtag === 'function') { gtag('event', 'form_submit', { event_category: 'contact', event_label: inquiryType }); }
+    contactLayout.style.display = 'none';
 
-                    // 접수 시점 표시
-                    var tsEl = document.getElementById('contactTimestamp');
-                    if (tsEl) {
-                        var now = new Date();
-                        var y = now.getFullYear();
-                        var m = String(now.getMonth() + 1).padStart(2, '0');
-                        var d = String(now.getDate()).padStart(2, '0');
-                        var h = String(now.getHours()).padStart(2, '0');
-                        var min = String(now.getMinutes()).padStart(2, '0');
-                        var s = String(now.getSeconds()).padStart(2, '0');
-                        tsEl.textContent = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + s;
-                    }
+    // 접수 시점 표시
+    var tsEl = document.getElementById('contactTimestamp');
+    if (tsEl) {
+        var now = new Date();
+        var y = now.getFullYear();
+        var m = String(now.getMonth() + 1).padStart(2, '0');
+        var d = String(now.getDate()).padStart(2, '0');
+        var h = String(now.getHours()).padStart(2, '0');
+        var min = String(now.getMinutes()).padStart(2, '0');
+        var s = String(now.getSeconds()).padStart(2, '0');
+        tsEl.textContent = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + s;
+    }
 
-                    // 완료 화면 여백 조정
-                    var contactSection = document.querySelector('.contact-section');
-                    if (contactSection) contactSection.style.padding = '60px 0';
-
-                    formSuccess.classList.remove('hidden');
-                    formSuccess.style.display = 'block';
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                })
+    formSuccess.classList.remove('hidden');
+    formSuccess.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+})
                 .catch(function(error) {
                     alert(msg.fail);
                     submitBtn.disabled = false;
