@@ -244,6 +244,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         tsEl.textContent = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + s;
                     }
 
+                    // 완료 화면 여백 조정
+                    var contactSection = document.querySelector('.contact-section');
+                    if (contactSection) contactSection.style.padding = '60px 0';
+
                     formSuccess.classList.remove('hidden');
                     formSuccess.style.display = 'block';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
