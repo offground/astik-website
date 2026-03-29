@@ -118,7 +118,7 @@
                         form.style.display = 'none';
                         var noticeEl = document.querySelector('.cancel-notice');
                         if (noticeEl) noticeEl.style.display = 'none';
-                        successDiv.style.display = 'block';
+                        successDiv.style.display = 'flex';
                         if (timestampEl) {
                             var now = new Date();
                             var y = now.getFullYear();

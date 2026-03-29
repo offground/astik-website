@@ -26,6 +26,13 @@ body {
     line-height: 1.7;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > main {
+    flex: 1;
 }
 
 a {
@@ -157,7 +164,8 @@ ul {
 .gnb {
     display: flex;
     align-items: center;
-    margin-left: 40px;
+    flex: 1;
+    justify-content: center;
 }
 
 .gnb-list {
@@ -195,16 +203,16 @@ ul {
 }
 
 .lang-switch {
-    padding: 6px 12px;
+    padding: 6px 0;
+    width: 40px;
     font-size: 13px;
     font-weight: 700;
     color: #1C2955;
     border: 1px solid #ddd;
     border-radius: 4px;
     transition: all 0.3s ease;
-    min-width: 40px;
     text-align: center;
-    display: inline-block;
+    flex-shrink: 0;
 }
 
 .lang-switch:hover {
@@ -2061,6 +2069,10 @@ ul {
 
 .contact-section {
     background-color: #ffffff;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .contact-layout {
@@ -2224,7 +2236,8 @@ ul {
 .form-success {
     display: none;
     text-align: center;
-    padding: 60px 20px;
+    padding: 80px 20px 120px;
+    min-height: 400px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -2735,7 +2748,8 @@ input[type="date"] {
 
     /* 언어 스위치 작게 */
     .lang-switch {
-        padding: 4px 8px;
+        padding: 4px 0;
+        width: 36px;
         font-size: 11px;
     }
 
@@ -2766,7 +2780,8 @@ input[type="date"] {
 @media (max-width: 768px) {
     /* 언어 스위치 더 작게 */
     .lang-switch {
-        padding: 4px 8px;
+        padding: 4px 0;
+        width: 34px;
         font-size: 11px;
     }
 
@@ -2786,7 +2801,8 @@ input[type="date"] {
 /* --- 소형 모바일 (480px 이하) --- */
 @media (max-width: 480px) {
     .lang-switch {
-        padding: 3px 6px;
+        padding: 3px 0;
+        width: 30px;
         font-size: 10px;
     }
 
@@ -2819,6 +2835,10 @@ input[type="date"] {
 ======================================== */
 .cancel-section {
     padding: 60px 0 80px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* 안내 문구 박스 */
@@ -3023,7 +3043,12 @@ input[type="date"] {
 /* 제출 완료 메시지 */
 .cancel-success {
     text-align: center;
-    padding: 60px 20px;
+    padding: 80px 20px 120px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .cancel-success .success-icon {

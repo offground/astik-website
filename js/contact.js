@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     formSuccess.classList.remove('hidden');
-    formSuccess.style.display = 'block';
+    formSuccess.style.display = 'flex';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 })
                 .catch(function(error) {
