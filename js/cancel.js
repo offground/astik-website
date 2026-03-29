@@ -3,7 +3,7 @@
 // ========================================
 
 (function() {
-    var CANCEL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzqsizssWFYi5yuYlF8YHMESPmLTcRkX8YvkAUD8F58GoWcOG0pvk0kfB4kFVqtO8s3/exec';
+    var CANCEL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzO0alO80J3TjanT5rIi7Eg06gv97GPgG6jYxEVkblAXSnzF_pqvzuegLoimoIyKs4D/exec';
     var RECAPTCHA_SITE_KEY = '6Ld_L5EsAAAAAEO3YxVCIWfkk2WJN30jBSSttvNx';
 
     function containsXSS(str) {
