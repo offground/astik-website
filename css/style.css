@@ -299,7 +299,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('../images/hero-bg.jpg');
+    background-image: url('../images/hero-bg.webp');
     background-size: cover;
     background-position: center top;
     background-color: #1C2955;
