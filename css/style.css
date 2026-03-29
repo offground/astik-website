@@ -158,6 +158,7 @@ ul {
 .gnb {
     display: flex;
     align-items: center;
+    flex: 1;
 }
 
 .gnb-list {
