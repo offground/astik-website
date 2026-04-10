@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // XSS 검사 — 모든 텍스트 필드 확인
+        // XSS 검사
         var emailIdVal = document.getElementById('emailId').value;
         var emailDomainVal = document.getElementById('emailDomain').value;
         var fieldsToCheck = [nameVal, orgVal, messageVal, courseVal, dateVal, partVal, emailVal, emailIdVal, emailDomainVal];
@@ -208,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(function(token) {
 
                 var formData = {
+                    formType: 'contact',
                     name: sanitizeInput(nameVal),
                     phone: phoneVal,
                     email: emailVal,
@@ -221,33 +222,33 @@ document.addEventListener('DOMContentLoaded', function () {
                     recaptcha_token: token
                 };
 
-                fetch(form.action, {
+                fetch('https://script.google.com/macros/s/AKfycbw4cUvMl0WZ-yBmHtNUnYjEdNa7OpBy0A-tG8NjdPfG1LDxTRD3NEgVyzAvudo1T6Ba/exec', {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
                     body: JSON.stringify(formData)
                 })
                 .then(function() {
-    if (typeof gtag === 'function') { gtag('event', 'form_submit', { event_category: 'contact', event_label: inquiryType }); }
-    contactLayout.style.display = 'none';
+                    if (typeof gtag === 'function') { gtag('event', 'form_submit', { event_category: 'contact', event_label: inquiryType }); }
+                    contactLayout.style.display = 'none';
 
-    // 접수 시점 표시
-    var tsEl = document.getElementById('contactTimestamp');
-    if (tsEl) {
-        var now = new Date();
-        var y = now.getFullYear();
-        var m = String(now.getMonth() + 1).padStart(2, '0');
-        var d = String(now.getDate()).padStart(2, '0');
-        var h = String(now.getHours()).padStart(2, '0');
-        var min = String(now.getMinutes()).padStart(2, '0');
-        var s = String(now.getSeconds()).padStart(2, '0');
-        tsEl.textContent = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + s;
-    }
+                    // 접수 시점 표시
+                    var tsEl = document.getElementById('contactTimestamp');
+                    if (tsEl) {
+                        var now = new Date();
+                        var y = now.getFullYear();
+                        var m = String(now.getMonth() + 1).padStart(2, '0');
+                        var d = String(now.getDate()).padStart(2, '0');
+                        var h = String(now.getHours()).padStart(2, '0');
+                        var min = String(now.getMinutes()).padStart(2, '0');
+                        var s = String(now.getSeconds()).padStart(2, '0');
+                        tsEl.textContent = y + '-' + m + '-' + d + ' ' + h + ':' + min + ':' + s;
+                    }
 
-    formSuccess.classList.remove('hidden');
-    formSuccess.style.display = 'flex';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-})
+                    formSuccess.classList.remove('hidden');
+                    formSuccess.style.display = 'flex';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                })
                 .catch(function(error) {
                     alert(msg.fail);
                     submitBtn.disabled = false;
@@ -260,7 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 submitBtn.textContent = msg.submit;
             });
         });
-
 
     });
 
