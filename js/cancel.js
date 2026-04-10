@@ -3,7 +3,7 @@
 // ========================================
 
 (function() {
-    var CANCEL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzO0alO80J3TjanT5rIi7Eg06gv97GPgG6jYxEVkblAXSnzF_pqvzuegLoimoIyKs4D/exec';
+    var CANCEL_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4cUvMl0WZ-yBmHtNUnYjEdNa7OpBy0A-tG8NjdPfG1LDxTRD3NEgVyzAvudo1T6Ba/exec';
     var RECAPTCHA_SITE_KEY = '6Ld_L5EsAAAAAEO3YxVCIWfkk2WJN30jBSSttvNx';
 
     function containsXSS(str) {
@@ -96,6 +96,7 @@
                 .then(function(token) {
 
                     var formData = new FormData();
+                    formData.append('formType', 'cancel');
                     formData.append('name', sanitizeInput(name));
                     formData.append('phone', sanitizeInput(phone));
                     formData.append('email', sanitizeInput(email));
