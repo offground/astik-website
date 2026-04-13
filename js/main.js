@@ -144,3 +144,9 @@ document.addEventListener('DOMContentLoaded', function () {
     */
 
 });
+(function(){
+    var el = document.getElementById('footerYear');
+    if (!el) return;
+    var now = new Date().getFullYear();
+    el.textContent = now > 2024 ? '2024-' + now : '2024';
+})();
