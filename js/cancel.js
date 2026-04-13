@@ -71,6 +71,11 @@
                 alert('필수 항목을 모두 입력해 주세요.');
                 return;
             }
+var privacyAgree = document.getElementById('cancel-privacy').checked;
+if (!privacyAgree) {
+    alert('개인정보 수집 및 이용에 동의해 주세요.');
+    return;
+}
             if (!agree) {
                 alert('환불 규정 확인에 동의해 주세요.');
                 return;
